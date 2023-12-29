@@ -272,6 +272,7 @@ class TestSingleCommentsView extends StatelessWidget {
     switch (isParentWidget) {
       case true:
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(comment.text),
             for (final child in comment.children)
@@ -279,30 +280,33 @@ class TestSingleCommentsView extends StatelessWidget {
           ],
         );
       case false:
-        return Column(
-          children: [
-            Text(comment.text),
-            for (final child in comment.children)
-              TestSingleCommentsView(comment: child)
-          ],
+        // return Column(
+        //   children: [
+        //     Text(comment.text),
+        //     for (final child in comment.children)
+        //       TestSingleCommentsView(comment: child)
+        //   ],
+        // );
+        return Padding(
+          padding: const EdgeInsets.only(left: 40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(comment.text),
+              for (final child in comment.children)
+                TestSingleCommentsView(comment: child)
+            ],
+          ),
         );
-      // return Padding(
-      //   padding: const EdgeInsets.only(left: 50.0),
-      //   child: Column(
-      //     children: [
-      //       Text(comment.text),
-      //       for (final child in comment.children)
-      //         TestSingleCommentsView(comment: child)
-      //     ],
-      //   ),
-      // );
     }
   }
 }
 
 final comment = CommentModel('1', 'comment1', [
-  CommentModel('2', 'comment2',
-      <CommentModel>[CommentModel('4', 'comment4', <CommentModel>[])]),
+  CommentModel('2', 'comment2', <CommentModel>[
+    CommentModel('4', 'comment4', <CommentModel>[]),
+    CommentModel('5', 'comment5', <CommentModel>[])
+  ]),
   CommentModel('3', 'comment3', <CommentModel>[])
 ]);
 
