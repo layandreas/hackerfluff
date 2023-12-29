@@ -319,9 +319,11 @@ class CommentsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Comments')),
-        body: TestSingleCommentsView(
-          comment: comment,
-          isParentWidget: true,
+        body: Center(
+          child: TestSingleCommentsView(
+            comment: comment,
+            isParentWidget: true,
+          ),
         ));
   }
 }
