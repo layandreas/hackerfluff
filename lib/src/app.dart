@@ -279,7 +279,7 @@ class TestSingleCommentsView extends StatelessWidget {
           ],
         );
       case false:
-        return Row(
+        return Column(
           children: [
             Text(comment.text),
             for (final child in comment.children)
