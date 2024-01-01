@@ -116,7 +116,7 @@ Future<TopStories> topStories(TopStoriesRef ref) async {
   // Using dart:convert, we then decode the JSON payload into a Map data structure.
   final json = jsonDecode(response.body) as List<dynamic>;
   // Finally, we convert the Map into an Activity instance.
-  return TopStories.fromJson({'storyIds': json.sublist(0, 5)});
+  return TopStories.fromJson({'storyIds': json});
 }
 
 @freezed
@@ -187,6 +187,8 @@ class PagedStoriesState with _$PagedStoriesState {
 class Stories extends _$Stories {
   @override
   PagedStoriesState build() {
+    fetchStories();
+
     return const PagedStoriesState(
         currentPage: 0,
         stories: [],
@@ -263,39 +265,84 @@ class CommentModel {
 //   }
 // }
 
-class MyWidget extends ConsumerWidget {
+class MyWidget extends ConsumerStatefulWidget {
   const MyWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final allTopStories = ref.watch(storyProvider);
+  ConsumerState<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends ConsumerState<MyWidget> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(scrollListener);
+  }
+
+  void scrollListener() {
+    final storiesState = ref.read(storiesProvider);
+    final storiesNotifier = ref.read(storiesProvider.notifier);
+
+    print(scrollController);
+    if (!storiesState.isLoading &&
+        !storiesState.reachedEnd &&
+        scrollController.offset >= scrollController.position.maxScrollExtent) {
+      storiesNotifier.fetchStories();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final stories = ref.watch(storiesProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Top Stories')),
       body: SafeArea(
-        child: switch (allTopStories) {
-          // Display all the messages in a scrollable list view.
-          AsyncData(:final value) => ListView.builder(
-              // Show messages from bottom to top
-              itemCount: value.length,
-              itemBuilder: (context, index) {
-                final message = value[index];
-                // return ListTile(
-                //   title: Text(message.title),
-                // );
-                return Card(
+        child: ListView(
+            // Show messages from bottom to top
+            controller: scrollController,
+            children: [
+              Text(scrollController.toString()),
+              for (Story story in stories.stories)
+                Card(
                     child: ListTile(
-                  title: Text(message.title),
+                  title: Text(story.title),
                   onTap: () {
                     Navigator.restorablePushNamed(
                         context, CommentsView.routeName);
                   },
-                ));
-              },
+                )),
+              if (stories.isLoading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+            ]
+            // itemCount: stories.stories.length + 1,
+            // itemBuilder: (context, index) {
+            //   if (index < stories.stories.length) {
+            //     final story = stories.stories[index];
+            //     // return ListTile(
+            //     //   title: Text(message.title),
+            //     // );
+            //     return Card(
+            //         child: ListTile(
+            //       title: Text(story.title),
+            //       onTap: () {
+            //         Navigator.restorablePushNamed(
+            //             context, CommentsView.routeName);
+            //       },
+            //     ));
+            //   } else {
+            //     return const Padding(
+            //       padding: EdgeInsets.symmetric(vertical: 32),
+            //       child: Center(child: CircularProgressIndicator()),
+            //     );
+            //   }
+            //},
             ),
-          AsyncError(:final error) => Text(error.toString()),
-          _ => const CircularProgressIndicator(),
-        },
       ),
     );
 
