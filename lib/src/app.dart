@@ -206,9 +206,11 @@ class Stories extends _$Stories {
     state = state.copyWith(
         isLoading: true,
         reachedEnd:
-            storyStartIndex > topStories.storyIds.length ? true : false);
+            storyStartIndex > topStories.storyIds.length - 1 ? true : false);
 
     if (state.reachedEnd) {
+      state = state.copyWith(isLoading: false);
+
       return;
     }
 
