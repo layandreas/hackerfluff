@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:math';
+import 'dart:async';
 
 // Necessary for code-generation to work
 part 'app.g.dart';
@@ -192,7 +193,7 @@ class Stories extends _$Stories {
     return const PagedStoriesState(
         currentPage: 0,
         stories: [],
-        storiesPerPage: 2,
+        storiesPerPage: 5,
         isLoading: false,
         reachedEnd: false);
   }
@@ -274,18 +275,43 @@ class MyWidget extends ConsumerStatefulWidget {
 
 class _MyWidgetState extends ConsumerState<MyWidget> {
   final scrollController = ScrollController();
+  Timer? initialStoryFetchesTimer;
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
+
+    initialStoryFetchesTimer = Timer.periodic(
+        const Duration(milliseconds: 1000),
+        initialStoryFetches); //scrollController.jumpTo(scrollController.position.maxScrollExtent));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+    initialStoryFetchesTimer?.cancel();
+  }
+
+  void initialStoryFetches(Timer timer) {
+    final storiesState = ref.read(storiesProvider);
+    final storiesNotifier = ref.read(storiesProvider.notifier);
+
+    if (!storiesState.isLoading && !storiesState.reachedEnd) {
+      storiesNotifier.fetchStories();
+    }
+
+    if (storiesState.reachedEnd ||
+        scrollController.position.maxScrollExtent > 0) {
+      timer.cancel();
+    }
   }
 
   void scrollListener() {
     final storiesState = ref.read(storiesProvider);
     final storiesNotifier = ref.read(storiesProvider.notifier);
 
-    print(scrollController);
     if (!storiesState.isLoading &&
         !storiesState.reachedEnd &&
         scrollController.offset >= scrollController.position.maxScrollExtent) {
@@ -304,7 +330,6 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
             // Show messages from bottom to top
             controller: scrollController,
             children: [
-              Text(scrollController.toString()),
               for (Story story in stories.stories)
                 Card(
                     child: ListTile(
