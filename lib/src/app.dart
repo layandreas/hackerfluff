@@ -279,7 +279,6 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
 
   @override
   void initState() {
-    print("init");
     super.initState();
     scrollController.addListener(scrollListener);
 
