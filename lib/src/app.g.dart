@@ -74,7 +74,7 @@ final storyProvider = AutoDisposeStreamProvider<List<Story>>.internal(
 );
 
 typedef StoryRef = AutoDisposeStreamProviderRef<List<Story>>;
-String _$storiesHash() => r'555ce04233fa74e6156136477062fc398d889807';
+String _$storiesHash() => r'9623c2185a23efe29dc0ca917534a509e182c325';
 
 /// See also [Stories].
 @ProviderFor(Stories)

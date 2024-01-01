@@ -193,7 +193,7 @@ class Stories extends _$Stories {
     return const PagedStoriesState(
         currentPage: 0,
         stories: [],
-        storiesPerPage: 5,
+        storiesPerPage: 10,
         isLoading: false,
         reachedEnd: false);
   }
@@ -326,48 +326,51 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
     return Scaffold(
       appBar: AppBar(title: const Text('Top Stories')),
       body: SafeArea(
-        child: ListView(
-            // Show messages from bottom to top
-            controller: scrollController,
-            children: [
-              for (Story story in stories.stories)
-                Card(
-                    child: ListTile(
-                  title: Text(story.title),
-                  onTap: () {
-                    Navigator.restorablePushNamed(
-                        context, CommentsView.routeName);
-                  },
-                )),
-              if (stories.isLoading)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 32),
-                  child: Center(child: CircularProgressIndicator()),
-                )
-            ]
-            // itemCount: stories.stories.length + 1,
-            // itemBuilder: (context, index) {
-            //   if (index < stories.stories.length) {
-            //     final story = stories.stories[index];
-            //     // return ListTile(
-            //     //   title: Text(message.title),
-            //     // );
-            //     return Card(
-            //         child: ListTile(
-            //       title: Text(story.title),
-            //       onTap: () {
-            //         Navigator.restorablePushNamed(
-            //             context, CommentsView.routeName);
-            //       },
-            //     ));
-            //   } else {
-            //     return const Padding(
-            //       padding: EdgeInsets.symmetric(vertical: 32),
-            //       child: Center(child: CircularProgressIndicator()),
-            //     );
-            //   }
-            //},
-            ),
+        child: RefreshIndicator(
+          onRefresh: () => ref.refresh(topStoriesProvider.future),
+          child: ListView(
+              // Show messages from bottom to top
+              controller: scrollController,
+              children: [
+                for (Story story in stories.stories)
+                  Card(
+                      child: ListTile(
+                    title: Text(story.title),
+                    onTap: () {
+                      Navigator.restorablePushNamed(
+                          context, CommentsView.routeName);
+                    },
+                  )),
+                if (stories.isLoading)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 32),
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+              ]
+              // itemCount: stories.stories.length + 1,
+              // itemBuilder: (context, index) {
+              //   if (index < stories.stories.length) {
+              //     final story = stories.stories[index];
+              //     // return ListTile(
+              //     //   title: Text(message.title),
+              //     // );
+              //     return Card(
+              //         child: ListTile(
+              //       title: Text(story.title),
+              //       onTap: () {
+              //         Navigator.restorablePushNamed(
+              //             context, CommentsView.routeName);
+              //       },
+              //     ));
+              //   } else {
+              //     return const Padding(
+              //       padding: EdgeInsets.symmetric(vertical: 32),
+              //       child: Center(child: CircularProgressIndicator()),
+              //     );
+              //   }
+              //},
+              ),
+        ),
       ),
     );
 
