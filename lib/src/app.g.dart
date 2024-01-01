@@ -74,5 +74,20 @@ final storyProvider = AutoDisposeStreamProvider<List<Story>>.internal(
 );
 
 typedef StoryRef = AutoDisposeStreamProviderRef<List<Story>>;
+String _$storiesHash() => r'3251745091b19e7111c9a88da5b1470756adccdb';
+
+/// See also [Stories].
+@ProviderFor(Stories)
+final storiesProvider =
+    AutoDisposeNotifierProvider<Stories, PagedStoriesState>.internal(
+  Stories.new,
+  name: r'storiesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$storiesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$Stories = AutoDisposeNotifier<PagedStoriesState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -11,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'dart:math';
 
 // Necessary for code-generation to work
 part 'app.g.dart';
@@ -169,6 +170,70 @@ Stream<List<Story>> story(StoryRef ref) async* {
   // } finally {
   //   client.close();
   // }
+}
+
+@freezed
+class PagedStoriesState with _$PagedStoriesState {
+  const factory PagedStoriesState({
+    @Default(0) int currentPage,
+    @Default([]) List<Story> stories,
+    @Default(2) int storiesPerPage,
+    @Default(false) bool isLoading,
+    @Default(false) bool reachedEnd,
+  }) = _PagedStoriesState;
+}
+
+@riverpod
+class Stories extends _$Stories {
+  @override
+  PagedStoriesState build() {
+    return const PagedStoriesState(
+        currentPage: 0,
+        stories: [],
+        storiesPerPage: 2,
+        isLoading: false,
+        reachedEnd: false);
+  }
+
+  fetchStories() async {
+    final topStories = await ref.watch(topStoriesProvider.future);
+    final storyStartIndex = state.currentPage * state.storiesPerPage;
+    final storyEndIndex = storyStartIndex + state.storiesPerPage;
+
+    state = state.copyWith(
+        isLoading: true,
+        reachedEnd:
+            storyStartIndex > topStories.storyIds.length ? true : false);
+
+    if (state.reachedEnd) {
+      return;
+    }
+
+    final topStoriesOnPage = topStories.storyIds.sublist(
+        storyStartIndex, min(storyEndIndex, topStories.storyIds.length - 1));
+
+    var allResponsesFuture = <Future>[];
+    for (final storyId in topStoriesOnPage) {
+      var response = http.get(
+          Uri.https('hacker-news.firebaseio.com', '/v0/item/$storyId.json'));
+      allResponsesFuture.add(response);
+    }
+    final allResponses = await Future.wait(allResponsesFuture);
+
+    //var allResponses = await Future.wait(allResponsesFuture);
+    var allTopStories = const <Story>[];
+
+    for (final response in allResponses) {
+      var json = jsonDecode(response.body);
+      var topStory = Story.fromJson(json);
+      allTopStories = [...allTopStories, topStory];
+    }
+
+    state = state.copyWith(
+        currentPage: state.currentPage + 1,
+        stories: [...state.stories, ...allTopStories],
+        isLoading: false);
+  }
 }
 
 @freezed
