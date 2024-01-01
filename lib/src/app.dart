@@ -351,30 +351,7 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(child: CircularProgressIndicator()),
                   )
-              ]
-              // itemCount: stories.stories.length + 1,
-              // itemBuilder: (context, index) {
-              //   if (index < stories.stories.length) {
-              //     final story = stories.stories[index];
-              //     // return ListTile(
-              //     //   title: Text(message.title),
-              //     // );
-              //     return Card(
-              //         child: ListTile(
-              //       title: Text(story.title),
-              //       onTap: () {
-              //         Navigator.restorablePushNamed(
-              //             context, CommentsView.routeName);
-              //       },
-              //     ));
-              //   } else {
-              //     return const Padding(
-              //       padding: EdgeInsets.symmetric(vertical: 32),
-              //       child: Center(child: CircularProgressIndicator()),
-              //     );
-              //   }
-              //},
-              ),
+              ]),
         ),
       ),
     );
