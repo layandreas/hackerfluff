@@ -354,19 +354,6 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
         ),
       ),
     );
-
-    // return SafeArea(
-    //   child: ListView(
-    //     padding: const EdgeInsets.all(8),
-    //     children: <Widget>[
-    //       switch (topStories) {
-    //         AsyncData(:final value) => Text(value.toString()),
-    //         AsyncError() => Text(topStories.error.toString()),
-    //         _ => const CircularProgressIndicator()
-    //       }
-    //     ],
-    //   ),
-    //);
   }
 }
 
