@@ -279,12 +279,12 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
 
   @override
   void initState() {
+    print("init");
     super.initState();
     scrollController.addListener(scrollListener);
 
-    initialStoryFetchesTimer = Timer.periodic(
-        const Duration(milliseconds: 1000),
-        initialStoryFetches); //scrollController.jumpTo(scrollController.position.maxScrollExtent));
+    initialStoryFetchesTimer =
+        Timer.periodic(const Duration(milliseconds: 1000), initialStoryFetches);
   }
 
   @override
@@ -327,7 +327,12 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
       appBar: AppBar(title: const Text('Top Stories')),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => ref.refresh(topStoriesProvider.future),
+          onRefresh: () {
+            initialStoryFetchesTimer = Timer.periodic(
+                const Duration(milliseconds: 1000), initialStoryFetches);
+
+            return ref.refresh(topStoriesProvider.future);
+          },
           child: ListView(
               // Show messages from bottom to top
               controller: scrollController,
