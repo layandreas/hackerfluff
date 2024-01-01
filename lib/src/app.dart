@@ -174,8 +174,9 @@ Stream<List<Story>> story(StoryRef ref) async* {
 @freezed
 class Comment with _$Comment {
   const factory Comment({
-    required String id,
+    required int id,
     required String text,
+    List<int>? kids,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, Object?> json) =>
@@ -183,7 +184,7 @@ class Comment with _$Comment {
 }
 
 class CommentModel {
-  final String id;
+  final int id;
   final String text;
   List<CommentModel> children;
 
@@ -302,12 +303,12 @@ class TestSingleCommentsView extends StatelessWidget {
   }
 }
 
-final comment = CommentModel('1', 'comment1', [
-  CommentModel('2', 'comment2', <CommentModel>[
-    CommentModel('4', 'comment4', <CommentModel>[]),
-    CommentModel('5', 'comment5', <CommentModel>[])
+final comment = CommentModel(1, 'comment1', [
+  CommentModel(2, 'comment2', <CommentModel>[
+    CommentModel(4, 'comment4', <CommentModel>[]),
+    CommentModel(5, 'comment5', <CommentModel>[])
   ]),
-  CommentModel('3', 'comment3', <CommentModel>[])
+  CommentModel(3, 'comment3', <CommentModel>[])
 ]);
 
 class CommentsView extends StatelessWidget {
