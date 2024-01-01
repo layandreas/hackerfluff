@@ -46,7 +46,7 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
 // RiverpodGenerator
 // **************************************************************************
 
-String _$topStoriesHash() => r'8d8be2eab9a0150eb96680235cd1175bdf1586e7';
+String _$topStoriesHash() => r'0fa52bafc2da9d4b037fe1b112cc49c36424b2db';
 
 /// See also [topStories].
 @ProviderFor(topStories)
@@ -74,7 +74,7 @@ final storyProvider = AutoDisposeStreamProvider<List<Story>>.internal(
 );
 
 typedef StoryRef = AutoDisposeStreamProviderRef<List<Story>>;
-String _$storiesHash() => r'3251745091b19e7111c9a88da5b1470756adccdb';
+String _$storiesHash() => r'd2f388b50dcdf6bb39a4689d0deaddc698929479';
 
 /// See also [Stories].
 @ProviderFor(Stories)
