@@ -188,8 +188,6 @@ class PagedStoriesState with _$PagedStoriesState {
 class Stories extends _$Stories {
   @override
   PagedStoriesState build() {
-    fetchStories();
-
     return const PagedStoriesState(
         currentPage: 0,
         stories: [],
@@ -284,8 +282,10 @@ class _MyWidgetState extends ConsumerState<MyWidget> {
     super.initState();
     scrollController.addListener(scrollListener);
 
+    final storiesNotifier = ref.read(storiesProvider.notifier);
+    storiesNotifier.fetchStories();
     initialStoryFetchesTimer =
-        Timer.periodic(const Duration(milliseconds: 1000), initialStoryFetches);
+        Timer.periodic(const Duration(milliseconds: 500), initialStoryFetches);
   }
 
   @override
