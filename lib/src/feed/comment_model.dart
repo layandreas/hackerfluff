@@ -8,7 +8,7 @@ part 'comment_model.freezed.dart';
 class Comment with _$Comment {
   const factory Comment({
     required int id,
-    required String text,
+    required String? text,
     List<int>? kids,
   }) = _Comment;
 
@@ -20,7 +20,7 @@ class Comment with _$Comment {
 class CommentModel with _$CommentModel {
   const factory CommentModel({
     required int id,
-    required String text,
+    String? text,
     List<CommentModel>? children,
   }) = _CommentModel;
 

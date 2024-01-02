@@ -21,7 +21,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Comment {
   int get id => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
   List<int>? get kids => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
-  $Res call({int id, String text, List<int>? kids});
+  $Res call({int id, String? text, List<int>? kids});
 }
 
 /// @nodoc
@@ -51,7 +51,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   @override
   $Res call({
     Object? id = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? kids = freezed,
   }) {
     return _then(_value.copyWith(
@@ -59,10 +59,10 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       kids: freezed == kids
           ? _value.kids
           : kids // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$$CommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String text, List<int>? kids});
+  $Res call({int id, String? text, List<int>? kids});
 }
 
 /// @nodoc
@@ -93,7 +93,7 @@ class __$$CommentImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? kids = freezed,
   }) {
     return _then(_$CommentImpl(
@@ -101,10 +101,10 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       kids: freezed == kids
           ? _value._kids
           : kids // ignore: cast_nullable_to_non_nullable
@@ -126,7 +126,7 @@ class _$CommentImpl implements _Comment {
   @override
   final int id;
   @override
-  final String text;
+  final String? text;
   final List<int>? _kids;
   @override
   List<int>? get kids {
@@ -174,7 +174,7 @@ class _$CommentImpl implements _Comment {
 abstract class _Comment implements Comment {
   const factory _Comment(
       {required final int id,
-      required final String text,
+      required final String? text,
       final List<int>? kids}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
@@ -182,7 +182,7 @@ abstract class _Comment implements Comment {
   @override
   int get id;
   @override
-  String get text;
+  String? get text;
   @override
   List<int>? get kids;
   @override
@@ -198,7 +198,7 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CommentModel {
   int get id => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
   List<CommentModel>? get children => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -213,7 +213,7 @@ abstract class $CommentModelCopyWith<$Res> {
           CommentModel value, $Res Function(CommentModel) then) =
       _$CommentModelCopyWithImpl<$Res, CommentModel>;
   @useResult
-  $Res call({int id, String text, List<CommentModel>? children});
+  $Res call({int id, String? text, List<CommentModel>? children});
 }
 
 /// @nodoc
@@ -230,7 +230,7 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
   @override
   $Res call({
     Object? id = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? children = freezed,
   }) {
     return _then(_value.copyWith(
@@ -238,10 +238,10 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       children: freezed == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
@@ -258,7 +258,7 @@ abstract class _$$CommentModelImplCopyWith<$Res>
       __$$CommentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String text, List<CommentModel>? children});
+  $Res call({int id, String? text, List<CommentModel>? children});
 }
 
 /// @nodoc
@@ -273,7 +273,7 @@ class __$$CommentModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? children = freezed,
   }) {
     return _then(_$CommentModelImpl(
@@ -281,10 +281,10 @@ class __$$CommentModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       children: freezed == children
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
@@ -297,9 +297,7 @@ class __$$CommentModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommentModelImpl implements _CommentModel {
   const _$CommentModelImpl(
-      {required this.id,
-      required this.text,
-      final List<CommentModel>? children})
+      {required this.id, this.text, final List<CommentModel>? children})
       : _children = children;
 
   factory _$CommentModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -308,7 +306,7 @@ class _$CommentModelImpl implements _CommentModel {
   @override
   final int id;
   @override
-  final String text;
+  final String? text;
   final List<CommentModel>? _children;
   @override
   List<CommentModel>? get children {
@@ -356,7 +354,7 @@ class _$CommentModelImpl implements _CommentModel {
 abstract class _CommentModel implements CommentModel {
   const factory _CommentModel(
       {required final int id,
-      required final String text,
+      final String? text,
       final List<CommentModel>? children}) = _$CommentModelImpl;
 
   factory _CommentModel.fromJson(Map<String, dynamic> json) =
@@ -365,7 +363,7 @@ abstract class _CommentModel implements CommentModel {
   @override
   int get id;
   @override
-  String get text;
+  String? get text;
   @override
   List<CommentModel>? get children;
   @override

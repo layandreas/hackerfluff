@@ -1,28 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:hackernews_flutter/src/feed/comment_provider.dart';
 import 'comment_model.dart';
 
-const comment = CommentModel(id: 1, text: 'comment1', children: [
-  CommentModel(id: 2, text: 'comment2', children: [
-    CommentModel(id: 4, text: 'comment4', children: []),
-    CommentModel(id: 5, text: 'comment5', children: [])
-  ]),
-  CommentModel(id: 3, text: 'comment3', children: [])
-]);
+// const comment = CommentModel(id: 1, text: 'comment1', children: [
+//   CommentModel(id: 2, text: 'comment2', children: [
+//     CommentModel(id: 4, text: 'comment4', children: []),
+//     CommentModel(id: 5, text: 'comment5', children: [])
+//   ]),
+//   CommentModel(id: 3, text: 'comment3', children: [])
+// ]);
 
-class CommentsView extends StatelessWidget {
+class CommentsView extends StatefulWidget {
   const CommentsView({super.key});
 
   static const routeName = '/placeholder';
 
   @override
+  State<CommentsView> createState() => _CommentsViewState();
+}
+
+class _CommentsViewState extends State<CommentsView> {
+  late Future<CommentModel> futureComment;
+
+  @override
+  void initState() {
+    super.initState();
+    futureComment = fetchCommentTree(38846226);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Comments')),
-        body: const Center(
-          child: TestSingleCommentsView(
-            comment: comment,
-            isParentWidget: true,
-          ),
+        body: Center(
+          child: FutureBuilder<CommentModel>(
+              future: futureComment,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return TestSingleCommentsView(
+                    comment: snapshot.data!,
+                    isParentWidget: true,
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+
+                return const CircularProgressIndicator();
+              }
+              // child: TestSingleCommentsView(
+              //   comment: comment,
+              //   isParentWidget: true,
+              // ),
+              ),
         ));
   }
 }
@@ -40,7 +69,7 @@ class TestSingleCommentsView extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(comment.text),
+            if (comment.text != null) Text(comment.text ?? ''),
             for (final child in comment.children!)
               TestSingleCommentsView(comment: child)
           ],
@@ -51,7 +80,7 @@ class TestSingleCommentsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(comment.text),
+              if (comment.text != null) Text(comment.text ?? ''),
               for (final child in comment.children!)
                 TestSingleCommentsView(comment: child)
             ],
