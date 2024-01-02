@@ -8,8 +8,8 @@ import 'feed/feed_view.dart';
 import 'feed/comments_views.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({
+class HackernewsApp extends StatelessWidget {
+  const HackernewsApp({
     super.key,
     required this.settingsController,
   });
