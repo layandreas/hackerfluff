@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'comment_model.dart';
 
-final comment = CommentModel(1, 'comment1', [
-  CommentModel(2, 'comment2', <CommentModel>[
-    CommentModel(4, 'comment4', <CommentModel>[]),
-    CommentModel(5, 'comment5', <CommentModel>[])
+const comment = CommentModel(id: 1, text: 'comment1', children: [
+  CommentModel(id: 2, text: 'comment2', children: [
+    CommentModel(id: 4, text: 'comment4', children: []),
+    CommentModel(id: 5, text: 'comment5', children: [])
   ]),
-  CommentModel(3, 'comment3', <CommentModel>[])
+  CommentModel(id: 3, text: 'comment3', children: [])
 ]);
 
 class CommentsView extends StatelessWidget {
@@ -18,7 +18,7 @@ class CommentsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Comments')),
-        body: Center(
+        body: const Center(
           child: TestSingleCommentsView(
             comment: comment,
             isParentWidget: true,
@@ -41,7 +41,7 @@ class TestSingleCommentsView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(comment.text),
-            for (final child in comment.children)
+            for (final child in comment.children!)
               TestSingleCommentsView(comment: child)
           ],
         );
@@ -52,7 +52,7 @@ class TestSingleCommentsView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(comment.text),
-              for (final child in comment.children)
+              for (final child in comment.children!)
                 TestSingleCommentsView(comment: child)
             ],
           ),

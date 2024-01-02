@@ -19,3 +19,19 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'text': instance.text,
       'kids': instance.kids,
     };
+
+_$CommentModelImpl _$$CommentModelImplFromJson(Map<String, dynamic> json) =>
+    _$CommentModelImpl(
+      id: json['id'] as int,
+      text: json['text'] as String,
+      children: (json['children'] as List<dynamic>?)
+          ?.map((e) => CommentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$CommentModelImplToJson(_$CommentModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'text': instance.text,
+      'children': instance.children,
+    };

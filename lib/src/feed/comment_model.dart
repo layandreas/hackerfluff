@@ -16,10 +16,22 @@ class Comment with _$Comment {
       _$CommentFromJson(json);
 }
 
-class CommentModel {
-  final int id;
-  final String text;
-  List<CommentModel> children;
+@freezed
+class CommentModel with _$CommentModel {
+  const factory CommentModel({
+    required int id,
+    required String text,
+    List<CommentModel>? children,
+  }) = _CommentModel;
 
-  CommentModel(this.id, this.text, this.children);
+  factory CommentModel.fromJson(Map<String, Object?> json) =>
+      _$CommentModelFromJson(json);
 }
+
+// class CommentModel {
+//   final int id;
+//   final String text;
+//   List<CommentModel> children;
+
+//   CommentModel(this.id, this.text, this.children);
+// }
