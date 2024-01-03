@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'stories_provider.dart';
 import 'story_model.dart';
 import 'dart:async';
 import 'comments_views.dart';
-import 'top_stories_provider.dart';
-import 'endless_scroll_view.dart';
+import 'paged_data_state_interface.dart';
 
-class FeedView extends ConsumerStatefulWidget {
-  const FeedView({super.key});
-
-  @override
-  ConsumerState<FeedView> createState() => _FeedViewState();
+interface class FetchingNotifier {
+  fetchStories() {}
 }
 
-class _FeedViewState extends ConsumerState<FeedView> {
+class EndlessScrollView extends ConsumerStatefulWidget {
+  const EndlessScrollView(
+      {super.key, required this.dataProvider, required this.refreshProvider});
+
+  final AutoDisposeNotifierProvider dataProvider;
+  final AutoDisposeFutureProvider refreshProvider;
+
+  @override
+  ConsumerState<EndlessScrollView> createState() => _EndlessScrollViewState();
+}
+
+class _EndlessScrollViewState<T> extends ConsumerState<EndlessScrollView> {
   final scrollController = ScrollController();
   Timer? initialStoryFetchesTimer;
 
@@ -23,8 +29,8 @@ class _FeedViewState extends ConsumerState<FeedView> {
     super.initState();
     scrollController.addListener(scrollListener);
 
-    final storiesNotifier = ref.read(storiesProvider.notifier);
-    storiesNotifier.fetchStories();
+    final storiesNotifier = ref.read(widget.dataProvider.notifier);
+    (storiesNotifier as FetchingNotifier).fetchStories();
     initialStoryFetchesTimer =
         Timer.periodic(const Duration(milliseconds: 500), initialStoryFetches);
   }
@@ -37,11 +43,12 @@ class _FeedViewState extends ConsumerState<FeedView> {
   }
 
   void initialStoryFetches(Timer timer) {
-    final storiesState = ref.read(storiesProvider);
-    final storiesNotifier = ref.read(storiesProvider.notifier);
+    final storiesState =
+        ref.read(widget.dataProvider) as PagedDataStateInterface;
+    final storiesNotifier = ref.read(widget.dataProvider.notifier);
 
     if (!storiesState.isLoading && !storiesState.reachedEnd) {
-      storiesNotifier.fetchStories();
+      (storiesNotifier as FetchingNotifier).fetchStories();
     }
 
     if (storiesState.reachedEnd ||
@@ -51,8 +58,10 @@ class _FeedViewState extends ConsumerState<FeedView> {
   }
 
   void scrollListener() {
-    final storiesState = ref.read(storiesProvider);
-    final storiesNotifier = ref.read(storiesProvider.notifier);
+    final storiesState =
+        ref.read(widget.dataProvider) as PagedDataStateInterface;
+    final storiesNotifier =
+        ref.read(widget.dataProvider.notifier) as FetchingNotifier;
 
     if (!storiesState.isLoading &&
         !storiesState.reachedEnd &&
@@ -63,7 +72,7 @@ class _FeedViewState extends ConsumerState<FeedView> {
 
   @override
   Widget build(BuildContext context) {
-    final stories = ref.watch(storiesProvider);
+    final stories = ref.watch(widget.dataProvider) as PagedDataStateInterface;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Top Stories')),
@@ -73,7 +82,7 @@ class _FeedViewState extends ConsumerState<FeedView> {
             initialStoryFetchesTimer = Timer.periodic(
                 const Duration(milliseconds: 1000), initialStoryFetches);
 
-            return ref.refresh(topStoriesProvider.future);
+            return ref.refresh(widget.refreshProvider.future);
           },
           child: ListView(
               // Show messages from bottom to top
@@ -97,15 +106,5 @@ class _FeedViewState extends ConsumerState<FeedView> {
         ),
       ),
     );
-  }
-}
-
-class FeedView2 extends ConsumerWidget {
-  const FeedView2({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return EndlessScrollView(
-        dataProvider: storiesProvider, refreshProvider: topStoriesProvider);
   }
 }
