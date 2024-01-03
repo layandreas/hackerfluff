@@ -76,7 +76,7 @@ class HackernewsApp extends StatelessWidget {
                   case '/placeholder':
                     return const CommentsView();
                   default:
-                    return const FeedView();
+                    return const FeedView2();
                 }
               },
             );
