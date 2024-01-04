@@ -4,10 +4,7 @@ import 'story_model.dart';
 import 'dart:async';
 import 'comments_views.dart';
 import 'paged_data_state_interface.dart';
-
-interface class FetchingNotifier {
-  fetchStories() {}
-}
+import 'stories_provider.dart';
 
 class EndlessScrollView extends ConsumerStatefulWidget {
   const EndlessScrollView(
@@ -20,7 +17,8 @@ class EndlessScrollView extends ConsumerStatefulWidget {
   ConsumerState<EndlessScrollView> createState() => _EndlessScrollViewState();
 }
 
-class _EndlessScrollViewState<T> extends ConsumerState<EndlessScrollView> {
+class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
+    extends ConsumerState<EndlessScrollView> {
   final scrollController = ScrollController();
   Timer? initialStoryFetchesTimer;
 
@@ -30,7 +28,7 @@ class _EndlessScrollViewState<T> extends ConsumerState<EndlessScrollView> {
     scrollController.addListener(scrollListener);
 
     final storiesNotifier = ref.read(widget.dataProvider.notifier);
-    (storiesNotifier as FetchingNotifier).fetchStories();
+    (storiesNotifier as ProviderT).fetchStories();
     initialStoryFetchesTimer =
         Timer.periodic(const Duration(milliseconds: 500), initialStoryFetches);
   }
@@ -48,7 +46,7 @@ class _EndlessScrollViewState<T> extends ConsumerState<EndlessScrollView> {
     final storiesNotifier = ref.read(widget.dataProvider.notifier);
 
     if (!storiesState.isLoading && !storiesState.reachedEnd) {
-      (storiesNotifier as FetchingNotifier).fetchStories();
+      (storiesNotifier as ProviderT).fetchStories();
     }
 
     if (storiesState.reachedEnd ||
@@ -60,8 +58,7 @@ class _EndlessScrollViewState<T> extends ConsumerState<EndlessScrollView> {
   void scrollListener() {
     final storiesState =
         ref.read(widget.dataProvider) as PagedDataStateInterface;
-    final storiesNotifier =
-        ref.read(widget.dataProvider.notifier) as FetchingNotifier;
+    final storiesNotifier = ref.read(widget.dataProvider.notifier) as ProviderT;
 
     if (!storiesState.isLoading &&
         !storiesState.reachedEnd &&

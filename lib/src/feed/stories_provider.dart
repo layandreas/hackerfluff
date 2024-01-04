@@ -11,8 +11,12 @@ import 'story_model.dart';
 // Necessary for code-generation to work
 part 'stories_provider.g.dart';
 
+interface class FetchingNotifier {
+  fetchStories() {}
+}
+
 @riverpod
-class Stories extends _$Stories {
+class Stories extends _$Stories implements FetchingNotifier {
   @override
   PagedStoriesState build() {
     return const PagedStoriesState(
@@ -23,6 +27,7 @@ class Stories extends _$Stories {
         reachedEnd: false);
   }
 
+  @override
   fetchStories() async {
     final topStories = await ref.watch(topStoriesProvider.future);
     final storyStartIndex = state.currentPage * state.storiesPerPage;
