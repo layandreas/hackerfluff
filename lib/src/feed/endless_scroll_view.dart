@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'story_model.dart';
 import 'dart:async';
 import 'comments_views.dart';
 import 'stories_provider.dart';
@@ -73,25 +72,36 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
 
             return widget.refreshCallback();
           },
-          child: ListView(
-              // Show messages from bottom to top
-              controller: scrollController,
-              children: [
-                for (Story story in widget.storiesState.stories)
-                  Card(
-                      child: ListTile(
-                    title: Text(story.title),
-                    onTap: () {
-                      Navigator.restorablePushNamed(
-                          context, CommentsView.routeName);
-                    },
-                  )),
-                if (widget.storiesState.isLoading)
-                  const Padding(
+          child: ListView.builder(
+            // Show messages from bottom to top
+            controller: scrollController,
+            itemCount: widget.storiesState.stories.length + 1,
+            itemBuilder: (context, index) {
+              if (index <= widget.storiesState.stories.length - 1) {
+                return Card(
+                    child: ListTile(
+                  title: Text(widget.storiesState.stories[index].title),
+                  onTap: () {
+                    Navigator.restorablePushNamed(
+                        context, CommentsView.routeName);
+                  },
+                ));
+              } else {
+                if (widget.storiesState.isLoading) {
+                  return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(child: CircularProgressIndicator()),
-                  )
-              ]),
+                  );
+                }
+
+                if (widget.storiesState.reachedEnd) {
+                  return const ListTile(title: Text("You reached the end..."));
+                }
+
+                return const ListTile(title: Text(""));
+              }
+            },
+          ),
         ),
       ),
     );
