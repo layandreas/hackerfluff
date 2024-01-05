@@ -9,11 +9,14 @@ class EndlessScrollView extends StatefulWidget {
       {super.key,
       required this.storiesState,
       required this.dataFetcher,
-      required this.refreshCallback});
+      required this.refreshCallback,
+      required this.itemBuilder});
 
   final PagedStoriesState storiesState;
   final Function() dataFetcher;
   final Future Function() refreshCallback;
+  final Widget Function(int index, PagedStoriesState pagedStoriesState)
+      itemBuilder;
 
   @override
   State<EndlessScrollView> createState() => _EndlessScrollViewState();
@@ -78,14 +81,7 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
             itemCount: widget.storiesState.stories.length + 1,
             itemBuilder: (context, index) {
               if (index <= widget.storiesState.stories.length - 1) {
-                return Card(
-                    child: ListTile(
-                  title: Text(widget.storiesState.stories[index].title),
-                  onTap: () {
-                    Navigator.restorablePushNamed(
-                        context, CommentsView.routeName);
-                  },
-                ));
+                return widget.itemBuilder(index, widget.storiesState);
               } else {
                 if (widget.storiesState.isLoading) {
                   return const Padding(

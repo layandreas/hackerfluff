@@ -112,6 +112,15 @@ class FeedView2 extends ConsumerWidget {
       storiesState: storiesState,
       dataFetcher: () => storiesNotifier.fetchStories(),
       refreshCallback: () => ref.refresh(topStoriesProvider.future),
+      itemBuilder: (index, storiesState) {
+        return Card(
+            child: ListTile(
+          title: Text(storiesState.stories[index].title),
+          onTap: () {
+            Navigator.restorablePushNamed(context, CommentsView.routeName);
+          },
+        ));
+      },
     );
   }
 }
