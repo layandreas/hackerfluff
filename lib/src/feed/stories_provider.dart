@@ -33,6 +33,10 @@ class Stories extends _$Stories implements FetchingNotifier {
     final storyStartIndex = state.currentPage * state.storiesPerPage;
     final storyEndIndex = storyStartIndex + state.storiesPerPage;
 
+    if (state.isLoading) {
+      return;
+    }
+
     state = state.copyWith(
         isLoading: true,
         reachedEnd:
@@ -45,7 +49,7 @@ class Stories extends _$Stories implements FetchingNotifier {
     }
 
     final topStoriesOnPage = topStories.storyIds.sublist(
-        storyStartIndex, min(storyEndIndex, topStories.storyIds.length - 1));
+        storyStartIndex, min(storyEndIndex, topStories.storyIds.length));
 
     var allResponsesFuture = <Future>[];
     for (final storyId in topStoriesOnPage) {
