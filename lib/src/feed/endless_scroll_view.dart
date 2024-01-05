@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'story_model.dart';
 import 'dart:async';
 import 'comments_views.dart';
-import 'paged_data_state_interface.dart';
 import 'stories_provider.dart';
+import 'page_stories_state_model.dart';
 
-class EndlessScrollView extends ConsumerStatefulWidget {
+class EndlessScrollView extends StatefulWidget {
   const EndlessScrollView(
-      {super.key, required this.dataProvider, required this.refreshProvider});
+      {super.key,
+      required this.storiesState,
+      required this.dataFetcher,
+      required this.refreshCallback});
 
-  final AutoDisposeNotifierProvider dataProvider;
-  final AutoDisposeFutureProvider refreshProvider;
+  final PagedStoriesState storiesState;
+  final Function() dataFetcher;
+  final Future Function() refreshCallback;
 
   @override
-  ConsumerState<EndlessScrollView> createState() => _EndlessScrollViewState();
+  State<EndlessScrollView> createState() => _EndlessScrollViewState();
 }
 
 class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
-    extends ConsumerState<EndlessScrollView> {
+    extends State<EndlessScrollView> {
   final scrollController = ScrollController();
   Timer? initialStoryFetchesTimer;
 
@@ -27,8 +30,7 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
     super.initState();
     scrollController.addListener(scrollListener);
 
-    final storiesNotifier = ref.read(widget.dataProvider.notifier);
-    (storiesNotifier as ProviderT).fetchStories();
+    widget.dataFetcher();
     initialStoryFetchesTimer =
         Timer.periodic(const Duration(milliseconds: 500), initialStoryFetches);
   }
@@ -41,36 +43,26 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
   }
 
   void initialStoryFetches(Timer timer) {
-    final storiesState =
-        ref.read(widget.dataProvider) as PagedDataStateInterface;
-    final storiesNotifier = ref.read(widget.dataProvider.notifier);
-
-    if (!storiesState.isLoading && !storiesState.reachedEnd) {
-      (storiesNotifier as ProviderT).fetchStories();
+    if (!widget.storiesState.isLoading && !widget.storiesState.reachedEnd) {
+      widget.dataFetcher();
     }
 
-    if (storiesState.reachedEnd ||
+    if (widget.storiesState.reachedEnd ||
         scrollController.position.maxScrollExtent > 0) {
       timer.cancel();
     }
   }
 
   void scrollListener() {
-    final storiesState =
-        ref.read(widget.dataProvider) as PagedDataStateInterface;
-    final storiesNotifier = ref.read(widget.dataProvider.notifier) as ProviderT;
-
-    if (!storiesState.isLoading &&
-        !storiesState.reachedEnd &&
+    if (!widget.storiesState.isLoading &&
+        !widget.storiesState.reachedEnd &&
         scrollController.offset >= scrollController.position.maxScrollExtent) {
-      storiesNotifier.fetchStories();
+      widget.dataFetcher();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final stories = ref.watch(widget.dataProvider) as PagedDataStateInterface;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Top Stories')),
       body: SafeArea(
@@ -79,13 +71,13 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
             initialStoryFetchesTimer = Timer.periodic(
                 const Duration(milliseconds: 1000), initialStoryFetches);
 
-            return ref.refresh(widget.refreshProvider.future);
+            return widget.refreshCallback();
           },
           child: ListView(
               // Show messages from bottom to top
               controller: scrollController,
               children: [
-                for (Story story in stories.stories)
+                for (Story story in widget.storiesState.stories)
                   Card(
                       child: ListTile(
                     title: Text(story.title),
@@ -94,7 +86,7 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
                           context, CommentsView.routeName);
                     },
                   )),
-                if (stories.isLoading)
+                if (widget.storiesState.isLoading)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(child: CircularProgressIndicator()),

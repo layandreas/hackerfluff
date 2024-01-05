@@ -105,7 +105,13 @@ class FeedView2 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final storiesState = ref.watch(storiesProvider);
+    final storiesNotifier = ref.read(storiesProvider.notifier);
+
     return EndlessScrollView(
-        dataProvider: storiesProvider, refreshProvider: topStoriesProvider);
+      storiesState: storiesState,
+      dataFetcher: () => storiesNotifier.fetchStories(),
+      refreshCallback: () => ref.refresh(topStoriesProvider.future),
+    );
   }
 }
