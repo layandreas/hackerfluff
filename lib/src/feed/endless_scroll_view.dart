@@ -70,7 +70,7 @@ class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
         child: RefreshIndicator(
           onRefresh: () {
             initialStoryFetchesTimer = Timer.periodic(
-                const Duration(milliseconds: 1000), initialStoryFetches);
+                const Duration(milliseconds: 500), initialStoryFetches);
 
             return widget.refreshCallback();
           },
