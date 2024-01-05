@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackernews_flutter/src/feed/comment_provider.dart';
 import 'comment_model.dart';
+import 'story_model.dart';
 
 // const comment = CommentModel(id: 1, text: 'comment1', children: [
 //   CommentModel(id: 2, text: 'comment2', children: [
@@ -30,28 +31,38 @@ class _CommentsViewState extends State<CommentsView> {
 
   @override
   Widget build(BuildContext context) {
+    final story = Story.fromJson(
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
+
     return Scaffold(
         appBar: AppBar(title: const Text('Comments')),
         body: Center(
-          child: FutureBuilder<CommentModel>(
-              future: futureComment,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TestSingleCommentsView(
-                    comment: snapshot.data!,
-                    isParentWidget: true,
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-
-                return const CircularProgressIndicator();
-              }
-              // child: TestSingleCommentsView(
-              //   comment: comment,
-              //   isParentWidget: true,
-              // ),
+          child: Column(
+            children: [
+              Card(
+                child: Text(story.title),
               ),
+              FutureBuilder<CommentModel>(
+                  future: futureComment,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return TestSingleCommentsView(
+                        comment: snapshot.data!,
+                        isParentWidget: true,
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+
+                    return const CircularProgressIndicator();
+                  }
+                  // child: TestSingleCommentsView(
+                  //   comment: comment,
+                  //   isParentWidget: true,
+                  // ),
+                  ),
+            ],
+          ),
         ));
   }
 }

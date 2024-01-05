@@ -117,7 +117,8 @@ class FeedView2 extends ConsumerWidget {
             child: ListTile(
           title: Text(storiesState.stories[index].title),
           onTap: () {
-            Navigator.restorablePushNamed(context, CommentsView.routeName);
+            Navigator.restorablePushNamed(context, CommentsView.routeName,
+                arguments: storiesState.stories[index].toJson());
           },
         ));
       },
