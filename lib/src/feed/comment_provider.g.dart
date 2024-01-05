@@ -6,7 +6,7 @@ part of 'comment_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$commentsHash() => r'c4c8b1ce70c0b47c0a2c0f14414e0cde9c736ada';
+String _$commentsHash() => r'439da1ba97ceeef84b2d4f6d7ef888a69f139d70';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,11 +30,11 @@ class _SystemHash {
 }
 
 abstract class _$Comments
-    extends BuildlessAutoDisposeNotifier<PagedStoriesState> {
-  late final int storyId;
+    extends BuildlessAutoDisposeNotifier<PagedCommentsState> {
+  late final Story story;
 
-  PagedStoriesState build(
-    int storyId,
+  PagedCommentsState build(
+    Story story,
   );
 }
 
@@ -43,16 +43,16 @@ abstract class _$Comments
 const commentsProvider = CommentsFamily();
 
 /// See also [Comments].
-class CommentsFamily extends Family<PagedStoriesState> {
+class CommentsFamily extends Family<PagedCommentsState> {
   /// See also [Comments].
   const CommentsFamily();
 
   /// See also [Comments].
   CommentsProvider call(
-    int storyId,
+    Story story,
   ) {
     return CommentsProvider(
-      storyId,
+      story,
     );
   }
 
@@ -61,7 +61,7 @@ class CommentsFamily extends Family<PagedStoriesState> {
     covariant CommentsProvider provider,
   ) {
     return call(
-      provider.storyId,
+      provider.story,
     );
   }
 
@@ -82,12 +82,12 @@ class CommentsFamily extends Family<PagedStoriesState> {
 
 /// See also [Comments].
 class CommentsProvider
-    extends AutoDisposeNotifierProviderImpl<Comments, PagedStoriesState> {
+    extends AutoDisposeNotifierProviderImpl<Comments, PagedCommentsState> {
   /// See also [Comments].
   CommentsProvider(
-    int storyId,
+    Story story,
   ) : this._internal(
-          () => Comments()..storyId = storyId,
+          () => Comments()..story = story,
           from: commentsProvider,
           name: r'commentsProvider',
           debugGetCreateSourceHash:
@@ -96,7 +96,7 @@ class CommentsProvider
                   : _$commentsHash,
           dependencies: CommentsFamily._dependencies,
           allTransitiveDependencies: CommentsFamily._allTransitiveDependencies,
-          storyId: storyId,
+          story: story,
         );
 
   CommentsProvider._internal(
@@ -106,17 +106,17 @@ class CommentsProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.storyId,
+    required this.story,
   }) : super.internal();
 
-  final int storyId;
+  final Story story;
 
   @override
-  PagedStoriesState runNotifierBuild(
+  PagedCommentsState runNotifierBuild(
     covariant Comments notifier,
   ) {
     return notifier.build(
-      storyId,
+      story,
     );
   }
 
@@ -125,49 +125,49 @@ class CommentsProvider
     return ProviderOverride(
       origin: this,
       override: CommentsProvider._internal(
-        () => create()..storyId = storyId,
+        () => create()..story = story,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        storyId: storyId,
+        story: story,
       ),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<Comments, PagedStoriesState>
+  AutoDisposeNotifierProviderElement<Comments, PagedCommentsState>
       createElement() {
     return _CommentsProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CommentsProvider && other.storyId == storyId;
+    return other is CommentsProvider && other.story == story;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, storyId.hashCode);
+    hash = _SystemHash.combine(hash, story.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin CommentsRef on AutoDisposeNotifierProviderRef<PagedStoriesState> {
-  /// The parameter `storyId` of this provider.
-  int get storyId;
+mixin CommentsRef on AutoDisposeNotifierProviderRef<PagedCommentsState> {
+  /// The parameter `story` of this provider.
+  Story get story;
 }
 
 class _CommentsProviderElement
-    extends AutoDisposeNotifierProviderElement<Comments, PagedStoriesState>
+    extends AutoDisposeNotifierProviderElement<Comments, PagedCommentsState>
     with CommentsRef {
   _CommentsProviderElement(super.provider);
 
   @override
-  int get storyId => (origin as CommentsProvider).storyId;
+  Story get story => (origin as CommentsProvider).story;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
