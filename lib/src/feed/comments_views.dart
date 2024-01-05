@@ -81,7 +81,7 @@ class TestSingleCommentsView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (comment.text != null) Text(comment.text ?? ''),
-            for (final child in comment.children!)
+            for (final child in comment.children ?? [])
               TestSingleCommentsView(comment: child)
           ],
         );

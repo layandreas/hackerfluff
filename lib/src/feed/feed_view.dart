@@ -85,7 +85,8 @@ class _FeedViewState extends ConsumerState<FeedView> {
                     title: Text(story.title),
                     onTap: () {
                       Navigator.restorablePushNamed(
-                          context, CommentsView.routeName);
+                          context, CommentsView.routeName,
+                          arguments: story.toJson());
                     },
                   )),
                 if (stories.isLoading)

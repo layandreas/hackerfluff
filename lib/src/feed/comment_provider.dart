@@ -33,12 +33,15 @@ Future<CommentModel> fetchCommentTree(int id) async {
 class Comments extends _$Comments {
   @override
   PagedCommentsState build(Story story) {
-    return const PagedCommentsState(
+    state = const PagedCommentsState(
         currentPage: 0,
         stories: [],
-        storiesPerPage: 10,
+        storiesPerPage: 1,
         isLoading: false,
         reachedEnd: false);
+
+    fetchStories();
+    return state;
   }
 
   fetchStories() async {

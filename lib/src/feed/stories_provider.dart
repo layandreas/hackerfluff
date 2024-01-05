@@ -19,12 +19,15 @@ interface class FetchingNotifier {
 class Stories extends _$Stories implements FetchingNotifier {
   @override
   PagedStoriesState build() {
-    return const PagedStoriesState(
+    const state = PagedStoriesState(
         currentPage: 0,
         stories: [],
         storiesPerPage: 10,
         isLoading: false,
         reachedEnd: false);
+
+    fetchStories();
+    return state;
   }
 
   @override

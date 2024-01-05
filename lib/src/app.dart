@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hackernews_flutter/src/feed/comment_model.dart';
 import 'sample_feature/sample_item_details_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'feed/feed_view.dart';
 import 'feed/comments_views.dart';
+import 'feed/comments_feed_view.dart';
 
 /// The Widget that configures your application.
 class HackernewsApp extends StatelessWidget {
@@ -74,7 +76,7 @@ class HackernewsApp extends StatelessWidget {
                     return const SampleItemDetailsView();
                   //case SampleItemListView.routeName:
                   case '/placeholder':
-                    return const CommentsView();
+                    return const CommentsFeedView();
                   default:
                     return const FeedView2();
                 }
