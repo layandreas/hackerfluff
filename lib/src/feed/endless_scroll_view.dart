@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'stories_provider.dart';
-import 'page_stories_state_model.dart';
 import 'paged_data_state_interface.dart';
 
 class EndlessScrollView extends StatefulWidget {
@@ -22,8 +20,7 @@ class EndlessScrollView extends StatefulWidget {
   State<EndlessScrollView> createState() => _EndlessScrollViewState();
 }
 
-class _EndlessScrollViewState<ProviderT extends FetchingNotifier>
-    extends State<EndlessScrollView> {
+class _EndlessScrollViewState extends State<EndlessScrollView> {
   final scrollController = ScrollController();
   Timer? initialStoryFetchesTimer;
 
