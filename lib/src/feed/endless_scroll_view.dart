@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'stories_provider.dart';
 import 'page_stories_state_model.dart';
+import 'paged_data_state_interface.dart';
 
 class EndlessScrollView extends StatefulWidget {
   const EndlessScrollView(
@@ -11,10 +12,10 @@ class EndlessScrollView extends StatefulWidget {
       required this.refreshCallback,
       required this.itemBuilder});
 
-  final PagedStoriesState storiesState;
+  final PagedDataStateInterface storiesState;
   final Function() dataFetcher;
   final Future Function() refreshCallback;
-  final Widget Function(int index, PagedStoriesState pagedStoriesState)
+  final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
       itemBuilder;
 
   @override
