@@ -3,18 +3,21 @@ import 'dart:async';
 import 'paged_data_state_interface.dart';
 
 class EndlessScrollView extends StatefulWidget {
-  const EndlessScrollView(
-      {super.key,
-      required this.storiesState,
-      required this.dataFetcher,
-      required this.refreshCallback,
-      required this.itemBuilder});
+  const EndlessScrollView({
+    super.key,
+    this.title,
+    required this.storiesState,
+    required this.dataFetcher,
+    required this.refreshCallback,
+    required this.itemBuilder,
+  });
 
   final PagedDataStateInterface storiesState;
   final void Function() dataFetcher;
   final Future Function() refreshCallback;
   final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
       itemBuilder;
+  final String? title;
 
   @override
   State<EndlessScrollView> createState() => _EndlessScrollViewState();
@@ -64,7 +67,8 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Top Stories')),
+      appBar:
+          AppBar(title: (widget.title != null) ? Text(widget.title!) : null),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () {

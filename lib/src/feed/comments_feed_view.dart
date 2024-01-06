@@ -21,6 +21,7 @@ class CommentsFeedView extends ConsumerWidget {
     final commentsNotifier = ref.read(CommentsProvider(story).notifier);
 
     return EndlessScrollView(
+      title: 'Comments',
       storiesState: commentState,
       dataFetcher: () => commentsNotifier.fetchStories(),
       refreshCallback: () => Future.delayed(const Duration(milliseconds: 100),
