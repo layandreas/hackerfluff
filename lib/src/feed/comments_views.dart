@@ -26,10 +26,14 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
         children: [
           if (widget.comment.text != null)
             GestureDetector(
-              child: Card(
+              child: SizedBox(
+                width: double.infinity,
+                child: Card(
                   child: hideChildren
                       ? const Text('Hidden')
-                      : HtmlWidget(widget.comment.text ?? '')),
+                      : HtmlWidget(widget.comment.text ?? ''),
+                ),
+              ),
               onTap: () => setState(() {
                 hideChildren = !hideChildren;
               }),
