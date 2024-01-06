@@ -15,7 +15,7 @@ class StoryView extends StatelessWidget {
     final String timeSinceStoryFmt = switch (timeSinceStory.inMinutes) {
       < 60 => '${timeSinceStory.inMinutes}m ago',
       >= 60 && < 1440 => '${timeSinceStory.inHours}h ago',
-      >= 1440 => '${timeSinceStory.inHours}d ago',
+      >= 1440 => '${timeSinceStory.inDays}d ago',
       _ => ''
     };
 

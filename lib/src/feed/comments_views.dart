@@ -24,7 +24,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
     final String timeSinceCommentFmt = switch (timeSinceComment.inMinutes) {
       < 60 => '${timeSinceComment.inMinutes}m ago',
       >= 60 && < 1440 => '${timeSinceComment.inHours}h ago',
-      >= 1440 => '${timeSinceComment.inHours}d ago',
+      >= 1440 => '${timeSinceComment.inDays}d ago',
       _ => ''
     };
 
