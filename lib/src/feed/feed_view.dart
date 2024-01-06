@@ -4,6 +4,7 @@ import 'stories_provider.dart';
 import 'top_stories_provider.dart';
 import 'endless_scroll_view.dart';
 import 'comments_feed_view.dart';
+import 'story_view.dart';
 
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
@@ -19,14 +20,13 @@ class FeedView extends ConsumerWidget {
       dataFetcher: () => storiesNotifier.fetchStories(),
       refreshCallback: () => ref.refresh(topStoriesProvider.future),
       itemBuilder: (index, storiesState) {
-        return Card(
-            child: ListTile(
-          title: Text(storiesState.stories[index].title),
+        return GestureDetector(
+          child: StoryView(story: storiesState.stories[index]),
           onTap: () {
             Navigator.restorablePushNamed(context, CommentsFeedView.routeName,
                 arguments: storiesState.stories[index].toJson());
           },
-        ));
+        );
       },
     );
   }
