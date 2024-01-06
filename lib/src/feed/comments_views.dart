@@ -58,16 +58,15 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       color: Colors.transparent,
-                      child: hideChildren
-                          ? const Text('Hidden')
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HtmlWidget(
-                                    '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
-                                HtmlWidget(widget.comment.text ?? ''),
-                              ],
-                            ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HtmlWidget(
+                              '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
+                          if (!hideChildren)
+                            HtmlWidget(widget.comment.text ?? ''),
+                        ],
+                      ),
                     ),
                   ),
                 ),
