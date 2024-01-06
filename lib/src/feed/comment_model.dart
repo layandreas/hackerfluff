@@ -27,11 +27,3 @@ class CommentModel with _$CommentModel {
   factory CommentModel.fromJson(Map<String, Object?> json) =>
       _$CommentModelFromJson(json);
 }
-
-// class CommentModel {
-//   final int id;
-//   final String text;
-//   List<CommentModel> children;
-
-//   CommentModel(this.id, this.text, this.children);
-// }
