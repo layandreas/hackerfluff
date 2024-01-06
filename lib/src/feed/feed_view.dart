@@ -14,6 +14,7 @@ class FeedView extends ConsumerWidget {
     final storiesNotifier = ref.read(storiesProvider.notifier);
 
     return EndlessScrollView(
+      title: 'Top Stories',
       storiesState: storiesState,
       dataFetcher: () => storiesNotifier.fetchStories(),
       refreshCallback: () => ref.refresh(topStoriesProvider.future),
