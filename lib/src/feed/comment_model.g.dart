@@ -11,6 +11,8 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       text: json['text'] as String?,
       kids: (json['kids'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      by: json['by'] as String?,
+      time: json['time'] as int?,
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
@@ -18,6 +20,8 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'id': instance.id,
       'text': instance.text,
       'kids': instance.kids,
+      'by': instance.by,
+      'time': instance.time,
     };
 
 _$CommentModelImpl _$$CommentModelImplFromJson(Map<String, dynamic> json) =>
@@ -27,6 +31,8 @@ _$CommentModelImpl _$$CommentModelImplFromJson(Map<String, dynamic> json) =>
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => CommentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      by: json['by'] as String?,
+      time: json['time'] as int?,
     );
 
 Map<String, dynamic> _$$CommentModelImplToJson(_$CommentModelImpl instance) =>
@@ -34,4 +40,6 @@ Map<String, dynamic> _$$CommentModelImplToJson(_$CommentModelImpl instance) =>
       'id': instance.id,
       'text': instance.text,
       'children': instance.children,
+      'by': instance.by,
+      'time': instance.time,
     };
