@@ -29,11 +29,13 @@ class CommentsFeedView extends ConsumerWidget {
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: [
-              SingleCommentsView(
-                comment: commentsState.stories[index],
-                isParentWidget: true,
-              ),
-              const Divider()
+              if (index == 0) Text(story.title),
+              if (commentState.stories[index].text != null)
+                SingleCommentsView(
+                  comment: commentsState.stories[index],
+                  isParentWidget: true,
+                ),
+              if (commentState.stories[index].text != null) const Divider()
             ],
           ),
         );
