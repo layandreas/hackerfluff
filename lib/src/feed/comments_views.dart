@@ -31,10 +31,21 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
               GestureDetector(
                 child: SizedBox(
                   width: double.infinity,
-                  child: Card(
-                    child: hideChildren
-                        ? const Text('Hidden')
-                        : HtmlWidget(widget.comment.text ?? ''),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                      left: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2.0),
+                    )),
+                    child: Card(
+                      shadowColor: Colors.transparent,
+                      elevation: 0,
+                      color: Colors.transparent,
+                      child: hideChildren
+                          ? const Text('Hidden')
+                          : HtmlWidget(widget.comment.text ?? ''),
+                    ),
                   ),
                 ),
                 onTap: () => setState(() {
