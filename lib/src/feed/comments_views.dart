@@ -36,7 +36,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                         border: Border(
                       left: BorderSide(
                           color: Theme.of(context).colorScheme.primary,
-                          width: 2.0),
+                          width: widget.isParentWidget ? 0 : 2.0),
                     )),
                     child: Card(
                       shadowColor: Colors.transparent,
