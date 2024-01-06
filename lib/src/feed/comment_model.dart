@@ -10,6 +10,8 @@ class Comment with _$Comment {
     required int id,
     required String? text,
     List<int>? kids,
+    required String? by,
+    required int? time,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, Object?> json) =>
@@ -22,6 +24,8 @@ class CommentModel with _$CommentModel {
     required int id,
     String? text,
     List<CommentModel>? children,
+    required String? by,
+    required int? time,
   }) = _CommentModel;
 
   factory CommentModel.fromJson(Map<String, Object?> json) =>

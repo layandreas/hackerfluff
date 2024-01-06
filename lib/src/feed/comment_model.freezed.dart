@@ -23,6 +23,8 @@ mixin _$Comment {
   int get id => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   List<int>? get kids => throw _privateConstructorUsedError;
+  String? get by => throw _privateConstructorUsedError;
+  int? get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,7 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
-  $Res call({int id, String? text, List<int>? kids});
+  $Res call({int id, String? text, List<int>? kids, String? by, int? time});
 }
 
 /// @nodoc
@@ -53,6 +55,8 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? id = null,
     Object? text = freezed,
     Object? kids = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,6 +71,14 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.kids
           : kids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -78,7 +90,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$$CommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? text, List<int>? kids});
+  $Res call({int id, String? text, List<int>? kids, String? by, int? time});
 }
 
 /// @nodoc
@@ -95,6 +107,8 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? id = null,
     Object? text = freezed,
     Object? kids = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
   }) {
     return _then(_$CommentImpl(
       id: null == id
@@ -109,6 +123,14 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value._kids
           : kids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -117,7 +139,11 @@ class __$$CommentImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommentImpl implements _Comment {
   const _$CommentImpl(
-      {required this.id, required this.text, final List<int>? kids})
+      {required this.id,
+      required this.text,
+      final List<int>? kids,
+      required this.by,
+      required this.time})
       : _kids = kids;
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
@@ -138,8 +164,13 @@ class _$CommentImpl implements _Comment {
   }
 
   @override
+  final String? by;
+  @override
+  final int? time;
+
+  @override
   String toString() {
-    return 'Comment(id: $id, text: $text, kids: $kids)';
+    return 'Comment(id: $id, text: $text, kids: $kids, by: $by, time: $time)';
   }
 
   @override
@@ -149,13 +180,15 @@ class _$CommentImpl implements _Comment {
             other is _$CommentImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
-            const DeepCollectionEquality().equals(other._kids, _kids));
+            const DeepCollectionEquality().equals(other._kids, _kids) &&
+            (identical(other.by, by) || other.by == by) &&
+            (identical(other.time, time) || other.time == time));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, text, const DeepCollectionEquality().hash(_kids));
+  int get hashCode => Object.hash(runtimeType, id, text,
+      const DeepCollectionEquality().hash(_kids), by, time);
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +208,9 @@ abstract class _Comment implements Comment {
   const factory _Comment(
       {required final int id,
       required final String? text,
-      final List<int>? kids}) = _$CommentImpl;
+      final List<int>? kids,
+      required final String? by,
+      required final int? time}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -185,6 +220,10 @@ abstract class _Comment implements Comment {
   String? get text;
   @override
   List<int>? get kids;
+  @override
+  String? get by;
+  @override
+  int? get time;
   @override
   @JsonKey(ignore: true)
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>
@@ -200,6 +239,8 @@ mixin _$CommentModel {
   int get id => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   List<CommentModel>? get children => throw _privateConstructorUsedError;
+  String? get by => throw _privateConstructorUsedError;
+  int? get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -213,7 +254,12 @@ abstract class $CommentModelCopyWith<$Res> {
           CommentModel value, $Res Function(CommentModel) then) =
       _$CommentModelCopyWithImpl<$Res, CommentModel>;
   @useResult
-  $Res call({int id, String? text, List<CommentModel>? children});
+  $Res call(
+      {int id,
+      String? text,
+      List<CommentModel>? children,
+      String? by,
+      int? time});
 }
 
 /// @nodoc
@@ -232,6 +278,8 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
     Object? id = null,
     Object? text = freezed,
     Object? children = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -246,6 +294,14 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
               as List<CommentModel>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -258,7 +314,12 @@ abstract class _$$CommentModelImplCopyWith<$Res>
       __$$CommentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? text, List<CommentModel>? children});
+  $Res call(
+      {int id,
+      String? text,
+      List<CommentModel>? children,
+      String? by,
+      int? time});
 }
 
 /// @nodoc
@@ -275,6 +336,8 @@ class __$$CommentModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? text = freezed,
     Object? children = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
   }) {
     return _then(_$CommentModelImpl(
       id: null == id
@@ -289,6 +352,14 @@ class __$$CommentModelImplCopyWithImpl<$Res>
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
               as List<CommentModel>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -297,7 +368,11 @@ class __$$CommentModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommentModelImpl implements _CommentModel {
   const _$CommentModelImpl(
-      {required this.id, this.text, final List<CommentModel>? children})
+      {required this.id,
+      this.text,
+      final List<CommentModel>? children,
+      required this.by,
+      required this.time})
       : _children = children;
 
   factory _$CommentModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -318,8 +393,13 @@ class _$CommentModelImpl implements _CommentModel {
   }
 
   @override
+  final String? by;
+  @override
+  final int? time;
+
+  @override
   String toString() {
-    return 'CommentModel(id: $id, text: $text, children: $children)';
+    return 'CommentModel(id: $id, text: $text, children: $children, by: $by, time: $time)';
   }
 
   @override
@@ -329,13 +409,15 @@ class _$CommentModelImpl implements _CommentModel {
             other is _$CommentModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
-            const DeepCollectionEquality().equals(other._children, _children));
+            const DeepCollectionEquality().equals(other._children, _children) &&
+            (identical(other.by, by) || other.by == by) &&
+            (identical(other.time, time) || other.time == time));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, text, const DeepCollectionEquality().hash(_children));
+  int get hashCode => Object.hash(runtimeType, id, text,
+      const DeepCollectionEquality().hash(_children), by, time);
 
   @JsonKey(ignore: true)
   @override
@@ -355,7 +437,9 @@ abstract class _CommentModel implements CommentModel {
   const factory _CommentModel(
       {required final int id,
       final String? text,
-      final List<CommentModel>? children}) = _$CommentModelImpl;
+      final List<CommentModel>? children,
+      required final String? by,
+      required final int? time}) = _$CommentModelImpl;
 
   factory _CommentModel.fromJson(Map<String, dynamic> json) =
       _$CommentModelImpl.fromJson;
@@ -366,6 +450,10 @@ abstract class _CommentModel implements CommentModel {
   String? get text;
   @override
   List<CommentModel>? get children;
+  @override
+  String? get by;
+  @override
+  int? get time;
   @override
   @JsonKey(ignore: true)
   _$$CommentModelImplCopyWith<_$CommentModelImpl> get copyWith =>

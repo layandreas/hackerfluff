@@ -17,6 +17,17 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
 
   @override
   Widget build(BuildContext context) {
+    int commentTimeInMilliseconds = (widget.comment.time ?? 0) * 1000;
+    DateTime commentTime =
+        DateTime.fromMillisecondsSinceEpoch(commentTimeInMilliseconds);
+    Duration timeSinceComment = DateTime.now().difference(commentTime);
+    final String timeSinceCommentFmt = switch (timeSinceComment.inMinutes) {
+      < 60 => '${timeSinceComment.inMinutes}m ago',
+      >= 60 && < 1440 => '${timeSinceComment.inHours}h ago',
+      >= 1440 => '${timeSinceComment.inHours}d ago',
+      _ => ''
+    };
+
     return Padding(
       padding: widget.isParentWidget
           ? const EdgeInsets.only(left: 0)
@@ -49,7 +60,14 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                       color: Colors.transparent,
                       child: hideChildren
                           ? const Text('Hidden')
-                          : HtmlWidget(widget.comment.text ?? ''),
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                HtmlWidget(
+                                    '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
+                                HtmlWidget(widget.comment.text ?? ''),
+                              ],
+                            ),
                     ),
                   ),
                 ),
