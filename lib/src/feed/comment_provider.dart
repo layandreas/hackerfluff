@@ -40,11 +40,10 @@ class Comments extends _$Comments {
         isLoading: false,
         reachedEnd: false);
 
-    fetchStories();
     return state;
   }
 
-  fetchStories() async {
+  void fetchStories() async {
     final List<int> kids = story.kids ?? [];
     final commentStartIndex = state.currentPage * state.storiesPerPage;
     final commentEndIndex = commentStartIndex + state.storiesPerPage;

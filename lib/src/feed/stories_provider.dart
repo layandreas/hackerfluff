@@ -26,12 +26,11 @@ class Stories extends _$Stories implements FetchingNotifier {
         isLoading: false,
         reachedEnd: false);
 
-    fetchStories();
     return state;
   }
 
   @override
-  fetchStories() async {
+  void fetchStories() async {
     final topStories = await ref.watch(topStoriesProvider.future);
     final storyStartIndex = state.currentPage * state.storiesPerPage;
     final storyEndIndex = storyStartIndex + state.storiesPerPage;
