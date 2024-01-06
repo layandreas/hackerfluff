@@ -20,7 +20,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
     return Padding(
       padding: widget.isParentWidget
           ? const EdgeInsets.only(left: 0)
-          : const EdgeInsets.only(left: 40.0),
+          : const EdgeInsets.only(left: 10.0),
       child: AnimatedSize(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
