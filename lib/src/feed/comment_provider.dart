@@ -36,7 +36,7 @@ class Comments extends _$Comments {
     state = const PagedCommentsState(
         currentPage: 0,
         stories: [],
-        storiesPerPage: 1,
+        storiesPerPage: 5,
         isLoading: false,
         reachedEnd: false);
 
