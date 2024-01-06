@@ -22,6 +22,12 @@ Story _$StoryFromJson(Map<String, dynamic> json) {
 mixin _$Story {
   String get title => throw _privateConstructorUsedError;
   List<int>? get kids => throw _privateConstructorUsedError;
+  int? get descendants => throw _privateConstructorUsedError;
+  String? get by => throw _privateConstructorUsedError;
+  int? get score => throw _privateConstructorUsedError;
+  int? get time => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +39,15 @@ abstract class $StoryCopyWith<$Res> {
   factory $StoryCopyWith(Story value, $Res Function(Story) then) =
       _$StoryCopyWithImpl<$Res, Story>;
   @useResult
-  $Res call({String title, List<int>? kids});
+  $Res call(
+      {String title,
+      List<int>? kids,
+      int? descendants,
+      String? by,
+      int? score,
+      int? time,
+      String? type,
+      String? url});
 }
 
 /// @nodoc
@@ -51,6 +65,12 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
   $Res call({
     Object? title = null,
     Object? kids = freezed,
+    Object? descendants = freezed,
+    Object? by = freezed,
+    Object? score = freezed,
+    Object? time = freezed,
+    Object? type = freezed,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -61,6 +81,30 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
           ? _value.kids
           : kids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      descendants: freezed == descendants
+          ? _value.descendants
+          : descendants // ignore: cast_nullable_to_non_nullable
+              as int?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -72,7 +116,15 @@ abstract class _$$StoryImplCopyWith<$Res> implements $StoryCopyWith<$Res> {
       __$$StoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, List<int>? kids});
+  $Res call(
+      {String title,
+      List<int>? kids,
+      int? descendants,
+      String? by,
+      int? score,
+      int? time,
+      String? type,
+      String? url});
 }
 
 /// @nodoc
@@ -88,6 +140,12 @@ class __$$StoryImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? kids = freezed,
+    Object? descendants = freezed,
+    Object? by = freezed,
+    Object? score = freezed,
+    Object? time = freezed,
+    Object? type = freezed,
+    Object? url = freezed,
   }) {
     return _then(_$StoryImpl(
       title: null == title
@@ -98,6 +156,30 @@ class __$$StoryImplCopyWithImpl<$Res>
           ? _value._kids
           : kids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      descendants: freezed == descendants
+          ? _value.descendants
+          : descendants // ignore: cast_nullable_to_non_nullable
+              as int?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -105,7 +187,15 @@ class __$$StoryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$StoryImpl implements _Story {
-  const _$StoryImpl({required this.title, final List<int>? kids})
+  const _$StoryImpl(
+      {required this.title,
+      final List<int>? kids,
+      this.descendants,
+      this.by,
+      this.score,
+      this.time,
+      this.type,
+      this.url})
       : _kids = kids;
 
   factory _$StoryImpl.fromJson(Map<String, dynamic> json) =>
@@ -124,8 +214,21 @@ class _$StoryImpl implements _Story {
   }
 
   @override
+  final int? descendants;
+  @override
+  final String? by;
+  @override
+  final int? score;
+  @override
+  final int? time;
+  @override
+  final String? type;
+  @override
+  final String? url;
+
+  @override
   String toString() {
-    return 'Story(title: $title, kids: $kids)';
+    return 'Story(title: $title, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url)';
   }
 
   @override
@@ -134,13 +237,28 @@ class _$StoryImpl implements _Story {
         (other.runtimeType == runtimeType &&
             other is _$StoryImpl &&
             (identical(other.title, title) || other.title == title) &&
-            const DeepCollectionEquality().equals(other._kids, _kids));
+            const DeepCollectionEquality().equals(other._kids, _kids) &&
+            (identical(other.descendants, descendants) ||
+                other.descendants == descendants) &&
+            (identical(other.by, by) || other.by == by) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, title, const DeepCollectionEquality().hash(_kids));
+      runtimeType,
+      title,
+      const DeepCollectionEquality().hash(_kids),
+      descendants,
+      by,
+      score,
+      time,
+      type,
+      url);
 
   @JsonKey(ignore: true)
   @override
@@ -157,8 +275,15 @@ class _$StoryImpl implements _Story {
 }
 
 abstract class _Story implements Story {
-  const factory _Story({required final String title, final List<int>? kids}) =
-      _$StoryImpl;
+  const factory _Story(
+      {required final String title,
+      final List<int>? kids,
+      final int? descendants,
+      final String? by,
+      final int? score,
+      final int? time,
+      final String? type,
+      final String? url}) = _$StoryImpl;
 
   factory _Story.fromJson(Map<String, dynamic> json) = _$StoryImpl.fromJson;
 
@@ -166,6 +291,18 @@ abstract class _Story implements Story {
   String get title;
   @override
   List<int>? get kids;
+  @override
+  int? get descendants;
+  @override
+  String? get by;
+  @override
+  int? get score;
+  @override
+  int? get time;
+  @override
+  String? get type;
+  @override
+  String? get url;
   @override
   @JsonKey(ignore: true)
   _$$StoryImplCopyWith<_$StoryImpl> get copyWith =>
