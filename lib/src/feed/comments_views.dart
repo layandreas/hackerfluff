@@ -38,7 +38,9 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                     decoration: BoxDecoration(
                         border: Border(
                       left: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: widget.isParentWidget
+                              ? Colors.transparent
+                              : Theme.of(context).colorScheme.primary,
                           width: widget.isParentWidget ? 0 : 2.0),
                     )),
                     child: Card(
