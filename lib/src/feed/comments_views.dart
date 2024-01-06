@@ -10,33 +10,18 @@ class SingleCommentsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (isParentWidget) {
-      case true:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (comment.text != null)
-              Card(
-                  child: HtmlWidget(
-                comment.text ?? '',
-              )),
-            for (final child in comment.children!)
-              SingleCommentsView(comment: child)
-          ],
-        );
-      case false:
-        return Padding(
-          padding: const EdgeInsets.only(left: 40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (comment.text != null)
-                Card(child: HtmlWidget(comment.text ?? '')),
-              for (final child in comment.children!)
-                SingleCommentsView(comment: child)
-            ],
-          ),
-        );
-    }
+    return Padding(
+      padding: isParentWidget
+          ? const EdgeInsets.only(left: 0)
+          : const EdgeInsets.only(left: 40.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (comment.text != null) Card(child: HtmlWidget(comment.text ?? '')),
+          for (final child in comment.children!)
+            SingleCommentsView(comment: child)
+        ],
+      ),
+    );
   }
 }
