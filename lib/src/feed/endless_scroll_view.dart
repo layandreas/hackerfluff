@@ -11,7 +11,7 @@ class EndlessScrollView extends StatefulWidget {
       required this.itemBuilder});
 
   final PagedDataStateInterface storiesState;
-  final Function() dataFetcher;
+  final void Function() dataFetcher;
   final Future Function() refreshCallback;
   final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
       itemBuilder;
@@ -23,15 +23,16 @@ class EndlessScrollView extends StatefulWidget {
 class _EndlessScrollViewState extends State<EndlessScrollView> {
   final scrollController = ScrollController();
   Timer? initialStoryFetchesTimer;
+  final Duration initialStoryFetchesPeriod = const Duration(milliseconds: 500);
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
 
-    widget.dataFetcher();
+    Future(widget.dataFetcher);
     initialStoryFetchesTimer =
-        Timer.periodic(const Duration(milliseconds: 500), initialStoryFetches);
+        Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
   }
 
   @override
@@ -43,7 +44,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
 
   void initialStoryFetches(Timer timer) {
     if (!widget.storiesState.isLoading && !widget.storiesState.reachedEnd) {
-      widget.dataFetcher();
+      Future(widget.dataFetcher);
     }
 
     if (widget.storiesState.reachedEnd ||
@@ -56,7 +57,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
     if (!widget.storiesState.isLoading &&
         !widget.storiesState.reachedEnd &&
         scrollController.offset >= scrollController.position.maxScrollExtent) {
-      widget.dataFetcher();
+      Future(widget.dataFetcher);
     }
   }
 
@@ -67,8 +68,8 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () {
-            initialStoryFetchesTimer = Timer.periodic(
-                const Duration(milliseconds: 500), initialStoryFetches);
+            initialStoryFetchesTimer =
+                Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
 
             return widget.refreshCallback();
           },
