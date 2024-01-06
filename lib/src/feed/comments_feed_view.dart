@@ -25,9 +25,17 @@ class CommentsFeedView extends ConsumerWidget {
       refreshCallback: () => Future.delayed(const Duration(milliseconds: 100),
           () => ref.refresh(CommentsProvider(story))),
       itemBuilder: (index, commentsState) {
-        return SingleCommentsView(
-          comment: commentsState.stories[index],
-          isParentWidget: true,
+        return Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            children: [
+              SingleCommentsView(
+                comment: commentsState.stories[index],
+                isParentWidget: true,
+              ),
+              const Divider()
+            ],
+          ),
         );
       },
     );
