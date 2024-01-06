@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'story_model.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class StoryView extends StatelessWidget {
   const StoryView({super.key, required this.story});
