@@ -27,6 +27,9 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              height: 5,
+            ),
             if (widget.comment.text != null)
               GestureDetector(
                 child: SizedBox(
