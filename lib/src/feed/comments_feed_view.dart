@@ -5,6 +5,7 @@ import 'dart:async';
 import 'comments_views.dart';
 import 'endless_scroll_view.dart';
 import 'comment_provider.dart';
+import 'story_view.dart';
 
 class CommentsFeedView extends ConsumerWidget {
   const CommentsFeedView({super.key});
@@ -29,7 +30,7 @@ class CommentsFeedView extends ConsumerWidget {
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: [
-              if (index == 0) Text(story.title),
+              if (index == 0) StoryView(story: story),
               if (commentState.stories[index].text != null)
                 SingleCommentsView(
                   comment: commentsState.stories[index],

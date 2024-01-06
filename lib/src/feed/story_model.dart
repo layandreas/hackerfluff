@@ -9,6 +9,12 @@ class Story with _$Story {
   const factory Story({
     required String title,
     List<int>? kids,
+    int? descendants,
+    String? by,
+    int? score,
+    int? time,
+    String? type,
+    String? url,
   }) = _Story;
 
   factory Story.fromJson(Map<String, Object?> json) => _$StoryFromJson(json);
