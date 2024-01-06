@@ -21,26 +21,30 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
       padding: widget.isParentWidget
           ? const EdgeInsets.only(left: 0)
           : const EdgeInsets.only(left: 40.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (widget.comment.text != null)
-            GestureDetector(
-              child: SizedBox(
-                width: double.infinity,
-                child: Card(
-                  child: hideChildren
-                      ? const Text('Hidden')
-                      : HtmlWidget(widget.comment.text ?? ''),
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.comment.text != null)
+              GestureDetector(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    child: hideChildren
+                        ? const Text('Hidden')
+                        : HtmlWidget(widget.comment.text ?? ''),
+                  ),
                 ),
+                onTap: () => setState(() {
+                  hideChildren = !hideChildren;
+                }),
               ),
-              onTap: () => setState(() {
-                hideChildren = !hideChildren;
-              }),
-            ),
-          for (final child in hideChildren ? [] : widget.comment.children!)
-            SingleCommentsView(comment: child)
-        ],
+            for (final child in hideChildren ? [] : widget.comment.children!)
+              SingleCommentsView(comment: child)
+          ],
+        ),
       ),
     );
   }
