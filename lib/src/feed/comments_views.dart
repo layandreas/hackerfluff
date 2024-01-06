@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'comment_model.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class SingleCommentsView extends StatelessWidget {
   final CommentModel comment;
@@ -14,7 +15,11 @@ class SingleCommentsView extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (comment.text != null) Text(comment.text ?? ''),
+            if (comment.text != null)
+              Card(
+                  child: HtmlWidget(
+                comment.text ?? '',
+              )),
             for (final child in comment.children!)
               SingleCommentsView(comment: child)
           ],
@@ -25,7 +30,8 @@ class SingleCommentsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (comment.text != null) Text(comment.text ?? ''),
+              if (comment.text != null)
+                Card(child: HtmlWidget(comment.text ?? '')),
               for (final child in comment.children!)
                 SingleCommentsView(comment: child)
             ],
