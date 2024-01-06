@@ -9,9 +9,10 @@ class StoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int storyTimeInMilliseconds = (story.time ?? 0) * 1000;
-    DateTime storyTime =
-        DateTime.fromMillisecondsSinceEpoch(storyTimeInMilliseconds);
-    Duration timeSinceStory = DateTime.now().difference(storyTime);
+    DateTime storyTime = DateTime.fromMillisecondsSinceEpoch(
+        storyTimeInMilliseconds,
+        isUtc: true);
+    Duration timeSinceStory = DateTime.now().toUtc().difference(storyTime);
     final String timeSinceStoryFmt = switch (timeSinceStory.inMinutes) {
       < 60 => '${timeSinceStory.inMinutes}m ago',
       >= 60 && < 1440 => '${timeSinceStory.inHours}h ago',
