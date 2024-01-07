@@ -14,20 +14,40 @@ class FeedView extends ConsumerWidget {
     final storiesState = ref.watch(storiesProvider);
     final storiesNotifier = ref.read(storiesProvider.notifier);
 
-    return EndlessScrollView(
-      title: 'Top Stories',
-      storiesState: storiesState,
-      dataFetcher: () => storiesNotifier.fetchStories(),
-      refreshCallback: () => ref.refresh(topStoriesProvider.future),
-      itemBuilder: (index, storiesState) {
-        return GestureDetector(
-          child: StoryView(story: storiesState.stories[index]),
-          onTap: () {
-            Navigator.restorablePushNamed(context, CommentsFeedView.routeName,
-                arguments: storiesState.stories[index].toJson());
+    return DefaultTabController(
+      length: 6,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: [
+              Text('Top'),
+              Text('Best'),
+              Text('New'),
+              Text('Show'),
+              Text('Ask'),
+              Text('Jobs'),
+            ],
+            tabAlignment: TabAlignment.center,
+          ),
+        ),
+        body: EndlessScrollView(
+          storiesState: storiesState,
+          dataFetcher: () => storiesNotifier.fetchStories(),
+          refreshCallback: () => ref.refresh(topStoriesProvider.future),
+          itemBuilder: (index, storiesState) {
+            return GestureDetector(
+              child: StoryView(story: storiesState.stories[index]),
+              onTap: () {
+                Navigator.restorablePushNamed(
+                    context, CommentsFeedView.routeName,
+                    arguments: storiesState.stories[index].toJson());
+              },
+            );
           },
-        );
-      },
+        ),
+      ),
     );
   }
 }
