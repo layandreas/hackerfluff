@@ -48,7 +48,10 @@ class StoryView extends StatelessWidget {
                           ?.fontSize))),
           RichText(text: TextSpan(text: urlFormatted)),
           RichText(text: TextSpan(text: '${story.by} • $timeSinceStoryFmt')),
-          RichText(text: TextSpan(text: '${story.score.toString()} points')),
+          RichText(
+              text: TextSpan(
+                  text:
+                      '${story.score.toString()} points • ${(story.descendants == null) ? 0 : story.descendants} comments')),
           const Divider()
         ]),
       ),
