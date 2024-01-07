@@ -20,25 +20,29 @@ class CommentsFeedView extends ConsumerWidget {
     final commentState = ref.watch(CommentsProvider(story));
     final commentsNotifier = ref.read(CommentsProvider(story).notifier);
 
-    return EndlessScrollView(
-      title: 'Comments',
-      storiesState: commentState,
-      dataFetcher: () => commentsNotifier.fetchStories(),
-      refreshCallback: () => Future.delayed(const Duration(milliseconds: 100),
-          () => ref.refresh(CommentsProvider(story))),
-      itemBuilder: (index, commentsState) {
-        return Column(
-          children: [
-            if (index == 0) StoryView(story: story),
-            if (commentState.stories[index].text != null)
-              SingleCommentsView(
-                comment: commentsState.stories[index],
-                isParentWidget: true,
-              ),
-            if (commentState.stories[index].text != null) const Divider()
-          ],
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Comments'),
+      ),
+      body: EndlessScrollView(
+        storiesState: commentState,
+        dataFetcher: () => commentsNotifier.fetchStories(),
+        refreshCallback: () => Future.delayed(const Duration(milliseconds: 100),
+            () => ref.refresh(CommentsProvider(story))),
+        itemBuilder: (index, commentsState) {
+          return Column(
+            children: [
+              if (index == 0) StoryView(story: story),
+              if (commentState.stories[index].text != null)
+                SingleCommentsView(
+                  comment: commentsState.stories[index],
+                  isParentWidget: true,
+                ),
+              if (commentState.stories[index].text != null) const Divider()
+            ],
+          );
+        },
+      ),
     );
   }
 }
