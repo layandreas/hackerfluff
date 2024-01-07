@@ -6,6 +6,7 @@ import 'comments_views.dart';
 import 'endless_scroll_view.dart';
 import 'comment_provider.dart';
 import 'story_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CommentsFeedView extends ConsumerWidget {
   const CommentsFeedView({super.key});
@@ -19,6 +20,18 @@ class CommentsFeedView extends ConsumerWidget {
 
     final commentState = ref.watch(CommentsProvider(story));
     final commentsNotifier = ref.read(CommentsProvider(story).notifier);
+
+    // Function to open the link
+    void openStoryUrl() async {
+      if (story.url != null) {
+        final storyUrlParsed = Uri.parse(story.url!);
+
+        if (await canLaunchUrl(storyUrlParsed)) {
+          await launchUrl(
+              storyUrlParsed); // Open the link using fwfh_url_launcher
+        }
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -34,8 +47,13 @@ class CommentsFeedView extends ConsumerWidget {
                 const Duration(milliseconds: 100),
                 () => ref.refresh(CommentsProvider(story))),
             topOfListWidgets: [
-              StoryView(
-                story: story,
+              GestureDetector(
+                onTap: () {
+                  openStoryUrl();
+                },
+                child: StoryView(
+                  story: story,
+                ),
               )
             ],
             itemBuilder: (index, commentsState) {
