@@ -43,36 +43,39 @@ class Stories extends _$Stories implements FetchingNotifier {
         isLoading: true,
         reachedEnd:
             storyStartIndex > topStories.storyIds.length - 1 ? true : false);
+    try {
+      if (state.reachedEnd) {
+        state = state.copyWith(isLoading: false);
 
-    if (state.reachedEnd) {
+        return;
+      }
+
+      final topStoriesOnPage = topStories.storyIds.sublist(
+          storyStartIndex, min(storyEndIndex, topStories.storyIds.length));
+
+      var allResponsesFuture = <Future>[];
+      for (final storyId in topStoriesOnPage) {
+        var response = http.get(
+            Uri.https('hacker-news.firebaseio.com', '/v0/item/$storyId.json'));
+        allResponsesFuture.add(response);
+      }
+      final allResponses = await Future.wait(allResponsesFuture);
+
+      //var allResponses = await Future.wait(allResponsesFuture);
+      var allTopStories = const <Story>[];
+
+      for (final response in allResponses) {
+        var json = jsonDecode(response.body);
+        var topStory = Story.fromJson(json);
+        allTopStories = [...allTopStories, topStory];
+      }
+
+      state = state.copyWith(
+          currentPage: state.currentPage + 1,
+          stories: [...state.stories, ...allTopStories],
+          isLoading: false);
+    } finally {
       state = state.copyWith(isLoading: false);
-
-      return;
     }
-
-    final topStoriesOnPage = topStories.storyIds.sublist(
-        storyStartIndex, min(storyEndIndex, topStories.storyIds.length));
-
-    var allResponsesFuture = <Future>[];
-    for (final storyId in topStoriesOnPage) {
-      var response = http.get(
-          Uri.https('hacker-news.firebaseio.com', '/v0/item/$storyId.json'));
-      allResponsesFuture.add(response);
-    }
-    final allResponses = await Future.wait(allResponsesFuture);
-
-    //var allResponses = await Future.wait(allResponsesFuture);
-    var allTopStories = const <Story>[];
-
-    for (final response in allResponses) {
-      var json = jsonDecode(response.body);
-      var topStory = Story.fromJson(json);
-      allTopStories = [...allTopStories, topStory];
-    }
-
-    state = state.copyWith(
-        currentPage: state.currentPage + 1,
-        stories: [...state.stories, ...allTopStories],
-        isLoading: false);
   }
 }
