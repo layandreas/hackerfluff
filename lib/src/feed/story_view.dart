@@ -49,17 +49,28 @@ class StoryView extends StatelessWidget {
               text: TextSpan(
                   text: story.title,
                   style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
                       fontWeight: FontWeight.bold,
                       fontSize: Theme.of(context)
                           .textTheme
                           .headlineSmall
                           ?.fontSize))),
-          RichText(text: TextSpan(text: urlFormatted)),
-          RichText(text: TextSpan(text: '${story.by} • $timeSinceStoryFmt')),
+          RichText(
+              text: TextSpan(
+                  text: urlFormatted,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground))),
+          RichText(
+              text: TextSpan(
+                  text: '${story.by} • $timeSinceStoryFmt',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground))),
           RichText(
               text: TextSpan(
                   text:
-                      '${story.score.toString()} points • $numberOfCommentsFormatted')),
+                      '${story.score.toString()} points • $numberOfCommentsFormatted',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground))),
           const Divider()
         ]),
       ),
