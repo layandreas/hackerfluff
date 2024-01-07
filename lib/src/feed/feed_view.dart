@@ -20,6 +20,7 @@ class FeedView extends ConsumerWidget {
         appBar: AppBar(
           toolbarHeight: 0,
           bottom: const TabBar(
+            labelPadding: EdgeInsets.all(7),
             isScrollable: true,
             tabs: [
               Text('Top'),
