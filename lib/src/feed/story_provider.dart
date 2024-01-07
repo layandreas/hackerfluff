@@ -9,8 +9,10 @@ import 'top_stories_provider.dart';
 part 'story_provider.g.dart';
 
 @riverpod
-Stream<List<Story>> story(StoryRef ref) async* {
-  final topStories = await ref.watch(topStoriesProvider.future);
+Stream<List<Story>> story(
+    StoryRef ref, StoryListEndpoint storyListEndPoint) async* {
+  final topStories =
+      await ref.watch(topStoriesProvider(storyListEndPoint).future);
 
   var allResponsesFuture = <Future>[];
   var allResponses = <dynamic>[];

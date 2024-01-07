@@ -18,7 +18,7 @@ interface class FetchingNotifier {
 @riverpod
 class Stories extends _$Stories implements FetchingNotifier {
   @override
-  PagedStoriesState build() {
+  PagedStoriesState build(StoryListEndpoint storyListEndpoint) {
     const state = PagedStoriesState(
         currentPage: 0,
         stories: [],
@@ -31,7 +31,8 @@ class Stories extends _$Stories implements FetchingNotifier {
 
   @override
   void fetchStories() async {
-    final topStories = await ref.watch(topStoriesProvider.future);
+    final topStories =
+        await ref.watch(topStoriesProvider(storyListEndpoint).future);
     final storyStartIndex = state.currentPage * state.storiesPerPage;
     final storyEndIndex = storyStartIndex + state.storiesPerPage;
 
