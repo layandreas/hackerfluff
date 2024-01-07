@@ -9,6 +9,7 @@ class EndlessScrollView extends StatefulWidget {
     required this.dataFetcher,
     required this.refreshCallback,
     required this.itemBuilder,
+    this.topOfListWidgets = const [],
   });
 
   final PagedDataStateInterface storiesState;
@@ -16,6 +17,7 @@ class EndlessScrollView extends StatefulWidget {
   final Future Function() refreshCallback;
   final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
       itemBuilder;
+  final List<Widget> topOfListWidgets;
 
   @override
   State<EndlessScrollView> createState() => _EndlessScrollViewState();
@@ -64,6 +66,9 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
 
   @override
   Widget build(BuildContext context) {
+    final numberOfComments = widget.storiesState.stories.length;
+    final numberOfTopListWidgets = widget.topOfListWidgets.length;
+
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () {
@@ -78,10 +83,14 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
             // Show messages from bottom to top
             physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController,
-            itemCount: widget.storiesState.stories.length + 1,
+            itemCount: numberOfComments + numberOfTopListWidgets + 1,
             itemBuilder: (context, index) {
-              if (index <= widget.storiesState.stories.length - 1) {
-                return widget.itemBuilder(index, widget.storiesState);
+              if (index < numberOfTopListWidgets) {
+                return widget.topOfListWidgets[index];
+              } else if (index >= numberOfTopListWidgets &&
+                  index <= numberOfComments + numberOfTopListWidgets - 1) {
+                return widget.itemBuilder(
+                    index - numberOfTopListWidgets, widget.storiesState);
               } else {
                 if (widget.storiesState.isLoading) {
                   return const Padding(
