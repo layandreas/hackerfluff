@@ -15,7 +15,7 @@ interface class FetchingNotifier {
   fetchStories() {}
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Stories extends _$Stories implements FetchingNotifier {
   @override
   PagedStoriesState build(StoryListEndpoint storyListEndpoint) {

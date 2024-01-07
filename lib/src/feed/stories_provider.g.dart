@@ -6,7 +6,7 @@ part of 'stories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storiesHash() => r'2645f20f951c863f99b65649d56961092839aaaa';
+String _$storiesHash() => r'2b0b5ca5e76b4cdd769d810b382fd64b337dda19';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,8 +29,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$Stories
-    extends BuildlessAutoDisposeNotifier<PagedStoriesState> {
+abstract class _$Stories extends BuildlessNotifier<PagedStoriesState> {
   late final StoryListEndpoint storyListEndpoint;
 
   PagedStoriesState build(
@@ -81,8 +80,7 @@ class StoriesFamily extends Family<PagedStoriesState> {
 }
 
 /// See also [Stories].
-class StoriesProvider
-    extends AutoDisposeNotifierProviderImpl<Stories, PagedStoriesState> {
+class StoriesProvider extends NotifierProviderImpl<Stories, PagedStoriesState> {
   /// See also [Stories].
   StoriesProvider(
     StoryListEndpoint storyListEndpoint,
@@ -137,8 +135,7 @@ class StoriesProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<Stories, PagedStoriesState>
-      createElement() {
+  NotifierProviderElement<Stories, PagedStoriesState> createElement() {
     return _StoriesProviderElement(this);
   }
 
@@ -157,13 +154,13 @@ class StoriesProvider
   }
 }
 
-mixin StoriesRef on AutoDisposeNotifierProviderRef<PagedStoriesState> {
+mixin StoriesRef on NotifierProviderRef<PagedStoriesState> {
   /// The parameter `storyListEndpoint` of this provider.
   StoryListEndpoint get storyListEndpoint;
 }
 
 class _StoriesProviderElement
-    extends AutoDisposeNotifierProviderElement<Stories, PagedStoriesState>
+    extends NotifierProviderElement<Stories, PagedStoriesState>
     with StoriesRef {
   _StoriesProviderElement(super.provider);
 
