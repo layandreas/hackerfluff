@@ -52,7 +52,7 @@ class StoryView extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: Theme.of(context)
                           .textTheme
-                          .headlineMedium
+                          .headlineSmall
                           ?.fontSize))),
           RichText(text: TextSpan(text: urlFormatted)),
           RichText(text: TextSpan(text: '${story.by} • $timeSinceStoryFmt')),
