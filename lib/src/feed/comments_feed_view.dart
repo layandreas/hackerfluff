@@ -33,10 +33,14 @@ class CommentsFeedView extends ConsumerWidget {
             refreshCallback: () => Future.delayed(
                 const Duration(milliseconds: 100),
                 () => ref.refresh(CommentsProvider(story))),
+            topOfListWidgets: [
+              StoryView(
+                story: story,
+              )
+            ],
             itemBuilder: (index, commentsState) {
               return Column(
                 children: [
-                  if (index == 0) StoryView(story: story),
                   if (commentState.stories[index].text != null)
                     SingleCommentsView(
                       comment: commentsState.stories[index],
