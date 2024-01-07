@@ -11,9 +11,6 @@ class FeedView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storiesState = ref.watch(storiesProvider);
-    final storiesNotifier = ref.read(storiesProvider.notifier);
-
     return DefaultTabController(
       length: 6,
       child: Scaffold(
@@ -33,25 +30,62 @@ class FeedView extends ConsumerWidget {
             tabAlignment: TabAlignment.fill,
           ),
         ),
-        body: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1100),
-            child: EndlessScrollView(
-              storiesState: storiesState,
-              dataFetcher: () => storiesNotifier.fetchStories(),
-              refreshCallback: () => ref.refresh(topStoriesProvider.future),
-              itemBuilder: (index, storiesState) {
-                return GestureDetector(
-                  child: StoryView(story: storiesState.stories[index]),
-                  onTap: () {
-                    Navigator.restorablePushNamed(
-                        context, CommentsFeedView.routeName,
-                        arguments: storiesState.stories[index].toJson());
-                  },
-                );
-              },
+        body: const TabBarView(
+          children: [
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.topstories,
             ),
-          ),
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.beststories,
+            ),
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.newstories,
+            ),
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.showstories,
+            ),
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.askstories,
+            ),
+            _FeedView(
+              storyListEndpoint: StoryListEndpoint.jobstories,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FeedView extends ConsumerWidget {
+  const _FeedView({required this.storyListEndpoint});
+
+  final StoryListEndpoint storyListEndpoint;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final storiesState = ref.watch(storiesProvider(storyListEndpoint));
+    final storiesNotifier =
+        ref.read(storiesProvider(storyListEndpoint).notifier);
+
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1100),
+        child: EndlessScrollView(
+          storiesState: storiesState,
+          dataFetcher: () => storiesNotifier.fetchStories(),
+          refreshCallback: () =>
+              ref.refresh(topStoriesProvider(storyListEndpoint).future),
+          itemBuilder: (index, storiesState) {
+            return GestureDetector(
+              child: StoryView(story: storiesState.stories[index]),
+              onTap: () {
+                Navigator.restorablePushNamed(
+                    context, CommentsFeedView.routeName,
+                    arguments: storiesState.stories[index].toJson());
+              },
+            );
+          },
         ),
       ),
     );
