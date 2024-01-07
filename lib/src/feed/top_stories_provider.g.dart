@@ -6,7 +6,7 @@ part of 'top_stories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$topStoriesHash() => r'552e70488c61e131edd4afc1bfe8d816a40b8a06';
+String _$topStoriesHash() => r'e7c9e722bea0d93a6de9b26d1ed3a5f23a51ce43';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -72,7 +72,7 @@ class TopStoriesFamily extends Family<AsyncValue<TopStories>> {
 }
 
 /// See also [topStories].
-class TopStoriesProvider extends AutoDisposeFutureProvider<TopStories> {
+class TopStoriesProvider extends FutureProvider<TopStories> {
   /// See also [topStories].
   TopStoriesProvider(
     StoryListEndpoint storyListEndPoint,
@@ -124,7 +124,7 @@ class TopStoriesProvider extends AutoDisposeFutureProvider<TopStories> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<TopStories> createElement() {
+  FutureProviderElement<TopStories> createElement() {
     return _TopStoriesProviderElement(this);
   }
 
@@ -143,13 +143,13 @@ class TopStoriesProvider extends AutoDisposeFutureProvider<TopStories> {
   }
 }
 
-mixin TopStoriesRef on AutoDisposeFutureProviderRef<TopStories> {
+mixin TopStoriesRef on FutureProviderRef<TopStories> {
   /// The parameter `storyListEndPoint` of this provider.
   StoryListEndpoint get storyListEndPoint;
 }
 
-class _TopStoriesProviderElement
-    extends AutoDisposeFutureProviderElement<TopStories> with TopStoriesRef {
+class _TopStoriesProviderElement extends FutureProviderElement<TopStories>
+    with TopStoriesRef {
   _TopStoriesProviderElement(super.provider);
 
   @override

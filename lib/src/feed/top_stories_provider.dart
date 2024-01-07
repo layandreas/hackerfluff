@@ -16,7 +16,7 @@ enum StoryListEndpoint {
   jobstories
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<TopStories> topStories(
     TopStoriesRef ref, StoryListEndpoint storyListEndPoint) async {
   // Using package:http, we fetch a random activity from the Bored API.
