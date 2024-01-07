@@ -11,10 +11,12 @@ import 'feed/comments_feed_view.dart';
 class HackernewsApp extends StatelessWidget {
   const HackernewsApp({
     super.key,
+    this.theme,
     required this.settingsController,
   });
 
   final SettingsController settingsController;
+  final ThemeData? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +58,8 @@ class HackernewsApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
+          theme: theme,
+          darkTheme: theme,
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
