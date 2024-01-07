@@ -33,20 +33,25 @@ class FeedView extends ConsumerWidget {
             tabAlignment: TabAlignment.center,
           ),
         ),
-        body: EndlessScrollView(
-          storiesState: storiesState,
-          dataFetcher: () => storiesNotifier.fetchStories(),
-          refreshCallback: () => ref.refresh(topStoriesProvider.future),
-          itemBuilder: (index, storiesState) {
-            return GestureDetector(
-              child: StoryView(story: storiesState.stories[index]),
-              onTap: () {
-                Navigator.restorablePushNamed(
-                    context, CommentsFeedView.routeName,
-                    arguments: storiesState.stories[index].toJson());
+        body: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1100),
+            child: EndlessScrollView(
+              storiesState: storiesState,
+              dataFetcher: () => storiesNotifier.fetchStories(),
+              refreshCallback: () => ref.refresh(topStoriesProvider.future),
+              itemBuilder: (index, storiesState) {
+                return GestureDetector(
+                  child: StoryView(story: storiesState.stories[index]),
+                  onTap: () {
+                    Navigator.restorablePushNamed(
+                        context, CommentsFeedView.routeName,
+                        arguments: storiesState.stories[index].toJson());
+                  },
+                );
               },
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
