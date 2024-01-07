@@ -5,7 +5,16 @@ import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
@@ -18,6 +27,6 @@ void main() async {
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
   runApp(ProviderScope(
-    child: HackernewsApp(settingsController: settingsController),
+    child: HackernewsApp(settingsController: settingsController, theme: theme),
   ));
 }
