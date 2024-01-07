@@ -76,6 +76,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: ListView.builder(
             // Show messages from bottom to top
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: widget.storiesState.stories.length + 1,
             itemBuilder: (context, index) {
