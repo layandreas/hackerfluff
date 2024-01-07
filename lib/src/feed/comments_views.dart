@@ -33,6 +33,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
           ? const EdgeInsets.only(left: 0)
           : const EdgeInsets.only(left: 10.0),
       child: AnimatedSize(
+        alignment: Alignment.topLeft,
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
         child: Column(
