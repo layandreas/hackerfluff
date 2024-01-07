@@ -21,7 +21,7 @@ class FeedView extends ConsumerWidget {
           toolbarHeight: 0,
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
-            isScrollable: true,
+            isScrollable: false,
             tabs: [
               Text('Top'),
               Text('Best'),
@@ -30,7 +30,7 @@ class FeedView extends ConsumerWidget {
               Text('Ask'),
               Text('Jobs'),
             ],
-            tabAlignment: TabAlignment.center,
+            tabAlignment: TabAlignment.fill,
           ),
         ),
         body: Center(
