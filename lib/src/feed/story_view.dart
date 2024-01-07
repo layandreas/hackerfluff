@@ -20,6 +20,14 @@ class StoryView extends StatelessWidget {
       _ => ''
     };
 
+    final descendants = story.descendants ?? 0;
+    final String numberOfCommentsFormatted = switch (descendants) {
+      == 0 => '$descendants comments',
+      == 1 => '$descendants comment',
+      > 1 => '$descendants comments',
+      _ => '$descendants comment',
+    };
+
     Uri? urlParsed;
     final String urlFormatted;
 
@@ -51,7 +59,7 @@ class StoryView extends StatelessWidget {
           RichText(
               text: TextSpan(
                   text:
-                      '${story.score.toString()} points • ${(story.descendants == null) ? 0 : story.descendants} comments')),
+                      '${story.score.toString()} points • $numberOfCommentsFormatted')),
           const Divider()
         ]),
       ),
