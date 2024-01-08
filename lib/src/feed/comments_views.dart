@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'comment_model.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'comment_status_provider.dart';
 
 class SingleCommentsView extends StatefulWidget {
   final CommentModel comment;
@@ -60,6 +62,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                     )),
                     child: CommentCard(
                         key: Key(commentCompositeId),
+                        id: widget.comment.id,
                         widget: widget,
                         timeSinceCommentFmt: timeSinceCommentFmt,
                         hideChildren: hideChildren),
@@ -78,34 +81,42 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
   }
 }
 
-class CommentCard extends StatefulWidget {
+class CommentCard extends ConsumerStatefulWidget {
   const CommentCard({
     required super.key,
     required this.widget,
     required this.timeSinceCommentFmt,
     required this.hideChildren,
+    required this.id,
   });
 
   final SingleCommentsView widget;
   final String timeSinceCommentFmt;
   final bool hideChildren;
+  final int id;
 
   @override
-  State<CommentCard> createState() => _CommentCardState();
+  ConsumerState<CommentCard> createState() => _CommentCardState();
 }
 
-class _CommentCardState extends State<CommentCard> {
-  bool commentWasSeen = false;
+class _CommentCardState extends ConsumerState<CommentCard> {
+  //bool commentWasSeen = false;
 
   @override
   Widget build(BuildContext context) {
+    final commentStatusAsyncValue = ref.watch(commentStatusProvider(widget.id));
+    final commentStatusNotifier =
+        ref.read(commentStatusProvider(widget.id).notifier);
+    final commentStatus = commentStatusAsyncValue.valueOrNull;
+    final commentWasSeen = commentStatus?.commentWasSeen == 0 ? false : true;
+
     return VisibilityDetector(
         key: Key('comment-visibility-${widget.key}'),
         onVisibilityChanged: (visibilityInfo) {
           if (mounted) {
             setState(() {
               if (!commentWasSeen) {
-                commentWasSeen = true;
+                commentStatusNotifier.insertCommentStatus(widget.id, 1);
               }
             });
           }
