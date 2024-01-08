@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'comment_model.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class SingleCommentsView extends StatefulWidget {
   final CommentModel comment;
@@ -14,6 +15,7 @@ class SingleCommentsView extends StatefulWidget {
 
 class _SingleCommentsViewState extends State<SingleCommentsView> {
   bool hideChildren = false;
+  bool commentWasSeen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,8 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
       >= 1440 => '${timeSinceComment.inDays}d ago',
       _ => ''
     };
+    final commentCompositeId =
+        '${widget.comment.id}-${widget.comment.by}-${widget.comment.time}';
 
     return Padding(
       padding: widget.isParentWidget
@@ -55,18 +59,41 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                               : Theme.of(context).colorScheme.primary,
                           width: widget.isParentWidget ? 0 : 2.0),
                     )),
-                    child: Card(
-                      shadowColor: Colors.transparent,
-                      elevation: 0,
-                      color: Colors.transparent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          HtmlWidget(
-                              '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
-                          if (!hideChildren)
-                            HtmlWidget(widget.comment.text ?? ''),
-                        ],
+                    child: VisibilityDetector(
+                      key: Key('comment-visibility-$commentCompositeId'),
+                      onVisibilityChanged: (visibilityInfo) {
+                        if (mounted) {
+                          setState(() {
+                            if (!commentWasSeen) {
+                              commentWasSeen = true;
+                            }
+                          });
+                        }
+                        ;
+                      },
+                      child: Card(
+                        shadowColor: Colors.transparent,
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                HtmlWidget(
+                                    '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
+                                Icon(
+                                  Icons.check,
+                                  color: commentWasSeen
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Colors.grey,
+                                )
+                              ],
+                            ),
+                            if (!hideChildren)
+                              HtmlWidget(widget.comment.text ?? ''),
+                          ],
+                        ),
                       ),
                     ),
                   ),
