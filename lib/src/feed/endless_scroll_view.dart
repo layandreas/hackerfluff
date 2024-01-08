@@ -70,15 +70,16 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
     final numberOfTopListWidgets = widget.topOfListWidgets.length;
 
     return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: () {
-          initialStoryFetchesTimer =
-              Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
+      bottom: false,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: RefreshIndicator(
+          onRefresh: () {
+            initialStoryFetchesTimer =
+                Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
 
-          return widget.refreshCallback();
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
+            return widget.refreshCallback();
+          },
           child: ListView.builder(
             // Show messages from bottom to top
             physics: const AlwaysScrollableScrollPhysics(),
