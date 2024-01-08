@@ -15,7 +15,6 @@ class SingleCommentsView extends StatefulWidget {
 
 class _SingleCommentsViewState extends State<SingleCommentsView> {
   bool hideChildren = false;
-  bool commentWasSeen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,43 +58,11 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                               : Theme.of(context).colorScheme.primary,
                           width: widget.isParentWidget ? 0 : 2.0),
                     )),
-                    child: VisibilityDetector(
-                      key: Key('comment-visibility-$commentCompositeId'),
-                      onVisibilityChanged: (visibilityInfo) {
-                        if (mounted) {
-                          setState(() {
-                            if (!commentWasSeen) {
-                              commentWasSeen = true;
-                            }
-                          });
-                        }
-                        ;
-                      },
-                      child: Card(
-                        shadowColor: Colors.transparent,
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                HtmlWidget(
-                                    '<b>${widget.comment.by ?? ''} • $timeSinceCommentFmt</b>'),
-                                Icon(
-                                  Icons.check,
-                                  color: commentWasSeen
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Colors.grey,
-                                )
-                              ],
-                            ),
-                            if (!hideChildren)
-                              HtmlWidget(widget.comment.text ?? ''),
-                          ],
-                        ),
-                      ),
-                    ),
+                    child: CommentCard(
+                        key: Key(commentCompositeId),
+                        widget: widget,
+                        timeSinceCommentFmt: timeSinceCommentFmt,
+                        hideChildren: hideChildren),
                   ),
                 ),
                 onTap: () => setState(() {
@@ -108,5 +75,64 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
         ),
       ),
     );
+  }
+}
+
+class CommentCard extends StatefulWidget {
+  const CommentCard({
+    required super.key,
+    required this.widget,
+    required this.timeSinceCommentFmt,
+    required this.hideChildren,
+  });
+
+  final SingleCommentsView widget;
+  final String timeSinceCommentFmt;
+  final bool hideChildren;
+
+  @override
+  State<CommentCard> createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  bool commentWasSeen = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return VisibilityDetector(
+        key: Key('comment-visibility-${widget.key}'),
+        onVisibilityChanged: (visibilityInfo) {
+          if (mounted) {
+            setState(() {
+              if (!commentWasSeen) {
+                commentWasSeen = true;
+              }
+            });
+          }
+        },
+        child: Card(
+          shadowColor: Colors.transparent,
+          elevation: 0,
+          color: Colors.transparent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  HtmlWidget(
+                      '<b>${widget.widget.comment.by ?? ''} • ${widget.timeSinceCommentFmt}</b>'),
+                  Icon(
+                    Icons.check,
+                    color: commentWasSeen
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.grey,
+                  )
+                ],
+              ),
+              if (!widget.hideChildren)
+                HtmlWidget(widget.widget.comment.text ?? ''),
+            ],
+          ),
+        ));
   }
 }
