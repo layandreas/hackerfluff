@@ -54,7 +54,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               onPressed: toggleHideReadComments,
               icon: Icon(
                 hideReadComments
-                    ? Icons.comment_rounded
+                    ? Icons.comments_disabled_rounded
                     : Icons.comments_disabled_rounded,
                 color: hideReadComments
                     ? Theme.of(context).colorScheme.primary
