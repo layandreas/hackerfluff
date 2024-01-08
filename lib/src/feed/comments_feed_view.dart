@@ -8,13 +8,26 @@ import 'comment_provider.dart';
 import 'story_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CommentsFeedView extends ConsumerWidget {
+class CommentsFeedView extends ConsumerStatefulWidget {
   const CommentsFeedView({super.key});
 
   static const routeName = '/comments';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CommentsFeedView> createState() => _CommentsFeedViewState();
+}
+
+class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
+  bool hideReadComments = false;
+
+  void toggleHideReadComments() {
+    setState(() {
+      hideReadComments = !hideReadComments;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final story = Story.fromJson(
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
 
@@ -36,6 +49,18 @@ class CommentsFeedView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comments'),
+        actions: [
+          IconButton(
+              onPressed: toggleHideReadComments,
+              icon: Icon(
+                hideReadComments
+                    ? Icons.comment_rounded
+                    : Icons.comments_disabled_rounded,
+                color: hideReadComments
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).disabledColor,
+              ))
+        ],
       ),
       body: Center(
         child: Container(
@@ -63,6 +88,7 @@ class CommentsFeedView extends ConsumerWidget {
                     SingleCommentsView(
                       comment: commentsState.stories[index],
                       isParentWidget: true,
+                      hideReadComments: hideReadComments,
                     ),
                   if (commentState.stories[index].text != null) const Divider()
                 ],

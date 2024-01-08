@@ -8,8 +8,13 @@ import 'comment_status_provider.dart';
 class SingleCommentsView extends StatefulWidget {
   final CommentModel comment;
   final bool isParentWidget;
+  final bool hideReadComments;
+
   const SingleCommentsView(
-      {super.key, required this.comment, this.isParentWidget = false});
+      {super.key,
+      required this.comment,
+      this.isParentWidget = false,
+      required this.hideReadComments});
 
   @override
   State<SingleCommentsView> createState() => _SingleCommentsViewState();
@@ -61,11 +66,13 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                           width: widget.isParentWidget ? 0 : 2.0),
                     )),
                     child: CommentCard(
-                        key: Key(commentCompositeId),
-                        id: widget.comment.id,
-                        widget: widget,
-                        timeSinceCommentFmt: timeSinceCommentFmt,
-                        hideChildren: hideChildren),
+                      key: Key(commentCompositeId),
+                      id: widget.comment.id,
+                      widget: widget,
+                      timeSinceCommentFmt: timeSinceCommentFmt,
+                      hideChildren: hideChildren,
+                      hideReadComments: widget.hideReadComments,
+                    ),
                   ),
                 ),
                 onTap: () => setState(() {
@@ -73,7 +80,10 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                 }),
               ),
             for (final child in hideChildren ? [] : widget.comment.children!)
-              SingleCommentsView(comment: child)
+              SingleCommentsView(
+                comment: child,
+                hideReadComments: widget.hideReadComments,
+              )
           ],
         ),
       ),
@@ -88,12 +98,14 @@ class CommentCard extends ConsumerStatefulWidget {
     required this.timeSinceCommentFmt,
     required this.hideChildren,
     required this.id,
+    this.hideReadComments = false,
   });
 
   final SingleCommentsView widget;
   final String timeSinceCommentFmt;
   final bool hideChildren;
   final int id;
+  final bool hideReadComments;
 
   @override
   ConsumerState<CommentCard> createState() => _CommentCardState();
@@ -106,7 +118,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
   Widget build(BuildContext context) {
     final commentStatusAsyncValue = ref.watch(commentStatusProvider(widget.id));
     final commentStatusNotifier =
-        ref.read(commentStatusProvider(widget.id).notifier);
+        ref.watch(commentStatusProvider(widget.id).notifier);
     final commentStatus = commentStatusAsyncValue.valueOrNull;
     final commentWasSeen = commentStatus?.commentWasSeen == 0 ? false : true;
 
@@ -141,7 +153,9 @@ class _CommentCardState extends ConsumerState<CommentCard> {
                 ],
               ),
               if (!widget.hideChildren)
-                HtmlWidget(widget.widget.comment.text ?? ''),
+                if ((widget.hideReadComments && !commentWasSeen) ||
+                    !widget.hideReadComments)
+                  HtmlWidget(widget.widget.comment.text ?? ''),
             ],
           ),
         ));
