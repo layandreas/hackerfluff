@@ -5,6 +5,7 @@ import 'top_stories_provider.dart';
 import 'endless_scroll_view.dart';
 import 'comments_feed_view.dart';
 import 'story_view.dart';
+import '../settings/settings_view.dart';
 
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
@@ -15,7 +16,21 @@ class FeedView extends ConsumerWidget {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
+          title: const Text('Stories'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.restorablePushNamed(
+                  context,
+                  SettingsView.routeName,
+                );
+              },
+              icon: const Icon(
+                Icons.settings,
+                size: 30,
+              ),
+            )
+          ],
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
             isScrollable: false,
