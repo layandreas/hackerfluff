@@ -30,9 +30,9 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
   Widget build(BuildContext context) {
     final story = Story.fromJson(
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
-
-    final commentState = ref.watch(CommentsProvider(story));
-    final commentsNotifier = ref.read(CommentsProvider(story).notifier);
+    final commentsProvider = CommentsProvider(story);
+    final commentState = ref.watch(commentsProvider);
+    final commentsNotifier = ref.read(commentsProvider.notifier);
 
     // Function to open the link
     void openStoryUrl() async {
@@ -50,6 +50,12 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
       appBar: AppBar(
         title: const Text('Comments'),
         actions: [
+          IconButton(
+              onPressed: () => {
+                    ref.refresh(commentsProvider),
+                    commentsNotifier.fetchStories()
+                  },
+              icon: Icon(Icons.refresh_rounded)),
           IconButton(
               onPressed: toggleHideReadComments,
               icon: Icon(
@@ -70,7 +76,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
             dataFetcher: () => commentsNotifier.fetchStories(),
             refreshCallback: () => Future.delayed(
                 const Duration(milliseconds: 100),
-                () => ref.refresh(CommentsProvider(story))),
+                () => ref.refresh(commentsProvider)),
             topOfListWidgets: [
               GestureDetector(
                 onTap: () {
