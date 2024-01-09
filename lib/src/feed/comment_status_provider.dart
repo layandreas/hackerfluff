@@ -41,8 +41,10 @@ class CommentStatus extends _$CommentStatus {
         return;
 
       case AsyncValue(:final value):
-        await value!.rawInsert(
-            'insert or replace into comments(id, comment_was_seen) values($id, $commentWasSeen)');
+        await value!.transaction((txn) async {
+          await txn.rawInsert(
+              'insert or replace into comments(id, comment_was_seen) values($id, $commentWasSeen)');
+        });
     }
   }
 }
