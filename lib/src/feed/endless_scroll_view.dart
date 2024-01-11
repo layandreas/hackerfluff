@@ -85,6 +85,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
             physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: numberOfComments + numberOfTopListWidgets + 1,
+            cacheExtent: 20000,
             itemBuilder: (context, index) {
               if (index < numberOfTopListWidgets) {
                 return widget.topOfListWidgets[index];
