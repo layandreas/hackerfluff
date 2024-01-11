@@ -51,10 +51,8 @@ class StoryView extends StatelessWidget {
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground,
                       fontWeight: FontWeight.bold,
-                      fontSize: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.fontSize))),
+                      fontSize:
+                          Theme.of(context).textTheme.titleMedium?.fontSize))),
           RichText(
               text: TextSpan(
                   text: urlFormatted,
