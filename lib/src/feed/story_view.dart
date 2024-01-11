@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'story_model.dart';
+import 'dart:math';
 
 class StoryView extends StatelessWidget {
   const StoryView({super.key, required this.story});
@@ -27,6 +28,8 @@ class StoryView extends StatelessWidget {
       > 1 => '$descendants comments',
       _ => '$descendants comment',
     };
+
+    final nCommentsRead = min(story.nCommentsSeen ?? 0, story.descendants ?? 0);
 
     Uri? urlParsed;
     final String urlFormatted;
@@ -66,7 +69,13 @@ class StoryView extends StatelessWidget {
           RichText(
               text: TextSpan(
                   text:
-                      '${story.score.toString()} points • $numberOfCommentsFormatted',
+                      '${story.score.toString()} points • $numberOfCommentsFormatted ',
+                  children: [
+                    TextSpan(
+                        text: '($nCommentsRead read)',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary))
+                  ],
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground))),
           const Divider()

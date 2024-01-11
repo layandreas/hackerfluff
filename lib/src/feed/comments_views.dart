@@ -118,15 +118,14 @@ class CommentCard extends ConsumerStatefulWidget {
 }
 
 class _CommentCardState extends ConsumerState<CommentCard> {
-  //bool commentWasSeen = false;
-
   @override
   Widget build(BuildContext context) {
     final commentStatusAsyncValue = ref.watch(commentStatusProvider(widget.id));
     final commentStatusNotifier =
         ref.watch(commentStatusProvider(widget.id).notifier);
     final commentStatus = commentStatusAsyncValue.valueOrNull;
-    final commentWasSeen = commentStatus?.commentWasSeen == 0 ? false : true;
+    final commentWasSeen =
+        ((commentStatus?.commentWasSeen) ?? 0) == 0 ? false : true;
 
     return VisibilityDetector(
         key: Key('comment-visibility-${widget.key}'),
@@ -135,7 +134,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
             setState(() {
               if (!commentWasSeen) {
                 commentStatusNotifier.insertCommentStatus(
-                    widget.id, widget.storyId, 1);
+                    id: widget.id, storyId: widget.storyId, commentWasSeen: 1);
               }
             });
           }

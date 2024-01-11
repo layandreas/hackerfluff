@@ -16,6 +16,7 @@ _$StoryImpl _$$StoryImplFromJson(Map<String, dynamic> json) => _$StoryImpl(
       time: json['time'] as int?,
       type: json['type'] as String?,
       url: json['url'] as String?,
+      nCommentsSeen: json['nCommentsSeen'] as int?,
     );
 
 Map<String, dynamic> _$$StoryImplToJson(_$StoryImpl instance) =>
@@ -29,4 +30,5 @@ Map<String, dynamic> _$$StoryImplToJson(_$StoryImpl instance) =>
       'time': instance.time,
       'type': instance.type,
       'url': instance.url,
+      'nCommentsSeen': instance.nCommentsSeen,
     };
