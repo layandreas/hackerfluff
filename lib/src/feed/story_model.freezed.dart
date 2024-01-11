@@ -29,6 +29,7 @@ mixin _$Story {
   int? get time => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
+  int? get nCommentsSeen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $StoryCopyWith<$Res> {
       int? score,
       int? time,
       String? type,
-      String? url});
+      String? url,
+      int? nCommentsSeen});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
     Object? time = freezed,
     Object? type = freezed,
     Object? url = freezed,
+    Object? nCommentsSeen = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -112,6 +115,10 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      nCommentsSeen: freezed == nCommentsSeen
+          ? _value.nCommentsSeen
+          : nCommentsSeen // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -132,7 +139,8 @@ abstract class _$$StoryImplCopyWith<$Res> implements $StoryCopyWith<$Res> {
       int? score,
       int? time,
       String? type,
-      String? url});
+      String? url,
+      int? nCommentsSeen});
 }
 
 /// @nodoc
@@ -155,6 +163,7 @@ class __$$StoryImplCopyWithImpl<$Res>
     Object? time = freezed,
     Object? type = freezed,
     Object? url = freezed,
+    Object? nCommentsSeen = freezed,
   }) {
     return _then(_$StoryImpl(
       title: null == title
@@ -193,6 +202,10 @@ class __$$StoryImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      nCommentsSeen: freezed == nCommentsSeen
+          ? _value.nCommentsSeen
+          : nCommentsSeen // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -209,7 +222,8 @@ class _$StoryImpl implements _Story {
       this.score,
       this.time,
       this.type,
-      this.url})
+      this.url,
+      this.nCommentsSeen})
       : _kids = kids;
 
   factory _$StoryImpl.fromJson(Map<String, dynamic> json) =>
@@ -241,10 +255,12 @@ class _$StoryImpl implements _Story {
   final String? type;
   @override
   final String? url;
+  @override
+  final int? nCommentsSeen;
 
   @override
   String toString() {
-    return 'Story(title: $title, id: $id, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url)';
+    return 'Story(title: $title, id: $id, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url, nCommentsSeen: $nCommentsSeen)';
   }
 
   @override
@@ -261,7 +277,9 @@ class _$StoryImpl implements _Story {
             (identical(other.score, score) || other.score == score) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.nCommentsSeen, nCommentsSeen) ||
+                other.nCommentsSeen == nCommentsSeen));
   }
 
   @JsonKey(ignore: true)
@@ -276,7 +294,8 @@ class _$StoryImpl implements _Story {
       score,
       time,
       type,
-      url);
+      url,
+      nCommentsSeen);
 
   @JsonKey(ignore: true)
   @override
@@ -302,7 +321,8 @@ abstract class _Story implements Story {
       final int? score,
       final int? time,
       final String? type,
-      final String? url}) = _$StoryImpl;
+      final String? url,
+      final int? nCommentsSeen}) = _$StoryImpl;
 
   factory _Story.fromJson(Map<String, dynamic> json) = _$StoryImpl.fromJson;
 
@@ -324,6 +344,8 @@ abstract class _Story implements Story {
   String? get type;
   @override
   String? get url;
+  @override
+  int? get nCommentsSeen;
   @override
   @JsonKey(ignore: true)
   _$$StoryImplCopyWith<_$StoryImpl> get copyWith =>

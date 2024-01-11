@@ -35,7 +35,10 @@ class CommentStatus extends _$CommentStatus {
     }
   }
 
-  void insertCommentStatus(int id, int commentWasSeen, int storyId) async {
+  void insertCommentStatus(
+      {required int id,
+      required int commentWasSeen,
+      required int storyId}) async {
     final db = ref.read(databaseProvider);
 
     switch (db) {

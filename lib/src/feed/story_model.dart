@@ -16,6 +16,7 @@ class Story with _$Story {
     int? time,
     String? type,
     String? url,
+    int? nCommentsSeen,
   }) = _Story;
 
   factory Story.fromJson(Map<String, Object?> json) => _$StoryFromJson(json);
