@@ -8,6 +8,7 @@ part 'story_model.freezed.dart';
 class Story with _$Story {
   const factory Story({
     required String title,
+    required int id,
     List<int>? kids,
     int? descendants,
     String? by,

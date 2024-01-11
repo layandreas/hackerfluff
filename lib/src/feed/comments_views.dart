@@ -7,12 +7,14 @@ import 'comment_status_provider.dart';
 
 class SingleCommentsView extends StatefulWidget {
   final CommentModel comment;
+  final int storyId;
   final bool isParentWidget;
   final bool hideReadComments;
 
   const SingleCommentsView(
       {super.key,
       required this.comment,
+      required this.storyId,
       this.isParentWidget = false,
       required this.hideReadComments});
 
@@ -68,6 +70,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                     child: CommentCard(
                       key: Key(commentCompositeId),
                       id: widget.comment.id,
+                      storyId: widget.storyId,
                       widget: widget,
                       timeSinceCommentFmt: timeSinceCommentFmt,
                       hideChildren: hideChildren,
@@ -82,6 +85,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
             for (final child in hideChildren ? [] : widget.comment.children!)
               SingleCommentsView(
                 comment: child,
+                storyId: widget.storyId,
                 hideReadComments: widget.hideReadComments,
               )
           ],
@@ -98,6 +102,7 @@ class CommentCard extends ConsumerStatefulWidget {
     required this.timeSinceCommentFmt,
     required this.hideChildren,
     required this.id,
+    required this.storyId,
     this.hideReadComments = false,
   });
 
@@ -105,6 +110,7 @@ class CommentCard extends ConsumerStatefulWidget {
   final String timeSinceCommentFmt;
   final bool hideChildren;
   final int id;
+  final int storyId;
   final bool hideReadComments;
 
   @override
@@ -128,7 +134,8 @@ class _CommentCardState extends ConsumerState<CommentCard> {
           if (mounted) {
             setState(() {
               if (!commentWasSeen) {
-                commentStatusNotifier.insertCommentStatus(widget.id, 1);
+                commentStatusNotifier.insertCommentStatus(
+                    widget.id, widget.storyId, 1);
               }
             });
           }

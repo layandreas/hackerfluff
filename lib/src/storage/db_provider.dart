@@ -18,8 +18,9 @@ Future<Database> database(DatabaseRef ref) async {
   Database db = await openDatabase(path, version: 1,
       onCreate: (Database db, int version) async {
     // When creating the db, create the table
+    log('Creating table "comments"');
     await db.execute(
-        'create table if not exists comments (id integer primary key, comment_was_seen integer)');
+        'create table if not exists comments (id integer primary key, story_id integer, comment_was_seen integer)');
   });
 
   return db;

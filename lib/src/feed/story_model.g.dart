@@ -8,6 +8,7 @@ part of 'story_model.dart';
 
 _$StoryImpl _$$StoryImplFromJson(Map<String, dynamic> json) => _$StoryImpl(
       title: json['title'] as String,
+      id: json['id'] as int,
       kids: (json['kids'] as List<dynamic>?)?.map((e) => e as int).toList(),
       descendants: json['descendants'] as int?,
       by: json['by'] as String?,
@@ -20,6 +21,7 @@ _$StoryImpl _$$StoryImplFromJson(Map<String, dynamic> json) => _$StoryImpl(
 Map<String, dynamic> _$$StoryImplToJson(_$StoryImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
+      'id': instance.id,
       'kids': instance.kids,
       'descendants': instance.descendants,
       'by': instance.by,
