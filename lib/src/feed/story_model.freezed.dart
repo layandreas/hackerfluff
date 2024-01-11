@@ -21,6 +21,7 @@ Story _$StoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Story {
   String get title => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   List<int>? get kids => throw _privateConstructorUsedError;
   int? get descendants => throw _privateConstructorUsedError;
   String? get by => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $StoryCopyWith<$Res> {
   @useResult
   $Res call(
       {String title,
+      int id,
       List<int>? kids,
       int? descendants,
       String? by,
@@ -64,6 +66,7 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
   @override
   $Res call({
     Object? title = null,
+    Object? id = null,
     Object? kids = freezed,
     Object? descendants = freezed,
     Object? by = freezed,
@@ -77,6 +80,10 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       kids: freezed == kids
           ? _value.kids
           : kids // ignore: cast_nullable_to_non_nullable
@@ -118,6 +125,7 @@ abstract class _$$StoryImplCopyWith<$Res> implements $StoryCopyWith<$Res> {
   @useResult
   $Res call(
       {String title,
+      int id,
       List<int>? kids,
       int? descendants,
       String? by,
@@ -139,6 +147,7 @@ class __$$StoryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
+    Object? id = null,
     Object? kids = freezed,
     Object? descendants = freezed,
     Object? by = freezed,
@@ -152,6 +161,10 @@ class __$$StoryImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       kids: freezed == kids
           ? _value._kids
           : kids // ignore: cast_nullable_to_non_nullable
@@ -189,6 +202,7 @@ class __$$StoryImplCopyWithImpl<$Res>
 class _$StoryImpl implements _Story {
   const _$StoryImpl(
       {required this.title,
+      required this.id,
       final List<int>? kids,
       this.descendants,
       this.by,
@@ -203,6 +217,8 @@ class _$StoryImpl implements _Story {
 
   @override
   final String title;
+  @override
+  final int id;
   final List<int>? _kids;
   @override
   List<int>? get kids {
@@ -228,7 +244,7 @@ class _$StoryImpl implements _Story {
 
   @override
   String toString() {
-    return 'Story(title: $title, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url)';
+    return 'Story(title: $title, id: $id, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url)';
   }
 
   @override
@@ -237,6 +253,7 @@ class _$StoryImpl implements _Story {
         (other.runtimeType == runtimeType &&
             other is _$StoryImpl &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._kids, _kids) &&
             (identical(other.descendants, descendants) ||
                 other.descendants == descendants) &&
@@ -252,6 +269,7 @@ class _$StoryImpl implements _Story {
   int get hashCode => Object.hash(
       runtimeType,
       title,
+      id,
       const DeepCollectionEquality().hash(_kids),
       descendants,
       by,
@@ -277,6 +295,7 @@ class _$StoryImpl implements _Story {
 abstract class _Story implements Story {
   const factory _Story(
       {required final String title,
+      required final int id,
       final List<int>? kids,
       final int? descendants,
       final String? by,
@@ -289,6 +308,8 @@ abstract class _Story implements Story {
 
   @override
   String get title;
+  @override
+  int get id;
   @override
   List<int>? get kids;
   @override

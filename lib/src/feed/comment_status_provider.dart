@@ -19,8 +19,10 @@ class CommentStatus extends _$CommentStatus {
         return commentStatus;
 
       case AsyncValue(:final value):
-        List<Map<String, Object?>> commentStatusFromQuery = await value!
-            .rawQuery("select id, comment_was_seen from comments where id=$id");
+        List<
+            Map<String,
+                Object?>> commentStatusFromQuery = await value!.rawQuery(
+            "select id, comment_was_seen as commentWasSeen from comments where id=$id");
 
         if (commentStatusFromQuery.length == 1) {
           commentStatus =
@@ -33,7 +35,7 @@ class CommentStatus extends _$CommentStatus {
     }
   }
 
-  void insertCommentStatus(int id, int commentWasSeen) async {
+  void insertCommentStatus(int id, int commentWasSeen, int storyId) async {
     final db = ref.read(databaseProvider);
 
     switch (db) {
@@ -43,7 +45,7 @@ class CommentStatus extends _$CommentStatus {
       case AsyncValue(:final value):
         await value!.transaction((txn) async {
           await txn.rawInsert(
-              'insert or replace into comments(id, comment_was_seen) values($id, $commentWasSeen)');
+              'insert or replace into comments(id, story_id, comment_was_seen) values($id, $storyId, $commentWasSeen)');
         });
     }
   }

@@ -93,6 +93,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                   if (commentState.stories[index].text != null)
                     SingleCommentsView(
                       comment: commentsState.stories[index],
+                      storyId: story.id,
                       isParentWidget: true,
                       hideReadComments: hideReadComments,
                     ),
