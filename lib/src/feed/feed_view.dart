@@ -16,6 +16,7 @@ class FeedView extends ConsumerWidget {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35,
           title: const Text('Stories'),
           actions: [
             IconButton(
