@@ -6,7 +6,7 @@ part of 'comment_status_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$commentStatusHash() => r'1f8d7732649d4169bc48d89ba7ca6ffa7b50e8a7';
+String _$commentStatusHash() => r'ec8892cd1bc929c6fc6d59dca81c41501b0998bc';
 
 /// Copied from Dart SDK
 class _SystemHash {
