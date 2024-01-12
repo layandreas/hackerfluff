@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'comment_status_model.dart';
 import '../storage/db_provider.dart';
+import 'n_comments_seen_provider.dart';
 
 // Necessary for code-generation to work
 part 'comment_status_provider.g.dart';
@@ -50,6 +51,7 @@ class CommentStatus extends _$CommentStatus {
           await txn.rawInsert(
               'insert or replace into comments(id, story_id, comment_was_seen) values($id, $storyId, $commentWasSeen)');
         });
+        ref.invalidate(nCommentsSeenProvider(storyId));
     }
   }
 }

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'story_model.dart';
 import 'dart:math';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'n_comments_seen_provider.dart';
 
-class StoryView extends StatelessWidget {
+class StoryView extends ConsumerWidget {
   const StoryView({super.key, required this.story});
 
   final Story story;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nCommentsSeenAsync = ref.watch(nCommentsSeenProvider(story.id));
+    final nCommentsSeen = switch (nCommentsSeenAsync) {
+      AsyncData(:final value) => min(value, story.descendants ?? 0),
+      _ => 0,
+    };
+
     int storyTimeInMilliseconds = (story.time ?? 0) * 1000;
     DateTime storyTime = DateTime.fromMillisecondsSinceEpoch(
         storyTimeInMilliseconds,
@@ -28,8 +36,6 @@ class StoryView extends StatelessWidget {
       > 1 => '$descendants comments',
       _ => '$descendants comment',
     };
-
-    final nCommentsRead = min(story.nCommentsSeen ?? 0, story.descendants ?? 0);
 
     Uri? urlParsed;
     final String urlFormatted;
@@ -72,7 +78,7 @@ class StoryView extends StatelessWidget {
                       '${story.score.toString()} points • $numberOfCommentsFormatted ',
                   children: [
                     TextSpan(
-                        text: '($nCommentsRead read)',
+                        text: '($nCommentsSeen read)',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary))
                   ],
