@@ -5,21 +5,57 @@ import 'sample_feature/sample_item_details_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'feed/feed_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'feed/comments_feed_view.dart';
+import 'settings/settings_provider.dart';
+import 'settings/settings_model.dart';
 
 /// The Widget that configures your application.
-class HackernewsApp extends StatelessWidget {
+class HackernewsApp extends ConsumerWidget {
   const HackernewsApp({
     super.key,
-    this.theme,
+    required this.themes,
     required this.settingsController,
   });
 
   final SettingsController settingsController;
-  final ThemeData? theme;
+  final Map<ThemeSetting, ThemeData> themes;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingsAsyncValue = ref.watch(settingsProvider);
+
+    final settings = switch (settingsAsyncValue) {
+      AsyncData(:final value) => value,
+      _ => null
+    };
+
+    var lightTheme = themes[ThemeSetting.light];
+    var darkTheme = themes[ThemeSetting.oledDark];
+    var themeMode = ThemeMode.system;
+
+    if (settings?.themeSettings != null) {
+      switch (settings?.themeSettings?.theme) {
+        case ThemeSetting.system:
+          lightTheme = themes[ThemeSetting.light];
+          darkTheme = themes[ThemeSetting.oledDark];
+          themeMode = ThemeMode.system;
+        case ThemeSetting.blue:
+          darkTheme = themes[ThemeSetting.blue];
+          themeMode = ThemeMode.dark;
+        case ThemeSetting.light:
+          lightTheme = themes[ThemeSetting.light];
+          themeMode = ThemeMode.light;
+        case ThemeSetting.oledDark:
+          darkTheme = themes[ThemeSetting.oledDark];
+          themeMode = ThemeMode.dark;
+        case _:
+          lightTheme = themes[ThemeSetting.light];
+          darkTheme = themes[ThemeSetting.oledDark];
+          themeMode = ThemeMode.system;
+      }
+    }
+
     // Glue the SettingsController to the MaterialApp.
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
@@ -58,9 +94,9 @@ class HackernewsApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: theme,
-          darkTheme: theme,
-          themeMode: settingsController.themeMode,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
