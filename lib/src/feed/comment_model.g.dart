@@ -39,7 +39,7 @@ Map<String, dynamic> _$$CommentModelImplToJson(_$CommentModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
-      'children': instance.children,
+      'children': instance.children?.map((e) => e.toJson()).toList(),
       'by': instance.by,
       'time': instance.time,
     };
