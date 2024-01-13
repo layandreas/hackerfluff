@@ -8,13 +8,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'src/settings/settings_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final themeStr =
-      await rootBundle.loadString('assets/appainter_theme_oled_dark.json');
-  final themeJson = jsonDecode(themeStr);
-  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+  Map<ThemeSetting, ThemeData> themes = {};
+
+  for (final themePath in [
+    ('assets/appainter_theme_oled_dark.json', ThemeSetting.oledDark),
+    ('assets/appainter_theme_light.json', ThemeSetting.light),
+    ('assets/appainter_theme_blue.json', ThemeSetting.blue)
+  ]) {
+    final themeStr = await rootBundle.loadString(themePath.$1);
+    final themeJson = jsonDecode(themeStr);
+    final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+    themes[themePath.$2] = theme;
+  }
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
@@ -27,6 +36,7 @@ void main() async {
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
   runApp(ProviderScope(
-    child: HackernewsApp(settingsController: settingsController, theme: theme),
+    child:
+        HackernewsApp(settingsController: settingsController, themes: themes),
   ));
 }
