@@ -11,7 +11,8 @@ import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeStr =
+      await rootBundle.loadString('assets/appainter_theme_oled_dark.json');
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
   // Set up the SettingsController, which will glue user settings to multiple

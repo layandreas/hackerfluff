@@ -52,3 +52,4 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/images/
     - assets/appainter_theme.json
+    - assets/appainter_theme_oled_dark.json    
