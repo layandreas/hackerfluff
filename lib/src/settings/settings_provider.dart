@@ -40,7 +40,7 @@ class Settings extends _$Settings {
 
       case AsyncValue(:final value):
         await value!.transaction((txn) async {
-          final x = await txn.rawInsert(
+          await txn.rawInsert(
               'insert or replace into settings(setting_name, settings_json) values(?, ?)',
               ["settings_json", settingsStr]);
         });
