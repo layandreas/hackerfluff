@@ -33,7 +33,7 @@ class SettingsView extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ThemeSettingsView()));
+                          builder: (context) => const ThemeSettingsView()));
                 },
               ),
             )
