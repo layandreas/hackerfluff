@@ -66,56 +66,58 @@ class ThemeSettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Theme')),
-      body: ListView(children: [
-        Card(
-          child: ListTile(
-            title: const Text('Follow System Theme'),
-            trailing: (selectedTheme == ThemeSetting.system)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.system),
+      body: SafeArea(
+        child: ListView(children: [
+          Card(
+            child: ListTile(
+              title: const Text('Follow System Theme'),
+              trailing: (selectedTheme == ThemeSetting.system)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.system),
+            ),
           ),
-        ),
-        Card(
-          child: ListTile(
-            title: const Text('Light'),
-            trailing: (selectedTheme == ThemeSetting.light)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.light),
+          Card(
+            child: ListTile(
+              title: const Text('Light'),
+              trailing: (selectedTheme == ThemeSetting.light)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.light),
+            ),
           ),
-        ),
-        Card(
-          child: ListTile(
-            title: const Text('OLED-Dark'),
-            trailing: (selectedTheme == ThemeSetting.oledDark)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.oledDark),
+          Card(
+            child: ListTile(
+              title: const Text('OLED-Dark'),
+              trailing: (selectedTheme == ThemeSetting.oledDark)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.oledDark),
+            ),
           ),
-        ),
-        Card(
-          child: ListTile(
-            title: const Text('Blue'),
-            trailing: (selectedTheme == ThemeSetting.blue)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.blue),
-          ),
-        )
-      ]),
+          Card(
+            child: ListTile(
+              title: const Text('Blue'),
+              trailing: (selectedTheme == ThemeSetting.blue)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.blue),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }
