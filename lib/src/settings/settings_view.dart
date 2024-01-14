@@ -28,6 +28,7 @@ class SettingsView extends StatelessWidget {
                       fontSize:
                           Theme.of(context).textTheme.bodyLarge?.fontSize),
                 ),
+                leading: const Icon(Icons.color_lens_outlined),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   Navigator.push(
