@@ -82,7 +82,6 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           },
           child: Scrollbar(
             controller: scrollController,
-            thumbVisibility: true,
             child: ListView.builder(
               // Show messages from bottom to top
 
