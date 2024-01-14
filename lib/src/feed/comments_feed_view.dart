@@ -53,10 +53,11 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
         title: const Text('Comments'),
         actions: [
           IconButton(
-              onPressed: () => {
-                    ref.refresh(commentsProvider),
-                    commentsNotifier.fetchStories()
-                  },
+              onPressed: () {
+                HapticFeedback.mediumImpact();
+                ref.invalidate(commentsProvider);
+                commentsNotifier.fetchStories();
+              },
               icon: const Icon(Icons.refresh_rounded)),
           IconButton(
               onPressed: toggleHideReadComments,
