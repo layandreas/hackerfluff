@@ -7,6 +7,7 @@ import 'endless_scroll_view.dart';
 import 'comment_provider.dart';
 import 'story_view.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 class CommentsFeedView extends ConsumerStatefulWidget {
   const CommentsFeedView({super.key});
@@ -21,6 +22,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
   bool hideReadComments = false;
 
   void toggleHideReadComments() {
+    HapticFeedback.mediumImpact();
     setState(() {
       hideReadComments = !hideReadComments;
     });
