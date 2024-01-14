@@ -15,23 +15,33 @@ class FeedView extends ConsumerWidget {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
+        drawer: NavigationDrawer(
+            elevation: 0,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            shadowColor: Colors.transparent,
+            children: [
+              Card(
+                child: ListTile(
+                  onTap: () {
+                    Navigator.restorablePushNamed(
+                      context,
+                      SettingsView.routeName,
+                    );
+                  },
+                  leading: const Icon(Icons.settings_outlined),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  title: Text(
+                    "Settings",
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.bodyLarge?.fontSize),
+                  ),
+                ),
+              )
+            ]),
         appBar: AppBar(
           toolbarHeight: 35,
           title: const Text('Stories'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(
-                  context,
-                  SettingsView.routeName,
-                );
-              },
-              icon: const Icon(
-                Icons.settings,
-                size: 30,
-              ),
-            )
-          ],
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
             isScrollable: false,

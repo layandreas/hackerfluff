@@ -30,28 +30,28 @@ class HackernewsApp extends ConsumerWidget {
       _ => null
     };
 
-    var lightTheme = themes[ThemeSetting.light];
-    var darkTheme = themes[ThemeSetting.oledDark];
+    var lightTheme = ThemeData.light();
+    var darkTheme = themeOledDark;
     var themeMode = ThemeMode.system;
 
     if (settings?.themeSettings != null) {
       switch (settings?.themeSettings?.theme) {
         case ThemeSetting.system:
-          lightTheme = themes[ThemeSetting.light];
-          darkTheme = themes[ThemeSetting.oledDark];
+          lightTheme = lightTheme;
+          darkTheme = themeOledDark;
           themeMode = ThemeMode.system;
         case ThemeSetting.blue:
-          darkTheme = themes[ThemeSetting.blue];
+          darkTheme = themeBlue;
           themeMode = ThemeMode.dark;
         case ThemeSetting.light:
-          lightTheme = themes[ThemeSetting.light];
+          lightTheme = lightTheme;
           themeMode = ThemeMode.light;
         case ThemeSetting.oledDark:
-          darkTheme = themes[ThemeSetting.oledDark];
+          darkTheme = themeOledDark;
           themeMode = ThemeMode.dark;
         case _:
-          lightTheme = themes[ThemeSetting.light];
-          darkTheme = themes[ThemeSetting.oledDark];
+          lightTheme = lightTheme;
+          darkTheme = themeOledDark;
           themeMode = ThemeMode.system;
       }
     }
@@ -94,7 +94,7 @@ class HackernewsApp extends ConsumerWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: lightTheme,
+          theme: ThemeData.light(),
           darkTheme: darkTheme,
           themeMode: themeMode,
 
@@ -124,3 +124,65 @@ class HackernewsApp extends ConsumerWidget {
     );
   }
 }
+
+final themeOledDark = ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme(
+      primary: Color(0xFFC20E5E),
+      secondary: Color(0xFFC20E5E),
+      background: Color(0xFF000000),
+      surface: Color(0xFF000000),
+      onBackground: Color(0xFFE2E2E6),
+      onSurface: Color(0xFFE2E2E6),
+      error: Color(0xFFFFB4AB),
+      onError: Color(0xFFFF6900),
+      brightness: Brightness.dark,
+      onPrimary: Color(0xFF3F0019),
+      onSecondary: Color(0xFF3F0019),
+      onPrimaryContainer: Color(0xFF3F0019),
+      onSecondaryContainer: Color(0xFF3F0019),
+      onErrorContainer: Color(0xFFFFB4AB),
+      onSurfaceVariant: Color(0xFFC3C7CF),
+      onTertiary: Color(0xFF3B2948),
+      onTertiaryContainer: Color(0xFFFFF2DA),
+      surfaceVariant: Color(0xFF43474E),
+      surfaceTint: Color(0xFF9ECAFF),
+      scrim: Color(0xFF000000),
+      outline: Color(0xFF8D9199),
+      outlineVariant: Color(0xFF43474E),
+      shadow: Color(0xFF000000),
+      inversePrimary: Color(0xFF0061A4),
+      inverseSurface: Color(0xFFE2E2E6),
+      onInverseSurface: Color(0xFF2F3033),
+    ));
+
+final themeBlue = ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme(
+      primary: Color(0xFF9ECAFF),
+      secondary: Color(0xFFBBC7DB),
+      background: Color(0xFF00131F),
+      surface: Color(0xFF00131F),
+      onBackground: Color(0xFFF6FAFF),
+      onSurface: Color(0xFFF2FBFF),
+      error: Color(0xFFFFB4AB),
+      onError: Color(0xFF690005),
+      brightness: Brightness.dark,
+      onPrimary: Color(0xFF003258),
+      onSecondary: Color(0xFF253140),
+      onPrimaryContainer: Color(0xFFD1E4FF),
+      onSecondaryContainer: Color(0xFFD7E3F7),
+      onErrorContainer: Color(0xFFFFB4AB),
+      onSurfaceVariant: Color(0xFFC3C7CF),
+      onTertiary: Color(0xFF3B2948),
+      onTertiaryContainer: Color(0xFFF2DAFF),
+      surfaceVariant: Color(0xFF43474E),
+      surfaceTint: Color(0xFF9ECAFF),
+      scrim: Color(0xFF000000),
+      outline: Color(0xFF8D9199),
+      outlineVariant: Color(0xFF43474E),
+      shadow: Color(0xFF000000),
+      inversePrimary: Color(0xFF0061A4),
+      inverseSurface: Color(0xFFE2E2E6),
+      onInverseSurface: Color(0xFF2F3033),
+    ));
