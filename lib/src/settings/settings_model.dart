@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'settings_model.g.dart';
 part 'settings_model.freezed.dart';
 
-enum ThemeSetting { system, light, oledDark, blue }
+enum ThemeSetting { system, light, dark, oledDark, blue }
 
 @freezed
 class ThemeSettingsModel with _$ThemeSettingsModel {
