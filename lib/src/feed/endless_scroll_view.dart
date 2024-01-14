@@ -80,34 +80,40 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
 
             return widget.refreshCallback();
           },
-          child: ListView.builder(
-            // Show messages from bottom to top
-            physics: const AlwaysScrollableScrollPhysics(),
+          child: Scrollbar(
             controller: scrollController,
-            itemCount: numberOfComments + numberOfTopListWidgets + 1,
-            cacheExtent: 20000,
-            itemBuilder: (context, index) {
-              if (index < numberOfTopListWidgets) {
-                return widget.topOfListWidgets[index];
-              } else if (index >= numberOfTopListWidgets &&
-                  index <= numberOfComments + numberOfTopListWidgets - 1) {
-                return widget.itemBuilder(
-                    index - numberOfTopListWidgets, widget.storiesState);
-              } else {
-                if (widget.storiesState.isLoading) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
+            thumbVisibility: true,
+            child: ListView.builder(
+              // Show messages from bottom to top
 
-                if (widget.storiesState.reachedEnd) {
-                  return const ListTile(title: Text("You reached the end..."));
-                }
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: scrollController,
+              itemCount: numberOfComments + numberOfTopListWidgets + 1,
+              cacheExtent: 20000,
+              itemBuilder: (context, index) {
+                if (index < numberOfTopListWidgets) {
+                  return widget.topOfListWidgets[index];
+                } else if (index >= numberOfTopListWidgets &&
+                    index <= numberOfComments + numberOfTopListWidgets - 1) {
+                  return widget.itemBuilder(
+                      index - numberOfTopListWidgets, widget.storiesState);
+                } else {
+                  if (widget.storiesState.isLoading) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
 
-                return const ListTile(title: Text(""));
-              }
-            },
+                  if (widget.storiesState.reachedEnd) {
+                    return const ListTile(
+                        title: Text("You reached the end..."));
+                  }
+
+                  return const ListTile(title: Text(""));
+                }
+              },
+            ),
           ),
         ),
       ),
