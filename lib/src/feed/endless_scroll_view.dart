@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'paged_data_state_interface.dart';
+import 'package:flutter/services.dart';
 
 class EndlessScrollView extends StatefulWidget {
   const EndlessScrollView({
@@ -75,6 +76,8 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: RefreshIndicator(
           onRefresh: () {
+            HapticFeedback.mediumImpact();
+
             initialStoryFetchesTimer =
                 Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
 

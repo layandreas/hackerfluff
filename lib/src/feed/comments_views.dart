@@ -4,6 +4,7 @@ import 'comment_model.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'comment_status_provider.dart';
+import 'package:flutter/services.dart';
 
 class SingleCommentsView extends StatefulWidget {
   final CommentModel comment;
@@ -78,9 +79,12 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                     ),
                   ),
                 ),
-                onTap: () => setState(() {
-                  hideChildren = !hideChildren;
-                }),
+                onTap: () {
+                  HapticFeedback.mediumImpact();
+                  setState(() {
+                    hideChildren = !hideChildren;
+                  });
+                },
               ),
             for (final child in hideChildren ? [] : widget.comment.children!)
               SingleCommentsView(
