@@ -71,7 +71,7 @@ class ThemeSettingsView extends ConsumerWidget {
         child: ListView(children: [
           Card(
             child: ListTile(
-              title: const Text('Follow System Theme'),
+              title: const Text('System Theme'),
               trailing: (selectedTheme == ThemeSetting.system)
                   ? Icon(
                       Icons.check,
@@ -91,6 +91,18 @@ class ThemeSettingsView extends ConsumerWidget {
                     )
                   : null,
               onTap: () => onTapSetting(selectedTheme: ThemeSetting.light),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: const Text('Dark'),
+              trailing: (selectedTheme == ThemeSetting.dark)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.dark),
             ),
           ),
           Card(

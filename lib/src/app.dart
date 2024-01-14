@@ -31,14 +31,14 @@ class HackernewsApp extends ConsumerWidget {
     };
 
     var lightTheme = ThemeData.light();
-    var darkTheme = themeOledDark;
+    var darkTheme = themeDark;
     var themeMode = ThemeMode.system;
 
     if (settings?.themeSettings != null) {
       switch (settings?.themeSettings?.theme) {
         case ThemeSetting.system:
           lightTheme = lightTheme;
-          darkTheme = themeOledDark;
+          darkTheme = themeDark;
           themeMode = ThemeMode.system;
         case ThemeSetting.blue:
           darkTheme = themeBlue;
@@ -46,12 +46,15 @@ class HackernewsApp extends ConsumerWidget {
         case ThemeSetting.light:
           lightTheme = lightTheme;
           themeMode = ThemeMode.light;
+        case ThemeSetting.dark:
+          darkTheme = themeDark;
+          themeMode = ThemeMode.dark;
         case ThemeSetting.oledDark:
           darkTheme = themeOledDark;
           themeMode = ThemeMode.dark;
         case _:
           lightTheme = lightTheme;
-          darkTheme = themeOledDark;
+          darkTheme = themeDark;
           themeMode = ThemeMode.system;
       }
     }
@@ -176,6 +179,37 @@ final themeBlue = ThemeData(
       onSurfaceVariant: Color(0xFFC3C7CF),
       onTertiary: Color(0xFF3B2948),
       onTertiaryContainer: Color(0xFFF2DAFF),
+      surfaceVariant: Color(0xFF43474E),
+      surfaceTint: Color(0xFF9ECAFF),
+      scrim: Color(0xFF000000),
+      outline: Color(0xFF8D9199),
+      outlineVariant: Color(0xFF43474E),
+      shadow: Color(0xFF000000),
+      inversePrimary: Color(0xFF0061A4),
+      inverseSurface: Color(0xFFE2E2E6),
+      onInverseSurface: Color(0xFF2F3033),
+    ));
+
+final themeDark = ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme(
+      primary: Color.fromARGB(255, 37, 150, 190),
+      secondary: Color(0xFFC20E5E),
+      background: Color.fromARGB(255, 16, 20, 24),
+      surface: Color.fromARGB(255, 16, 20, 24),
+      onBackground: Color(0xFFE2E2E6),
+      onSurface: Color(0xFFE2E2E6),
+      error: Color(0xFFFFB4AB),
+      onError: Color(0xFFFF6900),
+      brightness: Brightness.dark,
+      onPrimary: Color(0xFF3F0019),
+      onSecondary: Color(0xFF3F0019),
+      onPrimaryContainer: Color(0xFF3F0019),
+      onSecondaryContainer: Color(0xFF3F0019),
+      onErrorContainer: Color(0xFFFFB4AB),
+      onSurfaceVariant: Color(0xFFC3C7CF),
+      onTertiary: Color(0xFF3B2948),
+      onTertiaryContainer: Color(0xFFFFF2DA),
       surfaceVariant: Color(0xFF43474E),
       surfaceTint: Color(0xFF9ECAFF),
       scrim: Color(0xFF000000),

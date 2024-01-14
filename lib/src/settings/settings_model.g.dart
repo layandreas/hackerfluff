@@ -21,6 +21,7 @@ Map<String, dynamic> _$$ThemeSettingsModelImplToJson(
 const _$ThemeSettingEnumMap = {
   ThemeSetting.system: 'system',
   ThemeSetting.light: 'light',
+  ThemeSetting.dark: 'dark',
   ThemeSetting.oledDark: 'oledDark',
   ThemeSetting.blue: 'blue',
 };
