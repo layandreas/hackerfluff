@@ -47,46 +47,43 @@ class StoryView extends ConsumerWidget {
       urlFormatted = '';
     }
 
-    return SizedBox(
-      width: double.infinity,
-      child: Card(
-        elevation: 0,
-        color: Colors.transparent,
-        shadowColor: Colors.transparent,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          RichText(
-              text: TextSpan(
-                  text: story.title,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize:
-                          Theme.of(context).textTheme.titleMedium?.fontSize))),
-          RichText(
-              text: TextSpan(
-                  text: urlFormatted,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground))),
-          RichText(
-              text: TextSpan(
-                  text: '${story.by} • $timeSinceStoryFmt',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground))),
-          RichText(
-              text: TextSpan(
-                  text:
-                      '${story.score.toString()} points • $numberOfCommentsFormatted ',
-                  children: [
-                    TextSpan(
-                        text: '($nCommentsSeen read)',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary))
-                  ],
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground))),
-          const Divider()
-        ]),
-      ),
+    return Card(
+      elevation: 0,
+      color: Colors.transparent,
+      shadowColor: Colors.transparent,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        RichText(
+            text: TextSpan(
+                text: story.title,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                    fontSize:
+                        Theme.of(context).textTheme.titleMedium?.fontSize))),
+        RichText(
+            text: TextSpan(
+                text: urlFormatted,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground))),
+        RichText(
+            text: TextSpan(
+                text: '${story.by} • $timeSinceStoryFmt',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground))),
+        RichText(
+            text: TextSpan(
+                text:
+                    '${story.score.toString()} points • $numberOfCommentsFormatted ',
+                children: [
+                  TextSpan(
+                      text: '($nCommentsSeen read)',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary))
+                ],
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground))),
+        const Divider()
+      ]),
     );
   }
 }
