@@ -94,26 +94,20 @@ class _FeedView extends ConsumerWidget {
     final storiesNotifier =
         ref.read(storiesProvider(storyListEndpoint).notifier);
 
-    return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 1100),
-        child: EndlessScrollView(
-          storiesState: storiesState,
-          dataFetcher: () => storiesNotifier.fetchStories(),
-          refreshCallback: () =>
-              ref.refresh(topStoriesProvider(storyListEndpoint).future),
-          itemBuilder: (index, storiesState) {
-            return GestureDetector(
-              child: StoryView(story: storiesState.stories[index]),
-              onTap: () {
-                Navigator.restorablePushNamed(
-                    context, CommentsFeedView.routeName,
-                    arguments: storiesState.stories[index].toJson());
-              },
-            );
+    return EndlessScrollView(
+      storiesState: storiesState,
+      dataFetcher: () => storiesNotifier.fetchStories(),
+      refreshCallback: () =>
+          ref.refresh(topStoriesProvider(storyListEndpoint).future),
+      itemBuilder: (index, storiesState) {
+        return GestureDetector(
+          child: StoryView(story: storiesState.stories[index]),
+          onTap: () {
+            Navigator.restorablePushNamed(context, CommentsFeedView.routeName,
+                arguments: storiesState.stories[index].toJson());
           },
-        ),
-      ),
+        );
+      },
     );
   }
 }
