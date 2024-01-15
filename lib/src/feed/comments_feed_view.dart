@@ -75,6 +75,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1100),
           child: EndlessScrollView(
+            key: ValueKey(story.id),
             storiesState: commentState,
             dataFetcher: () => commentsNotifier.fetchStories(),
             refreshCallback: () => Future.delayed(
