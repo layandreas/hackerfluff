@@ -102,7 +102,8 @@ class _FeedView extends ConsumerWidget {
           ref.refresh(topStoriesProvider(storyListEndpoint).future),
       itemBuilder: (index, storiesState) {
         return GestureDetector(
-          child: StoryView(story: storiesState.stories[index]),
+          child: StoryView(
+              key: ValueKey(index), story: storiesState.stories[index]),
           onTap: () {
             Navigator.restorablePushNamed(context, CommentsFeedView.routeName,
                 arguments: storiesState.stories[index].toJson());
