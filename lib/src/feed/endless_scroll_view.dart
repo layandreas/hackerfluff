@@ -86,39 +86,64 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           child: Scrollbar(
             controller: scrollController,
             child: ListView.builder(
-              // Show messages from bottom to top
-
+              cacheExtent: 20000,
               physics: const AlwaysScrollableScrollPhysics(),
               controller: scrollController,
               itemCount: numberOfComments + numberOfTopListWidgets + 1,
-              cacheExtent: 20000,
               itemBuilder: (context, index) {
-                if (index < numberOfTopListWidgets) {
-                  return widget.topOfListWidgets[index];
-                } else if (index >= numberOfTopListWidgets &&
-                    index <= numberOfComments + numberOfTopListWidgets - 1) {
-                  return widget.itemBuilder(
-                      index - numberOfTopListWidgets, widget.storiesState);
-                } else {
-                  if (widget.storiesState.isLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 32),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-
-                  if (widget.storiesState.reachedEnd) {
-                    return const ListTile(
-                        title: Text("You reached the end..."));
-                  }
-
-                  return const ListTile(title: Text(""));
-                }
+                return EndlessScrollItem(
+                    key: ValueKey(index),
+                    index: index,
+                    storiesState: widget.storiesState,
+                    itemBuilder: widget.itemBuilder,
+                    topOfListWidgets: widget.topOfListWidgets);
               },
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+class EndlessScrollItem extends StatelessWidget {
+  const EndlessScrollItem({
+    super.key,
+    required this.index,
+    required this.storiesState,
+    required this.itemBuilder,
+    this.topOfListWidgets = const [],
+  });
+
+  final int index;
+  final PagedDataStateInterface storiesState;
+  final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
+      itemBuilder;
+  final List<Widget> topOfListWidgets;
+
+  @override
+  Widget build(BuildContext context) {
+    final numberOfComments = storiesState.stories.length;
+    final numberOfTopListWidgets = topOfListWidgets.length;
+
+    if (index < numberOfTopListWidgets) {
+      return topOfListWidgets[index];
+    } else if (index >= numberOfTopListWidgets &&
+        index <= numberOfComments + numberOfTopListWidgets - 1) {
+      return itemBuilder(index - numberOfTopListWidgets, storiesState);
+    } else {
+      if (storiesState.isLoading) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(vertical: 32),
+          child: Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      if (storiesState.reachedEnd) {
+        return const ListTile(title: Text("You reached the end..."));
+      }
+
+      return const ListTile(title: Text(""));
+    }
   }
 }
