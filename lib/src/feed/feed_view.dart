@@ -95,6 +95,7 @@ class _FeedView extends ConsumerWidget {
         ref.read(storiesProvider(storyListEndpoint).notifier);
 
     return EndlessScrollView(
+      key: Key(storyListEndpoint.name),
       storiesState: storiesState,
       dataFetcher: () => storiesNotifier.fetchStories(),
       refreshCallback: () =>
