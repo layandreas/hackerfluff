@@ -96,6 +96,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                 children: [
                   if (commentState.stories[index].text != null)
                     SingleCommentsView(
+                      key: ValueKey(index),
                       comment: commentsState.stories[index],
                       storyId: story.id,
                       isParentWidget: true,
