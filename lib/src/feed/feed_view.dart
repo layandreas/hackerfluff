@@ -83,23 +83,33 @@ class FeedView extends ConsumerWidget {
   }
 }
 
-class _FeedView extends ConsumerWidget {
+class _FeedView extends ConsumerStatefulWidget {
   const _FeedView({required this.storyListEndpoint});
 
   final StoryListEndpoint storyListEndpoint;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final storiesState = ref.watch(storiesProvider(storyListEndpoint));
+  ConsumerState<_FeedView> createState() => _FeedViewState();
+}
+
+class _FeedViewState extends ConsumerState<_FeedView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    final storiesState = ref.watch(storiesProvider(widget.storyListEndpoint));
     final storiesNotifier =
-        ref.read(storiesProvider(storyListEndpoint).notifier);
+        ref.read(storiesProvider(widget.storyListEndpoint).notifier);
 
     return EndlessScrollView(
-      key: Key(storyListEndpoint.name),
+      key: Key(widget.storyListEndpoint.name),
       storiesState: storiesState,
       dataFetcher: () => storiesNotifier.fetchStories(),
       refreshCallback: () =>
-          ref.refresh(topStoriesProvider(storyListEndpoint).future),
+          ref.refresh(topStoriesProvider(widget.storyListEndpoint).future),
       itemBuilder: (index, storiesState) {
         return GestureDetector(
           child: StoryView(
