@@ -7,7 +7,7 @@ import 'comment_status_provider.dart';
 import 'package:flutter/services.dart';
 
 class SingleCommentsView extends StatefulWidget {
-  final CommentModel comment;
+  final CommentModelFlat comment;
   final int storyId;
   final bool isParentWidget;
   final bool hideReadComments;
@@ -42,9 +42,8 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
         '${widget.comment.id}-${widget.comment.by}-${widget.comment.time}';
 
     return Padding(
-      padding: widget.isParentWidget
-          ? const EdgeInsets.only(left: 0)
-          : const EdgeInsets.only(left: 10.0),
+      padding:
+          EdgeInsets.only(left: (widget.comment.nParents?.toDouble() ?? 0) * 7),
       child: AnimatedSize(
         alignment: Alignment.topLeft,
         duration: const Duration(milliseconds: 250),
@@ -86,12 +85,12 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                   });
                 },
               ),
-            for (final child in hideChildren ? [] : widget.comment.children!)
-              SingleCommentsView(
-                comment: child,
-                storyId: widget.storyId,
-                hideReadComments: widget.hideReadComments,
-              )
+            // for (final child in hideChildren ? [] : widget.comment.children!)
+            //   SingleCommentsView(
+            //     comment: child,
+            //     storyId: widget.storyId,
+            //     hideReadComments: widget.hideReadComments,
+            //   )
           ],
         ),
       ),

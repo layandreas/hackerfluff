@@ -92,19 +92,30 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               )
             ],
             itemBuilder: (index, commentsState) {
-              return Column(
-                children: [
-                  if (commentState.stories[index].text != null)
-                    SingleCommentsView(
-                      key: ValueKey(index),
-                      comment: commentsState.stories[index],
-                      storyId: story.id,
-                      isParentWidget: true,
-                      hideReadComments: hideReadComments,
-                    ),
-                  if (commentState.stories[index].text != null) const Divider()
-                ],
-              );
+              if (commentState.stories[index].text != null) {
+                return SingleCommentsView(
+                  key: ValueKey(index),
+                  comment: commentState.stories[index],
+                  storyId: story.id,
+                  isParentWidget: true,
+                  hideReadComments: hideReadComments,
+                );
+              } else {
+                return const Text("");
+              }
+              // return Column(
+              //   children: [
+              //     if (commentState.stories[index].text != null)
+              //       SingleCommentsView(
+              //         key: ValueKey(index),
+              //         comment: commentsState.stories[index],
+              //         storyId: story.id,
+              //         isParentWidget: true,
+              //         hideReadComments: hideReadComments,
+              //       ),
+              //     if (commentState.stories[index].text != null) const Divider()
+              //   ],
+              // );
             },
           ),
         ),
