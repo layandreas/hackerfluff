@@ -9,14 +9,12 @@ import 'package:flutter/services.dart';
 class SingleCommentsView extends StatefulWidget {
   final CommentModelFlat comment;
   final int storyId;
-  final bool isParentWidget;
   final bool hideReadComments;
 
   const SingleCommentsView(
       {super.key,
       required this.comment,
       required this.storyId,
-      this.isParentWidget = false,
       required this.hideReadComments});
 
   @override
@@ -24,7 +22,7 @@ class SingleCommentsView extends StatefulWidget {
 }
 
 class _SingleCommentsViewState extends State<SingleCommentsView> {
-  bool hideChildren = false;
+  bool hideCard = false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +71,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                       storyId: widget.storyId,
                       widget: widget,
                       timeSinceCommentFmt: timeSinceCommentFmt,
-                      hideChildren: hideChildren,
+                      hideCard: hideCard,
                       hideReadComments: widget.hideReadComments,
                     ),
                   ),
@@ -81,7 +79,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                 onTap: () {
                   HapticFeedback.mediumImpact();
                   setState(() {
-                    hideChildren = !hideChildren;
+                    hideCard = !hideCard;
                   });
                 },
               ),
@@ -103,7 +101,7 @@ class CommentCard extends ConsumerStatefulWidget {
     required super.key,
     required this.widget,
     required this.timeSinceCommentFmt,
-    required this.hideChildren,
+    required this.hideCard,
     required this.id,
     required this.storyId,
     this.hideReadComments = false,
@@ -111,7 +109,7 @@ class CommentCard extends ConsumerStatefulWidget {
 
   final SingleCommentsView widget;
   final String timeSinceCommentFmt;
-  final bool hideChildren;
+  final bool hideCard;
   final int id;
   final int storyId;
   final bool hideReadComments;
@@ -125,22 +123,25 @@ class _CommentCardState extends ConsumerState<CommentCard> {
   Widget build(BuildContext context) {
     final commentStatusAsyncValue = ref.watch(commentStatusProvider(widget.id));
     final commentStatusNotifier =
-        ref.watch(commentStatusProvider(widget.id).notifier);
+        ref.read(commentStatusProvider(widget.id).notifier);
     final commentStatus = commentStatusAsyncValue.valueOrNull;
-    final commentWasSeen =
-        ((commentStatus?.commentWasSeen) ?? 0) == 0 ? false : true;
+    final bool commentWasSeen;
+    if (commentStatus != null) {
+      commentWasSeen = (commentStatus.commentWasSeen == 1) ? true : false;
+    } else {
+      commentWasSeen = false;
+    }
+    // final commentWasSeen =
+    //     ((commentStatus?.commentWasSeen) ?? 0) == 0 ? false : true;
 
     return VisibilityDetector(
         key: Key('comment-visibility-${widget.key}'),
         onVisibilityChanged: (visibilityInfo) {
-          if (mounted) {
-            setState(() {
-              if (!commentWasSeen) {
-                commentStatusNotifier.insertCommentStatus(
-                    id: widget.id, storyId: widget.storyId, commentWasSeen: 1);
-              }
-            });
+          if (!commentWasSeen) {
+            commentStatusNotifier.insertCommentStatus(
+                id: widget.id, storyId: widget.storyId, commentWasSeen: 1);
           }
+          ;
         },
         child: Card(
           shadowColor: Colors.transparent,
@@ -161,7 +162,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
                   )
                 ],
               ),
-              if (!widget.hideChildren)
+              if (!widget.hideCard)
                 if ((widget.hideReadComments && !commentWasSeen) ||
                     !widget.hideReadComments)
                   HtmlWidget(widget.widget.comment.text ?? ''),

@@ -92,12 +92,11 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               )
             ],
             itemBuilder: (index, commentsState) {
-              if (commentState.stories[index].text != null) {
+              if (commentsState.stories[index].text != null) {
                 return SingleCommentsView(
                   key: ValueKey(index),
-                  comment: commentState.stories[index],
+                  comment: commentsState.stories[index],
                   storyId: story.id,
-                  isParentWidget: true,
                   hideReadComments: hideReadComments,
                 );
               } else {
