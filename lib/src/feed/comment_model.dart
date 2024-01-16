@@ -31,3 +31,19 @@ class CommentModel with _$CommentModel {
   factory CommentModel.fromJson(Map<String, Object?> json) =>
       _$CommentModelFromJson(json);
 }
+
+@freezed
+class CommentModelFlat with _$CommentModelFlat {
+  const factory CommentModelFlat({
+    required int id,
+    String? text,
+    int? parentId,
+    int? nParents,
+    List<int>? children,
+    required String? by,
+    required int? time,
+  }) = _CommentModelFlat;
+
+  factory CommentModelFlat.fromJson(Map<String, Object?> json) =>
+      _$CommentModelFlatFromJson(json);
+}
