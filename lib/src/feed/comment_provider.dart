@@ -123,7 +123,7 @@ class Comments extends _$Comments {
 
       state = state.copyWith(
           currentPage: state.currentPage + 1,
-          stories: [...state.stories, ...allCommentModels],
+          stories: [...state.stories, ...allCommentModelsFlat],
           isLoading: false);
     } finally {
       state = state.copyWith(isLoading: false);

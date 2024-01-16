@@ -11,7 +11,7 @@ class PagedCommentsState
     implements PagedDataStateInterface<Comment> {
   const factory PagedCommentsState({
     @Default(0) int currentPage,
-    @Default([]) List<CommentModel> stories,
+    @Default([]) List<CommentModelFlat> stories,
     @Default(2) int storiesPerPage,
     @Default(false) bool isLoading,
     @Default(false) bool reachedEnd,

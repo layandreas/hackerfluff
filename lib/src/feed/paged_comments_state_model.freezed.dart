@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PagedCommentsState {
   int get currentPage => throw _privateConstructorUsedError;
-  List<CommentModel> get stories => throw _privateConstructorUsedError;
+  List<CommentModelFlat> get stories => throw _privateConstructorUsedError;
   int get storiesPerPage => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get reachedEnd => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $PagedCommentsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {int currentPage,
-      List<CommentModel> stories,
+      List<CommentModelFlat> stories,
       int storiesPerPage,
       bool isLoading,
       bool reachedEnd});
@@ -68,7 +68,7 @@ class _$PagedCommentsStateCopyWithImpl<$Res, $Val extends PagedCommentsState>
       stories: null == stories
           ? _value.stories
           : stories // ignore: cast_nullable_to_non_nullable
-              as List<CommentModel>,
+              as List<CommentModelFlat>,
       storiesPerPage: null == storiesPerPage
           ? _value.storiesPerPage
           : storiesPerPage // ignore: cast_nullable_to_non_nullable
@@ -95,7 +95,7 @@ abstract class _$$PagedCommentsStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {int currentPage,
-      List<CommentModel> stories,
+      List<CommentModelFlat> stories,
       int storiesPerPage,
       bool isLoading,
       bool reachedEnd});
@@ -126,7 +126,7 @@ class __$$PagedCommentsStateImplCopyWithImpl<$Res>
       stories: null == stories
           ? _value._stories
           : stories // ignore: cast_nullable_to_non_nullable
-              as List<CommentModel>,
+              as List<CommentModelFlat>,
       storiesPerPage: null == storiesPerPage
           ? _value.storiesPerPage
           : storiesPerPage // ignore: cast_nullable_to_non_nullable
@@ -148,7 +148,7 @@ class __$$PagedCommentsStateImplCopyWithImpl<$Res>
 class _$PagedCommentsStateImpl implements _PagedCommentsState {
   const _$PagedCommentsStateImpl(
       {this.currentPage = 0,
-      final List<CommentModel> stories = const [],
+      final List<CommentModelFlat> stories = const [],
       this.storiesPerPage = 2,
       this.isLoading = false,
       this.reachedEnd = false})
@@ -157,10 +157,10 @@ class _$PagedCommentsStateImpl implements _PagedCommentsState {
   @override
   @JsonKey()
   final int currentPage;
-  final List<CommentModel> _stories;
+  final List<CommentModelFlat> _stories;
   @override
   @JsonKey()
-  List<CommentModel> get stories {
+  List<CommentModelFlat> get stories {
     if (_stories is EqualUnmodifiableListView) return _stories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_stories);
@@ -217,7 +217,7 @@ class _$PagedCommentsStateImpl implements _PagedCommentsState {
 abstract class _PagedCommentsState implements PagedCommentsState {
   const factory _PagedCommentsState(
       {final int currentPage,
-      final List<CommentModel> stories,
+      final List<CommentModelFlat> stories,
       final int storiesPerPage,
       final bool isLoading,
       final bool reachedEnd}) = _$PagedCommentsStateImpl;
@@ -225,7 +225,7 @@ abstract class _PagedCommentsState implements PagedCommentsState {
   @override
   int get currentPage;
   @override
-  List<CommentModel> get stories;
+  List<CommentModelFlat> get stories;
   @override
   int get storiesPerPage;
   @override
