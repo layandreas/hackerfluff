@@ -459,3 +459,276 @@ abstract class _CommentModel implements CommentModel {
   _$$CommentModelImplCopyWith<_$CommentModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+CommentModelFlat _$CommentModelFlatFromJson(Map<String, dynamic> json) {
+  return _CommentModelFlat.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CommentModelFlat {
+  int get id => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
+  int? get parentId => throw _privateConstructorUsedError;
+  int? get nParents => throw _privateConstructorUsedError;
+  List<int>? get children => throw _privateConstructorUsedError;
+  String? get by => throw _privateConstructorUsedError;
+  int? get time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CommentModelFlatCopyWith<CommentModelFlat> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CommentModelFlatCopyWith<$Res> {
+  factory $CommentModelFlatCopyWith(
+          CommentModelFlat value, $Res Function(CommentModelFlat) then) =
+      _$CommentModelFlatCopyWithImpl<$Res, CommentModelFlat>;
+  @useResult
+  $Res call(
+      {int id,
+      String? text,
+      int? parentId,
+      int? nParents,
+      List<int>? children,
+      String? by,
+      int? time});
+}
+
+/// @nodoc
+class _$CommentModelFlatCopyWithImpl<$Res, $Val extends CommentModelFlat>
+    implements $CommentModelFlatCopyWith<$Res> {
+  _$CommentModelFlatCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? text = freezed,
+    Object? parentId = freezed,
+    Object? nParents = freezed,
+    Object? children = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      text: freezed == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      nParents: freezed == nParents
+          ? _value.nParents
+          : nParents // ignore: cast_nullable_to_non_nullable
+              as int?,
+      children: freezed == children
+          ? _value.children
+          : children // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CommentModelFlatImplCopyWith<$Res>
+    implements $CommentModelFlatCopyWith<$Res> {
+  factory _$$CommentModelFlatImplCopyWith(_$CommentModelFlatImpl value,
+          $Res Function(_$CommentModelFlatImpl) then) =
+      __$$CommentModelFlatImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String? text,
+      int? parentId,
+      int? nParents,
+      List<int>? children,
+      String? by,
+      int? time});
+}
+
+/// @nodoc
+class __$$CommentModelFlatImplCopyWithImpl<$Res>
+    extends _$CommentModelFlatCopyWithImpl<$Res, _$CommentModelFlatImpl>
+    implements _$$CommentModelFlatImplCopyWith<$Res> {
+  __$$CommentModelFlatImplCopyWithImpl(_$CommentModelFlatImpl _value,
+      $Res Function(_$CommentModelFlatImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? text = freezed,
+    Object? parentId = freezed,
+    Object? nParents = freezed,
+    Object? children = freezed,
+    Object? by = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_$CommentModelFlatImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      text: freezed == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      nParents: freezed == nParents
+          ? _value.nParents
+          : nParents // ignore: cast_nullable_to_non_nullable
+              as int?,
+      children: freezed == children
+          ? _value._children
+          : children // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      by: freezed == by
+          ? _value.by
+          : by // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CommentModelFlatImpl implements _CommentModelFlat {
+  const _$CommentModelFlatImpl(
+      {required this.id,
+      this.text,
+      this.parentId,
+      this.nParents,
+      final List<int>? children,
+      required this.by,
+      required this.time})
+      : _children = children;
+
+  factory _$CommentModelFlatImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CommentModelFlatImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String? text;
+  @override
+  final int? parentId;
+  @override
+  final int? nParents;
+  final List<int>? _children;
+  @override
+  List<int>? get children {
+    final value = _children;
+    if (value == null) return null;
+    if (_children is EqualUnmodifiableListView) return _children;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? by;
+  @override
+  final int? time;
+
+  @override
+  String toString() {
+    return 'CommentModelFlat(id: $id, text: $text, parentId: $parentId, nParents: $nParents, children: $children, by: $by, time: $time)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CommentModelFlatImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId) &&
+            (identical(other.nParents, nParents) ||
+                other.nParents == nParents) &&
+            const DeepCollectionEquality().equals(other._children, _children) &&
+            (identical(other.by, by) || other.by == by) &&
+            (identical(other.time, time) || other.time == time));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, text, parentId, nParents,
+      const DeepCollectionEquality().hash(_children), by, time);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CommentModelFlatImplCopyWith<_$CommentModelFlatImpl> get copyWith =>
+      __$$CommentModelFlatImplCopyWithImpl<_$CommentModelFlatImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CommentModelFlatImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CommentModelFlat implements CommentModelFlat {
+  const factory _CommentModelFlat(
+      {required final int id,
+      final String? text,
+      final int? parentId,
+      final int? nParents,
+      final List<int>? children,
+      required final String? by,
+      required final int? time}) = _$CommentModelFlatImpl;
+
+  factory _CommentModelFlat.fromJson(Map<String, dynamic> json) =
+      _$CommentModelFlatImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String? get text;
+  @override
+  int? get parentId;
+  @override
+  int? get nParents;
+  @override
+  List<int>? get children;
+  @override
+  String? get by;
+  @override
+  int? get time;
+  @override
+  @JsonKey(ignore: true)
+  _$$CommentModelFlatImplCopyWith<_$CommentModelFlatImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

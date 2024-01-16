@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -32,6 +34,42 @@ Future<CommentModel> fetchCommentTree(int id) async {
     return const CommentModel(
         by: '', id: -1, text: null, children: [], time: 0);
   }
+}
+
+CommentModelFlat commentModelToCommentModelFlat(
+    {required CommentModel commentModel,
+    int? parentId,
+    required int nParents}) {
+  return CommentModelFlat(
+      id: commentModel.id,
+      text: commentModel.text,
+      parentId: parentId,
+      nParents: nParents,
+      children: commentModel.children?.map((x) => x.id).toList(),
+      by: commentModel.by,
+      time: commentModel.time);
+}
+
+List<CommentModelFlat> flattenCommentModel(
+    {required CommentModel commentModel,
+    required int nestingLevel,
+    int? parentId}) {
+  List<CommentModelFlat> commentModelsFlatList = [];
+  final commentModelFlatParent = commentModelToCommentModelFlat(
+      commentModel: commentModel, parentId: parentId, nParents: nestingLevel);
+  commentModelsFlatList.add(commentModelFlatParent);
+  for (final child in commentModel.children ?? []) {
+    // var commentModelChildFlat = commentModelToCommentModelFlat(
+    //     commentModel: child, parentId: parentId, nParents: nestingLevel + 1);
+    // commentModelsFlatList.add(commentModelChildFlat);
+    var flattenedChild = flattenCommentModel(
+        commentModel: child,
+        nestingLevel: nestingLevel + 1,
+        parentId: commentModel.id);
+    commentModelsFlatList.addAll(flattenedChild);
+  }
+
+  return commentModelsFlatList;
 }
 
 @riverpod
@@ -77,6 +115,13 @@ class Comments extends _$Comments {
         allCommentModelsFuture.add(commentModel);
       }
       final allCommentModels = await Future.wait(allCommentModelsFuture);
+
+      final List<CommentModelFlat> allCommentModelsFlat = [];
+      for (final commentModel in allCommentModels) {
+        var commentModelFlat =
+            flattenCommentModel(commentModel: commentModel, nestingLevel: 0);
+        allCommentModelsFlat.addAll(commentModelFlat);
+      }
 
       state = state.copyWith(
           currentPage: state.currentPage + 1,
