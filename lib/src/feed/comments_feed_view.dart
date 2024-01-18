@@ -117,8 +117,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                                 commentsState.stories[index]?.nChildren ?? 0;
                             final hiddenChildrenIndeces = List.generate(
                                 nChildren,
-                                (list_index) => list_index + index + 1);
-
+                                (listIndex) => listIndex + index + 1);
                             isHidden
                                 ? hiddenComments.addAll(hiddenChildrenIndeces)
                                 : hiddenComments
