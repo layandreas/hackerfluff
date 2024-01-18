@@ -470,6 +470,7 @@ mixin _$CommentModelFlat {
   String? get text => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
   int? get nParents => throw _privateConstructorUsedError;
+  int? get nChildren => throw _privateConstructorUsedError;
   List<int>? get children => throw _privateConstructorUsedError;
   String? get by => throw _privateConstructorUsedError;
   int? get time => throw _privateConstructorUsedError;
@@ -491,6 +492,7 @@ abstract class $CommentModelFlatCopyWith<$Res> {
       String? text,
       int? parentId,
       int? nParents,
+      int? nChildren,
       List<int>? children,
       String? by,
       int? time});
@@ -513,6 +515,7 @@ class _$CommentModelFlatCopyWithImpl<$Res, $Val extends CommentModelFlat>
     Object? text = freezed,
     Object? parentId = freezed,
     Object? nParents = freezed,
+    Object? nChildren = freezed,
     Object? children = freezed,
     Object? by = freezed,
     Object? time = freezed,
@@ -533,6 +536,10 @@ class _$CommentModelFlatCopyWithImpl<$Res, $Val extends CommentModelFlat>
       nParents: freezed == nParents
           ? _value.nParents
           : nParents // ignore: cast_nullable_to_non_nullable
+              as int?,
+      nChildren: freezed == nChildren
+          ? _value.nChildren
+          : nChildren // ignore: cast_nullable_to_non_nullable
               as int?,
       children: freezed == children
           ? _value.children
@@ -563,6 +570,7 @@ abstract class _$$CommentModelFlatImplCopyWith<$Res>
       String? text,
       int? parentId,
       int? nParents,
+      int? nChildren,
       List<int>? children,
       String? by,
       int? time});
@@ -583,6 +591,7 @@ class __$$CommentModelFlatImplCopyWithImpl<$Res>
     Object? text = freezed,
     Object? parentId = freezed,
     Object? nParents = freezed,
+    Object? nChildren = freezed,
     Object? children = freezed,
     Object? by = freezed,
     Object? time = freezed,
@@ -603,6 +612,10 @@ class __$$CommentModelFlatImplCopyWithImpl<$Res>
       nParents: freezed == nParents
           ? _value.nParents
           : nParents // ignore: cast_nullable_to_non_nullable
+              as int?,
+      nChildren: freezed == nChildren
+          ? _value.nChildren
+          : nChildren // ignore: cast_nullable_to_non_nullable
               as int?,
       children: freezed == children
           ? _value._children
@@ -628,6 +641,7 @@ class _$CommentModelFlatImpl implements _CommentModelFlat {
       this.text,
       this.parentId,
       this.nParents,
+      this.nChildren,
       final List<int>? children,
       required this.by,
       required this.time})
@@ -644,6 +658,8 @@ class _$CommentModelFlatImpl implements _CommentModelFlat {
   final int? parentId;
   @override
   final int? nParents;
+  @override
+  final int? nChildren;
   final List<int>? _children;
   @override
   List<int>? get children {
@@ -661,7 +677,7 @@ class _$CommentModelFlatImpl implements _CommentModelFlat {
 
   @override
   String toString() {
-    return 'CommentModelFlat(id: $id, text: $text, parentId: $parentId, nParents: $nParents, children: $children, by: $by, time: $time)';
+    return 'CommentModelFlat(id: $id, text: $text, parentId: $parentId, nParents: $nParents, nChildren: $nChildren, children: $children, by: $by, time: $time)';
   }
 
   @override
@@ -675,6 +691,8 @@ class _$CommentModelFlatImpl implements _CommentModelFlat {
                 other.parentId == parentId) &&
             (identical(other.nParents, nParents) ||
                 other.nParents == nParents) &&
+            (identical(other.nChildren, nChildren) ||
+                other.nChildren == nChildren) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
             (identical(other.by, by) || other.by == by) &&
             (identical(other.time, time) || other.time == time));
@@ -683,7 +701,7 @@ class _$CommentModelFlatImpl implements _CommentModelFlat {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, text, parentId, nParents,
-      const DeepCollectionEquality().hash(_children), by, time);
+      nChildren, const DeepCollectionEquality().hash(_children), by, time);
 
   @JsonKey(ignore: true)
   @override
@@ -706,6 +724,7 @@ abstract class _CommentModelFlat implements CommentModelFlat {
       final String? text,
       final int? parentId,
       final int? nParents,
+      final int? nChildren,
       final List<int>? children,
       required final String? by,
       required final int? time}) = _$CommentModelFlatImpl;
@@ -721,6 +740,8 @@ abstract class _CommentModelFlat implements CommentModelFlat {
   int? get parentId;
   @override
   int? get nParents;
+  @override
+  int? get nChildren;
   @override
   List<int>? get children;
   @override

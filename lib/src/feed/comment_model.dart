@@ -39,6 +39,7 @@ class CommentModelFlat with _$CommentModelFlat {
     String? text,
     int? parentId,
     int? nParents,
+    int? nChildren,
     List<int>? children,
     required String? by,
     required int? time,

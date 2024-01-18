@@ -44,6 +44,7 @@ CommentModelFlat commentModelToCommentModelFlat(
       parentId: parentId,
       nParents: nParents,
       children: commentModel.children?.map((x) => x.id).toList(),
+      nChildren: commentModel.children?.length ?? 0,
       by: commentModel.by,
       time: commentModel.time);
 }
@@ -52,20 +53,23 @@ List<CommentModelFlat> flattenCommentModel(
     {required CommentModel commentModel,
     required int nestingLevel,
     int? parentId}) {
+  var nChildren = commentModel.children?.length ?? 0;
   List<CommentModelFlat> commentModelsFlatList = [];
-  final commentModelFlatParent = commentModelToCommentModelFlat(
-      commentModel: commentModel, parentId: parentId, nParents: nestingLevel);
-  commentModelsFlatList.add(commentModelFlatParent);
-  for (final child in commentModel.children ?? []) {
+  for (final child in commentModel.children ?? <CommentModel>[]) {
     // var commentModelChildFlat = commentModelToCommentModelFlat(
     //     commentModel: child, parentId: parentId, nParents: nestingLevel + 1);
     // commentModelsFlatList.add(commentModelChildFlat);
+    nChildren += child.children?.length ?? 0;
     var flattenedChild = flattenCommentModel(
         commentModel: child,
         nestingLevel: nestingLevel + 1,
         parentId: commentModel.id);
     commentModelsFlatList.addAll(flattenedChild);
   }
+  final commentModelFlatParent = commentModelToCommentModelFlat(
+      commentModel: commentModel, parentId: parentId, nParents: nestingLevel);
+  commentModelsFlatList.insert(
+      0, commentModelFlatParent.copyWith(nChildren: nChildren));
 
   return commentModelsFlatList;
 }
