@@ -56,18 +56,20 @@ List<CommentModelFlat> flattenCommentModel(
   var nChildren = commentModel.children?.length ?? 0;
   List<CommentModelFlat> commentModelsFlatList = [];
   for (final child in commentModel.children ?? <CommentModel>[]) {
-    // var commentModelChildFlat = commentModelToCommentModelFlat(
-    //     commentModel: child, parentId: parentId, nParents: nestingLevel + 1);
-    // commentModelsFlatList.add(commentModelChildFlat);
-    nChildren += child.children?.length ?? 0;
     var flattenedChild = flattenCommentModel(
         commentModel: child,
         nestingLevel: nestingLevel + 1,
         parentId: commentModel.id);
+    nChildren += flattenedChild
+        .map((e) => e.children?.length ?? 0)
+        .reduce((a, b) => a + b);
     commentModelsFlatList.addAll(flattenedChild);
   }
   final commentModelFlatParent = commentModelToCommentModelFlat(
-      commentModel: commentModel, parentId: parentId, nParents: nestingLevel);
+    commentModel: commentModel,
+    parentId: parentId,
+    nParents: nestingLevel,
+  );
   commentModelsFlatList.insert(
       0, commentModelFlatParent.copyWith(nChildren: nChildren));
 
