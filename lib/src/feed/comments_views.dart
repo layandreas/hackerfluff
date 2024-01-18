@@ -10,12 +10,14 @@ class SingleCommentsView extends StatefulWidget {
   final CommentModelFlat comment;
   final int storyId;
   final bool hideReadComments;
+  final Function(bool) setHiddenComments;
 
   const SingleCommentsView(
       {super.key,
       required this.comment,
       required this.storyId,
-      required this.hideReadComments});
+      required this.hideReadComments,
+      required this.setHiddenComments});
 
   @override
   State<SingleCommentsView> createState() => _SingleCommentsViewState();
@@ -80,6 +82,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
                   HapticFeedback.mediumImpact();
                   setState(() {
                     hideCard = !hideCard;
+                    widget.setHiddenComments(hideCard);
                   });
                 },
               ),
@@ -141,7 +144,6 @@ class _CommentCardState extends ConsumerState<CommentCard> {
             commentStatusNotifier.insertCommentStatus(
                 id: widget.id, storyId: widget.storyId, commentWasSeen: 1);
           }
-          ;
         },
         child: Card(
           shadowColor: Colors.transparent,
