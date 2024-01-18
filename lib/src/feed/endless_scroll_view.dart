@@ -11,6 +11,7 @@ class EndlessScrollView extends StatefulWidget {
     required this.refreshCallback,
     required this.itemBuilder,
     this.topOfListWidgets = const [],
+    this.cacheExtent,
   });
 
   final PagedDataStateInterface storiesState;
@@ -19,6 +20,7 @@ class EndlessScrollView extends StatefulWidget {
   final Widget Function(int index, PagedDataStateInterface pagedStoriesState)
       itemBuilder;
   final List<Widget> topOfListWidgets;
+  final double? cacheExtent;
 
   @override
   State<EndlessScrollView> createState() => _EndlessScrollViewState();
@@ -86,7 +88,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           child: Scrollbar(
             controller: scrollController,
             child: ListView.builder(
-              cacheExtent: 2500,
+              cacheExtent: widget.cacheExtent,
               physics: const AlwaysScrollableScrollPhysics(),
               controller: scrollController,
               itemCount: numberOfComments + numberOfTopListWidgets + 1,
