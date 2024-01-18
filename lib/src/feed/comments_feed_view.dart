@@ -20,6 +20,7 @@ class CommentsFeedView extends ConsumerStatefulWidget {
 
 class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
   bool hideReadComments = false;
+  Set<int> hiddenComments = {};
 
   void toggleHideReadComments() {
     HapticFeedback.mediumImpact();
@@ -92,15 +93,45 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               )
             ],
             itemBuilder: (index, commentsState) {
-              if (commentsState.stories[index].text != null) {
+              // if ([0, 4, 10].contains(index)) {
+              //   return Container(
+              //     height: 0,
+              //   );
+              // }
+              // if (hiddenComments.contains(index)) {
+              //   return Container(
+              //     height: 0,
+              //   );
+              // }
+
+              if (commentsState.stories[index].text != null &&
+                  !hiddenComments.contains(index)) {
                 return SingleCommentsView(
-                  key: ValueKey(index),
-                  comment: commentsState.stories[index],
-                  storyId: story.id,
-                  hideReadComments: hideReadComments,
-                );
+                    key: ValueKey(index),
+                    comment: commentsState.stories[index],
+                    storyId: story.id,
+                    hideReadComments: hideReadComments,
+                    setHiddenComments: (bool isHidden) => {
+                          setState(() {
+                            final nChildren =
+                                commentsState.stories[index]?.nChildren ?? 0;
+                            final hiddenChildrenIndeces = List.generate(
+                                nChildren,
+                                (list_index) => list_index + index + 1);
+
+                            isHidden
+                                ? hiddenComments.addAll(hiddenChildrenIndeces)
+                                : hiddenComments
+                                    .removeAll(hiddenChildrenIndeces);
+                          })
+                        });
               } else {
-                return const Text("");
+                // return const Text(
+                //   "hidden",
+                // );
+                return Container(
+                  height: 0,
+                );
               }
               // return Column(
               //   children: [
