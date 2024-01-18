@@ -51,6 +51,7 @@ _$CommentModelFlatImpl _$$CommentModelFlatImplFromJson(
       text: json['text'] as String?,
       parentId: json['parentId'] as int?,
       nParents: json['nParents'] as int?,
+      nChildren: json['nChildren'] as int?,
       children:
           (json['children'] as List<dynamic>?)?.map((e) => e as int).toList(),
       by: json['by'] as String?,
@@ -64,6 +65,7 @@ Map<String, dynamic> _$$CommentModelFlatImplToJson(
       'text': instance.text,
       'parentId': instance.parentId,
       'nParents': instance.nParents,
+      'nChildren': instance.nChildren,
       'children': instance.children,
       'by': instance.by,
       'time': instance.time,
