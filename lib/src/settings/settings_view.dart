@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'settings_controller.dart';
 import 'settings_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings_model.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({super.key, required this.controller});
+  const SettingsView({super.key});
 
   static const routeName = '/settings';
-
-  final SettingsController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -110,7 +110,7 @@ class HackernewsApp extends ConsumerWidget {
                 //return const MyWidget();
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+                    return const SettingsView();
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   //case SampleItemListView.routeName:
