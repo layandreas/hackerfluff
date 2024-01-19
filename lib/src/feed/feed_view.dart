@@ -11,6 +11,8 @@ import 'bottom_bar.dart';
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
 
+  static const routeName = '/feed';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(

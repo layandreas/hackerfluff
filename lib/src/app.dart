@@ -116,6 +116,8 @@ class HackernewsApp extends ConsumerWidget {
                   //case SampleItemListView.routeName:
                   case '/comments':
                     return const CommentsFeedView();
+                  case FeedView.routeName:
+                    return const FeedView();
                   default:
                     return const FeedView();
                 }
