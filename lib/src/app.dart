@@ -104,7 +104,7 @@ class HackernewsApp extends ConsumerWidget {
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
+            return UnanimatedPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
                 //return const MyWidget();
@@ -222,3 +222,22 @@ final themeDark = ThemeData(
       inverseSurface: Color(0xFFE2E2E6),
       onInverseSurface: Color(0xFF2F3033),
     ));
+
+class UnanimatedPageRoute<T> extends MaterialPageRoute<T> {
+  UnanimatedPageRoute({
+    required super.builder,
+    super.settings,
+    super.maintainState,
+    super.fullscreenDialog,
+  });
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return child;
+  }
+}

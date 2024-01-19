@@ -8,7 +8,6 @@ class BottomBar extends StatelessWidget {
   const BottomBar({super.key, required this.child});
 
   bool routeIsSelected(BuildContext context, String routeName) {
-    print(ModalRoute.of(context)?.settings.name ?? '');
     return ((ModalRoute.of(context)?.settings.name ?? '') == routeName)
         ? true
         : false;
