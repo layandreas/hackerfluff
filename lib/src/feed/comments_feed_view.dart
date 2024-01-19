@@ -10,9 +10,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 
 class CommentsFeedView extends ConsumerStatefulWidget {
-  const CommentsFeedView({super.key});
+  const CommentsFeedView({super.key, required this.story});
 
   static const routeName = '/comments';
+  final Story story;
 
   @override
   ConsumerState<CommentsFeedView> createState() => _CommentsFeedViewState();
@@ -31,16 +32,14 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
 
   @override
   Widget build(BuildContext context) {
-    final story = Story.fromJson(
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
-    final commentsProvider = CommentsProvider(story);
+    final commentsProvider = CommentsProvider(widget.story);
     final commentState = ref.watch(commentsProvider);
     final commentsNotifier = ref.read(commentsProvider.notifier);
 
     // Function to open the link
     void openStoryUrl() async {
-      if (story.url != null) {
-        final storyUrlParsed = Uri.parse(story.url!);
+      if (widget.story.url != null) {
+        final storyUrlParsed = Uri.parse(widget.story.url!);
 
         if (await canLaunchUrl(storyUrlParsed)) {
           await launchUrl(
@@ -76,7 +75,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1100),
           child: EndlessScrollView(
-            key: ValueKey(story.id),
+            key: ValueKey(widget.story.id),
             cacheExtent: 6000,
             storiesState: commentState,
             dataFetcher: () => commentsNotifier.fetchStories(),
@@ -89,7 +88,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                   openStoryUrl();
                 },
                 child: StoryView(
-                  story: story,
+                  story: widget.story,
                 ),
               )
             ],
@@ -110,7 +109,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                 return SingleCommentsView(
                     key: ValueKey(index),
                     comment: commentsState.stories[index],
-                    storyId: story.id,
+                    storyId: widget.story.id,
                     hideReadComments: hideReadComments,
                     setHiddenComments: (bool isHidden) => {
                           setState(() {

@@ -5,7 +5,6 @@ import 'top_stories_provider.dart';
 import 'endless_scroll_view.dart';
 import 'comments_feed_view.dart';
 import 'story_view.dart';
-import '../settings/settings_view.dart';
 import 'bottom_bar.dart';
 
 class FeedView extends ConsumerWidget {
@@ -96,8 +95,12 @@ class _FeedViewState extends ConsumerState<_FeedView>
           child: StoryView(
               key: ValueKey(index), story: storiesState.stories[index]),
           onTap: () {
-            Navigator.restorablePushNamed(context, CommentsFeedView.routeName,
-                arguments: storiesState.stories[index].toJson());
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CommentsFeedView(
+                          story: storiesState.stories[index],
+                        )));
           },
         );
       },
