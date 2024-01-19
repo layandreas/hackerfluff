@@ -6,6 +6,7 @@ import 'endless_scroll_view.dart';
 import 'comments_feed_view.dart';
 import 'story_view.dart';
 import '../settings/settings_view.dart';
+import 'bottom_bar.dart';
 
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
@@ -56,27 +57,29 @@ class FeedView extends ConsumerWidget {
             tabAlignment: TabAlignment.fill,
           ),
         ),
-        body: const TabBarView(
-          children: [
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.topstories,
-            ),
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.beststories,
-            ),
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.newstories,
-            ),
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.showstories,
-            ),
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.askstories,
-            ),
-            _FeedView(
-              storyListEndpoint: StoryListEndpoint.jobstories,
-            ),
-          ],
+        body: const BottomBar(
+          child: TabBarView(
+            children: [
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.topstories,
+              ),
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.beststories,
+              ),
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.newstories,
+              ),
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.showstories,
+              ),
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.askstories,
+              ),
+              _FeedView(
+                storyListEndpoint: StoryListEndpoint.jobstories,
+              ),
+            ],
+          ),
         ),
       ),
     );
