@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'settings_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings_model.dart';
+import '../feed/bottom_bar.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -15,27 +16,29 @@ class SettingsView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
-        body: SafeArea(
-          child: ListView(children: [
-            Card(
-              child: ListTile(
-                title: Text(
-                  'Theme',
-                  style: TextStyle(
-                      fontSize:
-                          Theme.of(context).textTheme.bodyLarge?.fontSize),
+        body: BottomBar(
+          child: SafeArea(
+            child: ListView(children: [
+              Card(
+                child: ListTile(
+                  title: Text(
+                    'Theme',
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.bodyLarge?.fontSize),
+                  ),
+                  leading: const Icon(Icons.color_lens_outlined),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ThemeSettingsView()));
+                  },
                 ),
-                leading: const Icon(Icons.color_lens_outlined),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ThemeSettingsView()));
-                },
-              ),
-            )
-          ]),
+              )
+            ]),
+          ),
         ));
   }
 }

@@ -1,9 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../settings/settings_view.dart';
+import 'feed_view.dart';
 
 class BottomBar extends StatelessWidget {
   final Widget child;
   const BottomBar({super.key, required this.child});
+
+  bool routeIsSelected(BuildContext context, String routeName) {
+    print(ModalRoute.of(context)?.settings.name ?? '');
+    return ((ModalRoute.of(context)?.settings.name ?? '') == routeName)
+        ? true
+        : false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +29,49 @@ class BottomBar extends StatelessWidget {
               width: double.infinity,
               height: 65,
               color: Theme.of(context).colorScheme.background.withOpacity(0.9),
-              child: const Row(children: [
+              child: Row(children: [
                 Expanded(
-                    child: Icon(
-                  Icons.home_outlined,
-                  size: 30,
+                    child: IconButton(
+                  isSelected: routeIsSelected(context, FeedView.routeName)
+                      ? true
+                      : false,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () => {
+                    if (!routeIsSelected(context, FeedView.routeName))
+                      {
+                        Navigator.pushReplacementNamed(
+                            context, FeedView.routeName)
+                      }
+                  },
+                  icon: const Icon(
+                    Icons.home_outlined,
+                    size: 30,
+                  ),
                 )),
-                Expanded(
+                const Expanded(
                     child: Icon(
                   Icons.bookmark_outline_rounded,
                   size: 30,
                 )),
                 Expanded(
-                    child: Icon(
-                  Icons.settings_outlined,
-                  size: 30,
+                    child: IconButton(
+                  isSelected: routeIsSelected(context, SettingsView.routeName)
+                      ? true
+                      : false,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () => {
+                    if (!routeIsSelected(context, SettingsView.routeName))
+                      {
+                        Navigator.pushReplacementNamed(
+                            context, SettingsView.routeName)
+                      }
+                  },
+                  icon: const Icon(
+                    Icons.settings_outlined,
+                    size: 30,
+                  ),
                 ))
               ]),
 
