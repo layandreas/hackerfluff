@@ -6,7 +6,6 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'feed/feed_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'feed/comments_feed_view.dart';
 import 'settings/settings_provider.dart';
 import 'settings/settings_model.dart';
 
@@ -114,8 +113,6 @@ class HackernewsApp extends ConsumerWidget {
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   //case SampleItemListView.routeName:
-                  case '/comments':
-                    return const CommentsFeedView();
                   case FeedView.routeName:
                     return const FeedView();
                   default:
