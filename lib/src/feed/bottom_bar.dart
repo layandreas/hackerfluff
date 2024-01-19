@@ -15,9 +15,10 @@ class BottomBar extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(
+              padding: const EdgeInsets.only(bottom: 10),
               alignment: Alignment.center,
               width: double.infinity,
-              height: 80,
+              height: 65,
               color: Theme.of(context).colorScheme.background.withOpacity(0.9),
               child: const Row(children: [
                 Expanded(
