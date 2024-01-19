@@ -46,53 +46,38 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
           EdgeInsets.only(left: (widget.comment.nParents?.toDouble() ?? 0) * 7),
       child: AnimatedSize(
         alignment: Alignment.topLeft,
-        duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 5,
-            ),
-            if (widget.comment.text != null)
-              GestureDetector(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                      left: BorderSide(
-                          color: (widget.comment.parentId == null)
-                              ? Colors.transparent
-                              : Theme.of(context).colorScheme.primary,
-                          width: (widget.comment.parentId == null) ? 0 : 2.0),
-                    )),
-                    child: CommentCard(
-                      key: Key(commentCompositeId),
-                      id: widget.comment.id,
-                      storyId: widget.storyId,
-                      widget: widget,
-                      timeSinceCommentFmt: timeSinceCommentFmt,
-                      hideCard: hideCard,
-                      hideReadComments: widget.hideReadComments,
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  HapticFeedback.mediumImpact();
-                  setState(() {
-                    hideCard = !hideCard;
-                    widget.setHiddenComments(hideCard);
-                  });
-                },
+        child: GestureDetector(
+          child: SizedBox(
+            width: double.infinity,
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                left: BorderSide(
+                    color: (widget.comment.parentId == null)
+                        ? Colors.transparent
+                        : Theme.of(context).colorScheme.primary,
+                    width: (widget.comment.parentId == null) ? 0 : 2.0),
+              )),
+              child: CommentCard(
+                key: Key(commentCompositeId),
+                id: widget.comment.id,
+                storyId: widget.storyId,
+                widget: widget,
+                timeSinceCommentFmt: timeSinceCommentFmt,
+                hideCard: hideCard,
+                hideReadComments: widget.hideReadComments,
               ),
-            // for (final child in hideChildren ? [] : widget.comment.children!)
-            //   SingleCommentsView(
-            //     comment: child,
-            //     storyId: widget.storyId,
-            //     hideReadComments: widget.hideReadComments,
-            //   )
-          ],
+            ),
+          ),
+          onTap: () {
+            HapticFeedback.mediumImpact();
+            setState(() {
+              hideCard = !hideCard;
+              widget.setHiddenComments(hideCard);
+            });
+          },
         ),
       ),
     );
