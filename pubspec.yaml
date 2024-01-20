@@ -54,3 +54,11 @@ flutter:
     - assets/appainter_theme_oled_dark.json    
     - assets/appainter_theme_light.json    
     - assets/appainter_theme_blue.json
+
+  fonts:
+    - family: SourceSans3
+      fonts:
+        - asset: fonts/SourceSans3-Regular.ttf
+        - asset: fonts/SourceSans3-Italic.ttf
+          style: italic
+        - asset: fonts/SourceSans3-Bold.ttf

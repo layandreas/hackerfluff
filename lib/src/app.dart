@@ -29,7 +29,9 @@ class HackernewsApp extends ConsumerWidget {
       _ => null
     };
 
-    var lightTheme = ThemeData.light();
+    var lightTheme = ThemeData(
+      fontFamily: "SourceSans3",
+    );
     var darkTheme = themeDark;
     var themeMode = ThemeMode.system;
 
@@ -96,7 +98,7 @@ class HackernewsApp extends ConsumerWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData.light(),
+          theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeMode,
 
@@ -128,6 +130,7 @@ class HackernewsApp extends ConsumerWidget {
 }
 
 final themeOledDark = ThemeData(
+    fontFamily: "SourceSans3",
     brightness: Brightness.dark,
     colorScheme: const ColorScheme(
       primary: Color(0xFFC20E5E),
@@ -159,6 +162,7 @@ final themeOledDark = ThemeData(
     ));
 
 final themeBlue = ThemeData(
+    fontFamily: "SourceSans3",
     brightness: Brightness.dark,
     colorScheme: const ColorScheme(
       primary: Color(0xFF9ECAFF),
@@ -191,6 +195,7 @@ final themeBlue = ThemeData(
 
 final themeDark = ThemeData(
     brightness: Brightness.dark,
+    fontFamily: "SourceSans3",
     colorScheme: const ColorScheme(
       primary: Color.fromARGB(255, 37, 150, 190),
       secondary: Color(0xFFC20E5E),

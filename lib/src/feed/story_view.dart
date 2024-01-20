@@ -54,22 +54,18 @@ class StoryView extends ConsumerWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         RichText(
             text: TextSpan(
-                text: story.title,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontWeight: FontWeight.bold,
-                    fontSize:
-                        Theme.of(context).textTheme.titleMedium?.fontSize))),
+          text: story.title,
+          style: DefaultTextStyle.of(context).style.copyWith(
+              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+              fontWeight: FontWeight.bold),
+        )),
         RichText(
             text: TextSpan(
-                text: urlFormatted,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground))),
+                text: urlFormatted, style: DefaultTextStyle.of(context).style)),
         RichText(
             text: TextSpan(
                 text: '${story.by} • $timeSinceStoryFmt',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground))),
+                style: DefaultTextStyle.of(context).style)),
         RichText(
             text: TextSpan(
                 text:
@@ -77,11 +73,10 @@ class StoryView extends ConsumerWidget {
                 children: [
                   TextSpan(
                       text: '($nCommentsSeen read)',
-                      style: TextStyle(
+                      style: DefaultTextStyle.of(context).style.copyWith(
                           color: Theme.of(context).colorScheme.primary))
                 ],
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground))),
+                style: DefaultTextStyle.of(context).style)),
         const Divider()
       ]),
     );
