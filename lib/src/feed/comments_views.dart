@@ -46,7 +46,7 @@ class _SingleCommentsViewState extends State<SingleCommentsView> {
           EdgeInsets.only(left: (widget.comment.nParents?.toDouble() ?? 0) * 7),
       child: AnimatedSize(
         alignment: Alignment.topLeft,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
         child: GestureDetector(
           child: SizedBox(

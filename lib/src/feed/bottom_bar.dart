@@ -27,7 +27,7 @@ class BottomBar extends StatelessWidget {
               alignment: Alignment.center,
               width: double.infinity,
               height: 65,
-              color: Theme.of(context).colorScheme.background.withOpacity(0.9),
+              color: Theme.of(context).colorScheme.background.withOpacity(0.85),
               child: Row(children: [
                 Expanded(
                     child: IconButton(
