@@ -146,9 +146,12 @@ class ThemeSettingsView extends ConsumerWidget {
       if (settings != null) {
         final settingsUpdated =
             settings.copyWith.themeSettings?.call(theme: selectedTheme);
-
         if (settingsUpdated != null) {
           settingsNotifier.updateSettings(settings: settingsUpdated);
+        } else {
+          settingsNotifier.updateSettings(
+              settings: SettingsModel(
+                  themeSettings: ThemeSettingsModel(theme: selectedTheme)));
         }
       }
     }
@@ -229,6 +232,11 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
 
         if (settingsUpdated != null) {
           settingsNotifier.updateSettings(settings: settingsUpdated);
+        } else {
+          settingsNotifier.updateSettings(
+              settings: SettingsModel(
+                  themeSettings: ThemeSettingsModel(
+                      defaultLightTheme: selectedDefaultLightTheme)));
         }
       }
     }
@@ -304,6 +312,11 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
 
         if (settingsUpdated != null) {
           settingsNotifier.updateSettings(settings: settingsUpdated);
+        } else {
+          settingsNotifier.updateSettings(
+              settings: SettingsModel(
+                  themeSettings: ThemeSettingsModel(
+                      defaultDarkTheme: selectedDefaultDarkTheme)));
         }
       }
     }
