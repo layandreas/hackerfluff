@@ -34,12 +34,44 @@ class HackernewsApp extends ConsumerWidget {
     );
     var darkTheme = themeDark;
     var themeMode = ThemeMode.system;
+    ThemeData? defaultLightTheme;
+    ThemeData? defaultDarkTheme;
+
+    if (settings?.themeSettings?.defaultLightTheme != null) {
+      switch (settings?.themeSettings?.defaultLightTheme) {
+        case DefaultTheme.light:
+          defaultLightTheme = lightTheme;
+        case DefaultTheme.dark:
+          defaultLightTheme = darkTheme;
+        case DefaultTheme.oledDark:
+          defaultLightTheme = themeOledDark;
+        case DefaultTheme.blue:
+          defaultLightTheme = themeBlue;
+        case _:
+          defaultLightTheme = lightTheme;
+      }
+    }
+
+    if (settings?.themeSettings?.defaultDarkTheme != null) {
+      switch (settings?.themeSettings?.defaultDarkTheme) {
+        case DefaultTheme.light:
+          defaultDarkTheme = lightTheme;
+        case DefaultTheme.dark:
+          defaultDarkTheme = darkTheme;
+        case DefaultTheme.oledDark:
+          defaultDarkTheme = themeOledDark;
+        case DefaultTheme.blue:
+          defaultDarkTheme = themeBlue;
+        case _:
+          defaultDarkTheme = darkTheme;
+      }
+    }
 
     if (settings?.themeSettings != null) {
       switch (settings?.themeSettings?.theme) {
         case ThemeSetting.system:
-          lightTheme = lightTheme;
-          darkTheme = themeDark;
+          lightTheme = defaultLightTheme ?? lightTheme;
+          darkTheme = defaultDarkTheme ?? darkTheme;
           themeMode = ThemeMode.system;
         case ThemeSetting.blue:
           darkTheme = themeBlue;
