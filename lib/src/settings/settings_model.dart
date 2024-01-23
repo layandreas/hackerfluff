@@ -6,10 +6,14 @@ part 'settings_model.freezed.dart';
 
 enum ThemeSetting { system, light, dark, oledDark, blue }
 
+enum DefaultTheme { light, dark, oledDark, blue }
+
 @freezed
 class ThemeSettingsModel with _$ThemeSettingsModel {
   const factory ThemeSettingsModel({
     ThemeSetting? theme,
+    DefaultTheme? defaultLightTheme,
+    DefaultTheme? defaultDarkTheme,
   }) = _ThemeSettingsModel;
 
   factory ThemeSettingsModel.fromJson(Map<String, Object?> json) =>

@@ -32,15 +32,29 @@ class SettingsView extends StatelessWidget {
                             builder: (context) => const ThemeSettingsView()))
                   },
                 ),
-                const SettingsCard(
+                SettingsCard(
                   text: 'Default Light Theme',
-                  leading: Icon(Icons.light_mode_outlined),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.light_mode_outlined),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const DefaultLightThemeSettingsView()))
+                  },
                 ),
-                const SettingsCard(
+                SettingsCard(
                   text: 'Default Dark Theme',
-                  leading: Icon(Icons.dark_mode_outlined),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.dark_mode_outlined),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const DefaultDarkThemeSettingsView()))
+                  },
                 ),
               ],
             ),
@@ -74,6 +88,7 @@ class SettingsList extends StatelessWidget {
           ),
         Expanded(
           child: ListView(
+            physics: const NeverScrollableScrollPhysics(),
             children: settingsCards,
           ),
         ),
@@ -129,9 +144,12 @@ class ThemeSettingsView extends ConsumerWidget {
 
     void onTapSetting({required ThemeSetting selectedTheme}) {
       if (settings != null) {
-        final settingsUpdated = settings.copyWith(
-            themeSettings: ThemeSettingsModel(theme: selectedTheme));
-        settingsNotifier.updateSettings(settings: settingsUpdated);
+        final settingsUpdated =
+            settings.copyWith.themeSettings?.call(theme: selectedTheme);
+
+        if (settingsUpdated != null) {
+          settingsNotifier.updateSettings(settings: settingsUpdated);
+        }
       }
     }
 
@@ -185,6 +203,156 @@ class ThemeSettingsView extends ConsumerWidget {
                   )
                 : null,
             onTap: () => onTapSetting(selectedTheme: ThemeSetting.blue)),
+      ])),
+    );
+  }
+}
+
+class DefaultLightThemeSettingsView extends ConsumerWidget {
+  const DefaultLightThemeSettingsView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingsAsyncValue = ref.watch(settingsProvider);
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settings = switch (settingsAsyncValue) {
+      AsyncData(:final value) => value,
+      _ => null
+    };
+    final DefaultTheme selectedDefaultLightTheme =
+        (settings?.themeSettings?.defaultLightTheme) ?? DefaultTheme.light;
+
+    void onTapSetting({required DefaultTheme selectedDefaultLightTheme}) {
+      if (settings != null) {
+        final settingsUpdated = settings.copyWith.themeSettings
+            ?.call(defaultLightTheme: selectedDefaultLightTheme);
+
+        if (settingsUpdated != null) {
+          settingsNotifier.updateSettings(settings: settingsUpdated);
+        }
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Theme')),
+      body: SafeArea(
+          child: SettingsList(settingsCards: [
+        SettingsCard(
+          text: 'Light',
+          trailing: (selectedDefaultLightTheme == DefaultTheme.light)
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              : null,
+          onTap: () =>
+              onTapSetting(selectedDefaultLightTheme: DefaultTheme.light),
+        ),
+        SettingsCard(
+            text: 'Dark',
+            trailing: (selectedDefaultLightTheme == DefaultTheme.dark)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultLightTheme: DefaultTheme.dark)),
+        SettingsCard(
+            text: 'OLED-Dark',
+            trailing: (selectedDefaultLightTheme == DefaultTheme.oledDark)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultLightTheme: DefaultTheme.oledDark)),
+        SettingsCard(
+            text: 'Blue',
+            trailing: (selectedDefaultLightTheme == DefaultTheme.blue)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultLightTheme: DefaultTheme.blue)),
+      ])),
+    );
+  }
+}
+
+class DefaultDarkThemeSettingsView extends ConsumerWidget {
+  const DefaultDarkThemeSettingsView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingsAsyncValue = ref.watch(settingsProvider);
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settings = switch (settingsAsyncValue) {
+      AsyncData(:final value) => value,
+      _ => null
+    };
+    final DefaultTheme selectedDefaultDarkTheme =
+        (settings?.themeSettings?.defaultDarkTheme) ?? DefaultTheme.dark;
+
+    void onTapSetting({required DefaultTheme selectedDefaultDarkTheme}) {
+      if (settings != null) {
+        final settingsUpdated = settings.copyWith.themeSettings
+            ?.call(defaultDarkTheme: selectedDefaultDarkTheme);
+
+        if (settingsUpdated != null) {
+          settingsNotifier.updateSettings(settings: settingsUpdated);
+        }
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Theme')),
+      body: SafeArea(
+          child: SettingsList(settingsCards: [
+        SettingsCard(
+          text: 'Light',
+          trailing: (selectedDefaultDarkTheme == DefaultTheme.light)
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              : null,
+          onTap: () =>
+              onTapSetting(selectedDefaultDarkTheme: DefaultTheme.light),
+        ),
+        SettingsCard(
+            text: 'Dark',
+            trailing: (selectedDefaultDarkTheme == DefaultTheme.dark)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultDarkTheme: DefaultTheme.dark)),
+        SettingsCard(
+            text: 'OLED-Dark',
+            trailing: (selectedDefaultDarkTheme == DefaultTheme.oledDark)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultDarkTheme: DefaultTheme.oledDark)),
+        SettingsCard(
+            text: 'Blue',
+            trailing: (selectedDefaultDarkTheme == DefaultTheme.blue)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultDarkTheme: DefaultTheme.blue)),
       ])),
     );
   }
