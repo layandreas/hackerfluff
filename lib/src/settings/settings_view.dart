@@ -18,28 +18,98 @@ class SettingsView extends StatelessWidget {
         ),
         body: BottomBar(
           child: SafeArea(
-            child: ListView(children: [
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'Theme',
-                    style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodyLarge?.fontSize),
-                  ),
+            child: SettingsList(
+              title: 'Theming',
+              settingsCards: [
+                SettingsCard(
+                  text: 'Theme',
                   leading: const Icon(Icons.color_lens_outlined),
                   trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
+                  onTap: () => {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ThemeSettingsView()));
+                            builder: (context) => const ThemeSettingsView()))
                   },
                 ),
-              )
-            ]),
+                const SettingsCard(
+                  text: 'Default Light Theme',
+                  leading: Icon(Icons.light_mode_outlined),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                const SettingsCard(
+                  text: 'Default Dark Theme',
+                  leading: Icon(Icons.dark_mode_outlined),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ],
+            ),
           ),
         ));
+  }
+}
+
+class SettingsList extends StatelessWidget {
+  const SettingsList({
+    super.key,
+    required this.settingsCards,
+    this.title,
+  });
+
+  final List<SettingsCard> settingsCards;
+  final String? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (title != null)
+          ListTile(
+            leading: Text(
+              title ?? '',
+              style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        Expanded(
+          child: ListView(
+            children: settingsCards,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SettingsCard extends StatelessWidget {
+  const SettingsCard(
+      {super.key, required this.text, this.leading, this.trailing, this.onTap});
+
+  final void Function()? onTap;
+  final String text;
+  final Widget? leading;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shadowColor: Colors.transparent,
+      elevation: 0,
+      color: Colors.transparent,
+      child: ListTile(
+        dense: true,
+        visualDensity: const VisualDensity(vertical: -4),
+        title: Text(
+          text,
+          style: TextStyle(
+              fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize),
+        ),
+        leading: leading,
+        trailing: trailing,
+        onTap: onTap,
+      ),
+    );
   }
 }
 
