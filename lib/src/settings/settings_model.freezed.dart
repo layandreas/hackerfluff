@@ -21,6 +21,8 @@ ThemeSettingsModel _$ThemeSettingsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ThemeSettingsModel {
   ThemeSetting? get theme => throw _privateConstructorUsedError;
+  DefaultTheme? get defaultLightTheme => throw _privateConstructorUsedError;
+  DefaultTheme? get defaultDarkTheme => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,10 @@ abstract class $ThemeSettingsModelCopyWith<$Res> {
           ThemeSettingsModel value, $Res Function(ThemeSettingsModel) then) =
       _$ThemeSettingsModelCopyWithImpl<$Res, ThemeSettingsModel>;
   @useResult
-  $Res call({ThemeSetting? theme});
+  $Res call(
+      {ThemeSetting? theme,
+      DefaultTheme? defaultLightTheme,
+      DefaultTheme? defaultDarkTheme});
 }
 
 /// @nodoc
@@ -51,12 +56,22 @@ class _$ThemeSettingsModelCopyWithImpl<$Res, $Val extends ThemeSettingsModel>
   @override
   $Res call({
     Object? theme = freezed,
+    Object? defaultLightTheme = freezed,
+    Object? defaultDarkTheme = freezed,
   }) {
     return _then(_value.copyWith(
       theme: freezed == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as ThemeSetting?,
+      defaultLightTheme: freezed == defaultLightTheme
+          ? _value.defaultLightTheme
+          : defaultLightTheme // ignore: cast_nullable_to_non_nullable
+              as DefaultTheme?,
+      defaultDarkTheme: freezed == defaultDarkTheme
+          ? _value.defaultDarkTheme
+          : defaultDarkTheme // ignore: cast_nullable_to_non_nullable
+              as DefaultTheme?,
     ) as $Val);
   }
 }
@@ -69,7 +84,10 @@ abstract class _$$ThemeSettingsModelImplCopyWith<$Res>
       __$$ThemeSettingsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeSetting? theme});
+  $Res call(
+      {ThemeSetting? theme,
+      DefaultTheme? defaultLightTheme,
+      DefaultTheme? defaultDarkTheme});
 }
 
 /// @nodoc
@@ -84,12 +102,22 @@ class __$$ThemeSettingsModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? theme = freezed,
+    Object? defaultLightTheme = freezed,
+    Object? defaultDarkTheme = freezed,
   }) {
     return _then(_$ThemeSettingsModelImpl(
       theme: freezed == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as ThemeSetting?,
+      defaultLightTheme: freezed == defaultLightTheme
+          ? _value.defaultLightTheme
+          : defaultLightTheme // ignore: cast_nullable_to_non_nullable
+              as DefaultTheme?,
+      defaultDarkTheme: freezed == defaultDarkTheme
+          ? _value.defaultDarkTheme
+          : defaultDarkTheme // ignore: cast_nullable_to_non_nullable
+              as DefaultTheme?,
     ));
   }
 }
@@ -97,17 +125,22 @@ class __$$ThemeSettingsModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ThemeSettingsModelImpl implements _ThemeSettingsModel {
-  const _$ThemeSettingsModelImpl({this.theme});
+  const _$ThemeSettingsModelImpl(
+      {this.theme, this.defaultLightTheme, this.defaultDarkTheme});
 
   factory _$ThemeSettingsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ThemeSettingsModelImplFromJson(json);
 
   @override
   final ThemeSetting? theme;
+  @override
+  final DefaultTheme? defaultLightTheme;
+  @override
+  final DefaultTheme? defaultDarkTheme;
 
   @override
   String toString() {
-    return 'ThemeSettingsModel(theme: $theme)';
+    return 'ThemeSettingsModel(theme: $theme, defaultLightTheme: $defaultLightTheme, defaultDarkTheme: $defaultDarkTheme)';
   }
 
   @override
@@ -115,12 +148,17 @@ class _$ThemeSettingsModelImpl implements _ThemeSettingsModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ThemeSettingsModelImpl &&
-            (identical(other.theme, theme) || other.theme == theme));
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.defaultLightTheme, defaultLightTheme) ||
+                other.defaultLightTheme == defaultLightTheme) &&
+            (identical(other.defaultDarkTheme, defaultDarkTheme) ||
+                other.defaultDarkTheme == defaultDarkTheme));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, theme);
+  int get hashCode =>
+      Object.hash(runtimeType, theme, defaultLightTheme, defaultDarkTheme);
 
   @JsonKey(ignore: true)
   @override
@@ -138,14 +176,20 @@ class _$ThemeSettingsModelImpl implements _ThemeSettingsModel {
 }
 
 abstract class _ThemeSettingsModel implements ThemeSettingsModel {
-  const factory _ThemeSettingsModel({final ThemeSetting? theme}) =
-      _$ThemeSettingsModelImpl;
+  const factory _ThemeSettingsModel(
+      {final ThemeSetting? theme,
+      final DefaultTheme? defaultLightTheme,
+      final DefaultTheme? defaultDarkTheme}) = _$ThemeSettingsModelImpl;
 
   factory _ThemeSettingsModel.fromJson(Map<String, dynamic> json) =
       _$ThemeSettingsModelImpl.fromJson;
 
   @override
   ThemeSetting? get theme;
+  @override
+  DefaultTheme? get defaultLightTheme;
+  @override
+  DefaultTheme? get defaultDarkTheme;
   @override
   @JsonKey(ignore: true)
   _$$ThemeSettingsModelImplCopyWith<_$ThemeSettingsModelImpl> get copyWith =>
