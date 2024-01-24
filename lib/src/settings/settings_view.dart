@@ -110,7 +110,31 @@ class SettingsView extends ConsumerWidget {
                             ],
                           )),
                 ),
-                const SettingsCard(text: '')
+                ListTile(
+                  visualDensity: const VisualDensity(vertical: -4),
+                  leading: Text(
+                    'General',
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge?.fontSize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SettingsCard(
+                  text: 'Adjust Font Size',
+                  leading: const Icon(
+                    Icons.format_size_outlined,
+                  ),
+                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                    IconButton(
+                        onPressed: () => (),
+                        icon: const Icon(Icons.text_decrease_outlined)),
+                    IconButton(
+                        onPressed: () => (),
+                        icon: const Icon(Icons.text_increase_outlined))
+                  ]),
+                ),
+                const SettingsCard(text: ''),
               ],
             ),
           ),
