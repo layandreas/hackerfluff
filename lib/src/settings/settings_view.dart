@@ -110,6 +110,7 @@ class SettingsView extends ConsumerWidget {
                             ],
                           )),
                 ),
+                const SettingsCard(text: '')
               ],
             ),
           ),
