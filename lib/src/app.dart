@@ -98,7 +98,8 @@ class HackernewsApp extends ConsumerWidget {
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(
-        textScaler: const TextScaler.linear(1.0),
+        textScaler:
+            TextScaler.linear((settings?.fontSettings?.textScaleFactor) ?? 1),
       ),
       child: ListenableBuilder(
         listenable: settingsController,
