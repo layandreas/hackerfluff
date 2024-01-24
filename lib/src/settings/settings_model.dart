@@ -9,6 +9,16 @@ enum ThemeSetting { system, light, dark, oledDark, blue }
 enum DefaultTheme { light, dark, oledDark, blue }
 
 @freezed
+class FontSettingsModel with _$FontSettingsModel {
+  const factory FontSettingsModel({
+    double? textScaleFactor,
+  }) = _FontSettingsModel;
+
+  factory FontSettingsModel.fromJson(Map<String, Object?> json) =>
+      _$FontSettingsModelFromJson(json);
+}
+
+@freezed
 class ThemeSettingsModel with _$ThemeSettingsModel {
   const factory ThemeSettingsModel({
     ThemeSetting? theme,
@@ -22,8 +32,9 @@ class ThemeSettingsModel with _$ThemeSettingsModel {
 
 @freezed
 class SettingsModel with _$SettingsModel {
-  const factory SettingsModel({ThemeSettingsModel? themeSettings}) =
-      _SettingsModel;
+  const factory SettingsModel(
+      {ThemeSettingsModel? themeSettings,
+      FontSettingsModel? fontSettings}) = _SettingsModel;
 
   factory SettingsModel.fromJson(Map<String, Object?> json) =>
       _$SettingsModelFromJson(json);

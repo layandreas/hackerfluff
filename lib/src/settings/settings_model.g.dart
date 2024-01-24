@@ -6,6 +6,18 @@ part of 'settings_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$FontSettingsModelImpl _$$FontSettingsModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FontSettingsModelImpl(
+      textScaleFactor: (json['textScaleFactor'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$FontSettingsModelImplToJson(
+        _$FontSettingsModelImpl instance) =>
+    <String, dynamic>{
+      'textScaleFactor': instance.textScaleFactor,
+    };
+
 _$ThemeSettingsModelImpl _$$ThemeSettingsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ThemeSettingsModelImpl(
@@ -45,9 +57,14 @@ _$SettingsModelImpl _$$SettingsModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : ThemeSettingsModel.fromJson(
               json['themeSettings'] as Map<String, dynamic>),
+      fontSettings: json['fontSettings'] == null
+          ? null
+          : FontSettingsModel.fromJson(
+              json['fontSettings'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SettingsModelImplToJson(_$SettingsModelImpl instance) =>
     <String, dynamic>{
       'themeSettings': instance.themeSettings?.toJson(),
+      'fontSettings': instance.fontSettings?.toJson(),
     };

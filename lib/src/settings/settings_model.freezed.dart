@@ -14,6 +14,145 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+FontSettingsModel _$FontSettingsModelFromJson(Map<String, dynamic> json) {
+  return _FontSettingsModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FontSettingsModel {
+  double? get textScaleFactor => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FontSettingsModelCopyWith<FontSettingsModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FontSettingsModelCopyWith<$Res> {
+  factory $FontSettingsModelCopyWith(
+          FontSettingsModel value, $Res Function(FontSettingsModel) then) =
+      _$FontSettingsModelCopyWithImpl<$Res, FontSettingsModel>;
+  @useResult
+  $Res call({double? textScaleFactor});
+}
+
+/// @nodoc
+class _$FontSettingsModelCopyWithImpl<$Res, $Val extends FontSettingsModel>
+    implements $FontSettingsModelCopyWith<$Res> {
+  _$FontSettingsModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? textScaleFactor = freezed,
+  }) {
+    return _then(_value.copyWith(
+      textScaleFactor: freezed == textScaleFactor
+          ? _value.textScaleFactor
+          : textScaleFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$FontSettingsModelImplCopyWith<$Res>
+    implements $FontSettingsModelCopyWith<$Res> {
+  factory _$$FontSettingsModelImplCopyWith(_$FontSettingsModelImpl value,
+          $Res Function(_$FontSettingsModelImpl) then) =
+      __$$FontSettingsModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double? textScaleFactor});
+}
+
+/// @nodoc
+class __$$FontSettingsModelImplCopyWithImpl<$Res>
+    extends _$FontSettingsModelCopyWithImpl<$Res, _$FontSettingsModelImpl>
+    implements _$$FontSettingsModelImplCopyWith<$Res> {
+  __$$FontSettingsModelImplCopyWithImpl(_$FontSettingsModelImpl _value,
+      $Res Function(_$FontSettingsModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? textScaleFactor = freezed,
+  }) {
+    return _then(_$FontSettingsModelImpl(
+      textScaleFactor: freezed == textScaleFactor
+          ? _value.textScaleFactor
+          : textScaleFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FontSettingsModelImpl implements _FontSettingsModel {
+  const _$FontSettingsModelImpl({this.textScaleFactor});
+
+  factory _$FontSettingsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FontSettingsModelImplFromJson(json);
+
+  @override
+  final double? textScaleFactor;
+
+  @override
+  String toString() {
+    return 'FontSettingsModel(textScaleFactor: $textScaleFactor)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FontSettingsModelImpl &&
+            (identical(other.textScaleFactor, textScaleFactor) ||
+                other.textScaleFactor == textScaleFactor));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, textScaleFactor);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FontSettingsModelImplCopyWith<_$FontSettingsModelImpl> get copyWith =>
+      __$$FontSettingsModelImplCopyWithImpl<_$FontSettingsModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FontSettingsModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FontSettingsModel implements FontSettingsModel {
+  const factory _FontSettingsModel({final double? textScaleFactor}) =
+      _$FontSettingsModelImpl;
+
+  factory _FontSettingsModel.fromJson(Map<String, dynamic> json) =
+      _$FontSettingsModelImpl.fromJson;
+
+  @override
+  double? get textScaleFactor;
+  @override
+  @JsonKey(ignore: true)
+  _$$FontSettingsModelImplCopyWith<_$FontSettingsModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 ThemeSettingsModel _$ThemeSettingsModelFromJson(Map<String, dynamic> json) {
   return _ThemeSettingsModel.fromJson(json);
 }
@@ -203,6 +342,7 @@ SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SettingsModel {
   ThemeSettingsModel? get themeSettings => throw _privateConstructorUsedError;
+  FontSettingsModel? get fontSettings => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -216,9 +356,11 @@ abstract class $SettingsModelCopyWith<$Res> {
           SettingsModel value, $Res Function(SettingsModel) then) =
       _$SettingsModelCopyWithImpl<$Res, SettingsModel>;
   @useResult
-  $Res call({ThemeSettingsModel? themeSettings});
+  $Res call(
+      {ThemeSettingsModel? themeSettings, FontSettingsModel? fontSettings});
 
   $ThemeSettingsModelCopyWith<$Res>? get themeSettings;
+  $FontSettingsModelCopyWith<$Res>? get fontSettings;
 }
 
 /// @nodoc
@@ -235,12 +377,17 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
   @override
   $Res call({
     Object? themeSettings = freezed,
+    Object? fontSettings = freezed,
   }) {
     return _then(_value.copyWith(
       themeSettings: freezed == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
               as ThemeSettingsModel?,
+      fontSettings: freezed == fontSettings
+          ? _value.fontSettings
+          : fontSettings // ignore: cast_nullable_to_non_nullable
+              as FontSettingsModel?,
     ) as $Val);
   }
 
@@ -255,6 +402,18 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
       return _then(_value.copyWith(themeSettings: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FontSettingsModelCopyWith<$Res>? get fontSettings {
+    if (_value.fontSettings == null) {
+      return null;
+    }
+
+    return $FontSettingsModelCopyWith<$Res>(_value.fontSettings!, (value) {
+      return _then(_value.copyWith(fontSettings: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -265,10 +424,13 @@ abstract class _$$SettingsModelImplCopyWith<$Res>
       __$$SettingsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeSettingsModel? themeSettings});
+  $Res call(
+      {ThemeSettingsModel? themeSettings, FontSettingsModel? fontSettings});
 
   @override
   $ThemeSettingsModelCopyWith<$Res>? get themeSettings;
+  @override
+  $FontSettingsModelCopyWith<$Res>? get fontSettings;
 }
 
 /// @nodoc
@@ -283,12 +445,17 @@ class __$$SettingsModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themeSettings = freezed,
+    Object? fontSettings = freezed,
   }) {
     return _then(_$SettingsModelImpl(
       themeSettings: freezed == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
               as ThemeSettingsModel?,
+      fontSettings: freezed == fontSettings
+          ? _value.fontSettings
+          : fontSettings // ignore: cast_nullable_to_non_nullable
+              as FontSettingsModel?,
     ));
   }
 }
@@ -296,17 +463,19 @@ class __$$SettingsModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SettingsModelImpl implements _SettingsModel {
-  const _$SettingsModelImpl({this.themeSettings});
+  const _$SettingsModelImpl({this.themeSettings, this.fontSettings});
 
   factory _$SettingsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsModelImplFromJson(json);
 
   @override
   final ThemeSettingsModel? themeSettings;
+  @override
+  final FontSettingsModel? fontSettings;
 
   @override
   String toString() {
-    return 'SettingsModel(themeSettings: $themeSettings)';
+    return 'SettingsModel(themeSettings: $themeSettings, fontSettings: $fontSettings)';
   }
 
   @override
@@ -315,12 +484,14 @@ class _$SettingsModelImpl implements _SettingsModel {
         (other.runtimeType == runtimeType &&
             other is _$SettingsModelImpl &&
             (identical(other.themeSettings, themeSettings) ||
-                other.themeSettings == themeSettings));
+                other.themeSettings == themeSettings) &&
+            (identical(other.fontSettings, fontSettings) ||
+                other.fontSettings == fontSettings));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, themeSettings);
+  int get hashCode => Object.hash(runtimeType, themeSettings, fontSettings);
 
   @JsonKey(ignore: true)
   @override
@@ -337,14 +508,17 @@ class _$SettingsModelImpl implements _SettingsModel {
 }
 
 abstract class _SettingsModel implements SettingsModel {
-  const factory _SettingsModel({final ThemeSettingsModel? themeSettings}) =
-      _$SettingsModelImpl;
+  const factory _SettingsModel(
+      {final ThemeSettingsModel? themeSettings,
+      final FontSettingsModel? fontSettings}) = _$SettingsModelImpl;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
       _$SettingsModelImpl.fromJson;
 
   @override
   ThemeSettingsModel? get themeSettings;
+  @override
+  FontSettingsModel? get fontSettings;
   @override
   @JsonKey(ignore: true)
   _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
