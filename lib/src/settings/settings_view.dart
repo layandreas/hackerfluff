@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings_model.dart';
 import '../feed/bottom_bar.dart';
 import '../feed/n_comments_seen_provider.dart';
+import 'dart:math';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -18,6 +19,34 @@ class SettingsView extends ConsumerWidget {
       AsyncData(:final value) => value,
       _ => 0,
     };
+
+    final settingsAsyncValue = ref.watch(settingsProvider);
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settings = switch (settingsAsyncValue) {
+      AsyncData(:final value) => value,
+      _ => null
+    };
+    final double selectedTextScaleFactor =
+        (settings?.fontSettings?.textScaleFactor) ?? 1;
+
+    void setSelectedTextScaleFactor({required double adjust}) {
+      final newSelectedTextScaleFactor =
+          max(min(selectedTextScaleFactor + adjust, 1.3), 1.0);
+
+      if (settings != null) {
+        final settingsUpdated = settings.copyWith.fontSettings
+            ?.call(textScaleFactor: newSelectedTextScaleFactor);
+
+        if (settingsUpdated != null) {
+          settingsNotifier.updateSettings(settings: settingsUpdated);
+        } else {
+          settingsNotifier.updateSettings(
+              settings: SettingsModel(
+                  fontSettings: FontSettingsModel(
+                      textScaleFactor: newSelectedTextScaleFactor)));
+        }
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -127,10 +156,12 @@ class SettingsView extends ConsumerWidget {
                   ),
                   trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                     IconButton(
-                        onPressed: () => (),
+                        onPressed: () =>
+                            setSelectedTextScaleFactor(adjust: -0.05),
                         icon: const Icon(Icons.text_decrease_outlined)),
                     IconButton(
-                        onPressed: () => (),
+                        onPressed: () =>
+                            setSelectedTextScaleFactor(adjust: 0.05),
                         icon: const Icon(Icons.text_increase_outlined))
                   ]),
                 ),
