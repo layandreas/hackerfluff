@@ -6,7 +6,7 @@ part of 'n_comments_seen_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nCommentsSeenHash() => r'c4d0a5d66bd879edd548d9f5d0151ea2c5d41d3a';
+String _$nCommentsSeenHash() => r'51887068b5d78cbb6f855b17b4d5b55212748cf8';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class NCommentsSeenFamily extends Family<AsyncValue<int>> {
 
   /// See also [nCommentsSeen].
   NCommentsSeenProvider call(
-    int storyId,
+    int? storyId,
   ) {
     return NCommentsSeenProvider(
       storyId,
@@ -75,7 +75,7 @@ class NCommentsSeenFamily extends Family<AsyncValue<int>> {
 class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
   /// See also [nCommentsSeen].
   NCommentsSeenProvider(
-    int storyId,
+    int? storyId,
   ) : this._internal(
           (ref) => nCommentsSeen(
             ref as NCommentsSeenRef,
@@ -103,7 +103,7 @@ class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
     required this.storyId,
   }) : super.internal();
 
-  final int storyId;
+  final int? storyId;
 
   @override
   Override overrideWith(
@@ -144,7 +144,7 @@ class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
 
 mixin NCommentsSeenRef on AutoDisposeFutureProviderRef<int> {
   /// The parameter `storyId` of this provider.
-  int get storyId;
+  int? get storyId;
 }
 
 class _NCommentsSeenProviderElement
@@ -152,7 +152,7 @@ class _NCommentsSeenProviderElement
   _NCommentsSeenProviderElement(super.provider);
 
   @override
-  int get storyId => (origin as NCommentsSeenProvider).storyId;
+  int? get storyId => (origin as NCommentsSeenProvider).storyId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -4,14 +4,21 @@ import 'settings_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings_model.dart';
 import '../feed/bottom_bar.dart';
+import '../feed/n_comments_seen_provider.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
 
   static const routeName = '/settings';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nCommentsSeenAsync = ref.watch(nCommentsSeenProvider(null));
+    final nCommentsSeen = switch (nCommentsSeenAsync) {
+      AsyncData(:final value) => value,
+      _ => 0,
+    };
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
@@ -19,8 +26,17 @@ class SettingsView extends StatelessWidget {
         body: BottomBar(
           child: SafeArea(
             child: SettingsList(
-              title: 'Theming',
               settingsCards: [
+                ListTile(
+                  visualDensity: const VisualDensity(vertical: -4),
+                  leading: Text(
+                    'Theming',
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge?.fontSize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
                 SettingsCard(
                   text: 'Theme',
                   leading: const Icon(Icons.color_lens_outlined),
@@ -56,6 +72,44 @@ class SettingsView extends StatelessWidget {
                                 const DefaultDarkThemeSettingsView()))
                   },
                 ),
+                ListTile(
+                  visualDensity: const VisualDensity(vertical: -4),
+                  leading: Text(
+                    'Storage',
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge?.fontSize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SettingsCard(text: 'You have read $nCommentsSeen comments'),
+                SettingsCard(
+                  text: 'Delete Read Comments History',
+                  textColor: Colors.red,
+                  leading: const Icon(
+                    Icons.delete_outline_rounded,
+                    color: Colors.red,
+                  ),
+                  onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Deletion'),
+                            content:
+                                const Text('Delete history of read comments'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Confirm'),
+                                child: const Text('Confirm'),
+                              ),
+                            ],
+                          )),
+                ),
               ],
             ),
           ),
@@ -70,7 +124,7 @@ class SettingsList extends StatelessWidget {
     this.title,
   });
 
-  final List<SettingsCard> settingsCards;
+  final List<Widget> settingsCards;
   final String? title;
 
   @override
@@ -88,7 +142,6 @@ class SettingsList extends StatelessWidget {
           ),
         Expanded(
           child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
             children: settingsCards,
           ),
         ),
@@ -99,12 +152,18 @@ class SettingsList extends StatelessWidget {
 
 class SettingsCard extends StatelessWidget {
   const SettingsCard(
-      {super.key, required this.text, this.leading, this.trailing, this.onTap});
+      {super.key,
+      required this.text,
+      this.leading,
+      this.trailing,
+      this.onTap,
+      this.textColor});
 
   final void Function()? onTap;
   final String text;
   final Widget? leading;
   final Widget? trailing;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +174,10 @@ class SettingsCard extends StatelessWidget {
       child: ListTile(
         dense: true,
         visualDensity: const VisualDensity(vertical: -4),
-        title: Text(
-          text,
-          style: TextStyle(
-              fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize),
-        ),
+        title: Text(text,
+            style: TextStyle(
+                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                color: textColor)),
         leading: leading,
         trailing: trailing,
         onTap: onTap,
@@ -242,7 +300,7 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme')),
+      appBar: AppBar(title: const Text('Default Light Theme')),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -322,7 +380,7 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme')),
+      appBar: AppBar(title: const Text('Default Dark Theme')),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
