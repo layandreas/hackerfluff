@@ -54,6 +54,10 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
         actions: [
           IconButton(
               onPressed: () {
+                setState(() {
+                  hiddenComments = {};
+                });
+
                 HapticFeedback.mediumImpact();
                 ref.invalidate(commentsProvider);
                 commentsNotifier.fetchStories();
@@ -79,9 +83,13 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
             cacheExtent: 6000,
             storiesState: commentState,
             dataFetcher: () => commentsNotifier.fetchStories(),
-            refreshCallback: () => Future.delayed(
-                const Duration(milliseconds: 100),
-                () => ref.refresh(commentsProvider)),
+            refreshCallback: () {
+              setState(() {
+                hiddenComments = {};
+              });
+              return Future.delayed(const Duration(milliseconds: 100),
+                  () => ref.refresh(commentsProvider));
+            },
             topOfListWidgets: [
               GestureDetector(
                 onTap: () {
@@ -93,17 +101,6 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               )
             ],
             itemBuilder: (index, commentsState) {
-              // if ([0, 4, 10].contains(index)) {
-              //   return Container(
-              //     height: 0,
-              //   );
-              // }
-              // if (hiddenComments.contains(index)) {
-              //   return Container(
-              //     height: 0,
-              //   );
-              // }
-
               if (commentsState.stories[index].text != null &&
                   !hiddenComments.contains(index)) {
                 return SingleCommentsView(
@@ -125,26 +122,10 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                           })
                         });
               } else {
-                // return const Text(
-                //   "hidden",
-                // );
                 return Container(
                   height: 0,
                 );
               }
-              // return Column(
-              //   children: [
-              //     if (commentState.stories[index].text != null)
-              //       SingleCommentsView(
-              //         key: ValueKey(index),
-              //         comment: commentsState.stories[index],
-              //         storyId: story.id,
-              //         isParentWidget: true,
-              //         hideReadComments: hideReadComments,
-              //       ),
-              //     if (commentState.stories[index].text != null) const Divider()
-              //   ],
-              // );
             },
           ),
         ),
