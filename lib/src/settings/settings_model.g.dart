@@ -53,18 +53,14 @@ const _$DefaultThemeEnumMap = {
 
 _$SettingsModelImpl _$$SettingsModelImplFromJson(Map<String, dynamic> json) =>
     _$SettingsModelImpl(
-      themeSettings: json['themeSettings'] == null
-          ? null
-          : ThemeSettingsModel.fromJson(
-              json['themeSettings'] as Map<String, dynamic>),
-      fontSettings: json['fontSettings'] == null
-          ? null
-          : FontSettingsModel.fromJson(
-              json['fontSettings'] as Map<String, dynamic>),
+      themeSettings: ThemeSettingsModel.fromJson(
+          json['themeSettings'] as Map<String, dynamic>),
+      fontSettings: FontSettingsModel.fromJson(
+          json['fontSettings'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SettingsModelImplToJson(_$SettingsModelImpl instance) =>
     <String, dynamic>{
-      'themeSettings': instance.themeSettings?.toJson(),
-      'fontSettings': instance.fontSettings?.toJson(),
+      'themeSettings': instance.themeSettings.toJson(),
+      'fontSettings': instance.fontSettings.toJson(),
     };

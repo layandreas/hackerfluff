@@ -27,7 +27,7 @@ class SettingsView extends ConsumerWidget {
       _ => null
     };
     final double selectedTextScaleFactor =
-        (settings?.fontSettings?.textScaleFactor) ?? 1;
+        (settings?.fontSettings.textScaleFactor) ?? 1;
 
     void setSelectedTextScaleFactor({required double adjust}) {
       final newSelectedTextScaleFactor =
@@ -35,16 +35,9 @@ class SettingsView extends ConsumerWidget {
 
       if (settings != null) {
         final settingsUpdated = settings.copyWith.fontSettings
-            ?.call(textScaleFactor: newSelectedTextScaleFactor);
+            .call(textScaleFactor: newSelectedTextScaleFactor);
 
-        if (settingsUpdated != null) {
-          settingsNotifier.updateSettings(settings: settingsUpdated);
-        } else {
-          settingsNotifier.updateSettings(
-              settings: SettingsModel(
-                  fontSettings: FontSettingsModel(
-                      textScaleFactor: newSelectedTextScaleFactor)));
-        }
+        settingsNotifier.updateSettings(settings: settingsUpdated);
       }
     }
 
@@ -254,19 +247,13 @@ class ThemeSettingsView extends ConsumerWidget {
       _ => null
     };
     final ThemeSetting selectedTheme =
-        (settings?.themeSettings?.theme) ?? ThemeSetting.system;
+        (settings?.themeSettings.theme) ?? ThemeSetting.system;
 
     void onTapSetting({required ThemeSetting selectedTheme}) {
       if (settings != null) {
         final settingsUpdated =
-            settings.copyWith.themeSettings?.call(theme: selectedTheme);
-        if (settingsUpdated != null) {
-          settingsNotifier.updateSettings(settings: settingsUpdated);
-        } else {
-          settingsNotifier.updateSettings(
-              settings: SettingsModel(
-                  themeSettings: ThemeSettingsModel(theme: selectedTheme)));
-        }
+            settings.copyWith.themeSettings.call(theme: selectedTheme);
+        settingsNotifier.updateSettings(settings: settingsUpdated);
       }
     }
 
@@ -337,21 +324,14 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
       _ => null
     };
     final DefaultTheme selectedDefaultLightTheme =
-        (settings?.themeSettings?.defaultLightTheme) ?? DefaultTheme.light;
+        (settings?.themeSettings.defaultLightTheme) ?? DefaultTheme.light;
 
     void onTapSetting({required DefaultTheme selectedDefaultLightTheme}) {
       if (settings != null) {
         final settingsUpdated = settings.copyWith.themeSettings
-            ?.call(defaultLightTheme: selectedDefaultLightTheme);
+            .call(defaultLightTheme: selectedDefaultLightTheme);
 
-        if (settingsUpdated != null) {
-          settingsNotifier.updateSettings(settings: settingsUpdated);
-        } else {
-          settingsNotifier.updateSettings(
-              settings: SettingsModel(
-                  themeSettings: ThemeSettingsModel(
-                      defaultLightTheme: selectedDefaultLightTheme)));
-        }
+        settingsNotifier.updateSettings(settings: settingsUpdated);
       }
     }
 
@@ -417,21 +397,14 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
       _ => null
     };
     final DefaultTheme selectedDefaultDarkTheme =
-        (settings?.themeSettings?.defaultDarkTheme) ?? DefaultTheme.dark;
+        (settings?.themeSettings.defaultDarkTheme) ?? DefaultTheme.dark;
 
     void onTapSetting({required DefaultTheme selectedDefaultDarkTheme}) {
       if (settings != null) {
         final settingsUpdated = settings.copyWith.themeSettings
-            ?.call(defaultDarkTheme: selectedDefaultDarkTheme);
+            .call(defaultDarkTheme: selectedDefaultDarkTheme);
 
-        if (settingsUpdated != null) {
-          settingsNotifier.updateSettings(settings: settingsUpdated);
-        } else {
-          settingsNotifier.updateSettings(
-              settings: SettingsModel(
-                  themeSettings: ThemeSettingsModel(
-                      defaultDarkTheme: selectedDefaultDarkTheme)));
-        }
+        settingsNotifier.updateSettings(settings: settingsUpdated);
       }
     }
 

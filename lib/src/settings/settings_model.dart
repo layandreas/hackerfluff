@@ -33,9 +33,15 @@ class ThemeSettingsModel with _$ThemeSettingsModel {
 @freezed
 class SettingsModel with _$SettingsModel {
   const factory SettingsModel(
-      {ThemeSettingsModel? themeSettings,
-      FontSettingsModel? fontSettings}) = _SettingsModel;
+      {required ThemeSettingsModel themeSettings,
+      required FontSettingsModel fontSettings}) = _SettingsModel;
 
   factory SettingsModel.fromJson(Map<String, Object?> json) =>
       _$SettingsModelFromJson(json);
 }
+
+const defaultSettings = SettingsModel(
+    themeSettings: ThemeSettingsModel(
+        defaultDarkTheme: DefaultTheme.dark,
+        defaultLightTheme: DefaultTheme.light),
+    fontSettings: FontSettingsModel(textScaleFactor: 1.0));

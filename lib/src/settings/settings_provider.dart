@@ -26,7 +26,7 @@ class Settings extends _$Settings {
       final settingsParsed = SettingsModel.fromJson(settingsRaw);
       return settingsParsed;
     } else {
-      return const SettingsModel();
+      return defaultSettings;
     }
   }
 

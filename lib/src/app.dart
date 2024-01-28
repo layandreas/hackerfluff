@@ -37,8 +37,8 @@ class HackernewsApp extends ConsumerWidget {
     ThemeData? defaultLightTheme;
     ThemeData? defaultDarkTheme;
 
-    if (settings?.themeSettings?.defaultLightTheme != null) {
-      switch (settings?.themeSettings?.defaultLightTheme) {
+    if (settings?.themeSettings.defaultLightTheme != null) {
+      switch (settings?.themeSettings.defaultLightTheme) {
         case DefaultTheme.light:
           defaultLightTheme = lightTheme;
         case DefaultTheme.dark:
@@ -52,8 +52,8 @@ class HackernewsApp extends ConsumerWidget {
       }
     }
 
-    if (settings?.themeSettings?.defaultDarkTheme != null) {
-      switch (settings?.themeSettings?.defaultDarkTheme) {
+    if (settings?.themeSettings.defaultDarkTheme != null) {
+      switch (settings?.themeSettings.defaultDarkTheme) {
         case DefaultTheme.light:
           defaultDarkTheme = lightTheme;
         case DefaultTheme.dark:
@@ -68,7 +68,7 @@ class HackernewsApp extends ConsumerWidget {
     }
 
     if (settings?.themeSettings != null) {
-      switch (settings?.themeSettings?.theme) {
+      switch (settings?.themeSettings.theme) {
         case ThemeSetting.system:
           lightTheme = defaultLightTheme ?? lightTheme;
           darkTheme = defaultDarkTheme ?? darkTheme;
@@ -99,7 +99,7 @@ class HackernewsApp extends ConsumerWidget {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(
         textScaler:
-            TextScaler.linear((settings?.fontSettings?.textScaleFactor) ?? 1),
+            TextScaler.linear((settings?.fontSettings.textScaleFactor) ?? 1),
       ),
       child: ListenableBuilder(
         listenable: settingsController,
