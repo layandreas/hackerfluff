@@ -17,7 +17,7 @@ enum StoryListEndpoint {
 }
 
 @Riverpod(keepAlive: true)
-Future<TopStories> topStories(
+Future<TopStoriesModel> topStories(
     TopStoriesRef ref, StoryListEndpoint storyListEndPoint) async {
   // Using package:http, we fetch a random activity from the Bored API.
   final response = await http.get(Uri.https(
@@ -25,5 +25,5 @@ Future<TopStories> topStories(
   // Using dart:convert, we then decode the JSON payload into a Map data structure.
   final json = jsonDecode(response.body) as List<dynamic>;
   // Finally, we convert the Map into an Activity instance.
-  return TopStories.fromJson({'storyIds': json});
+  return TopStoriesModel.fromJson({'storyIds': json});
 }
