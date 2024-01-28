@@ -6,7 +6,7 @@ part of 'n_comments_seen_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nCommentsSeenHash() => r'51887068b5d78cbb6f855b17b4d5b55212748cf8';
+String _$nCommentsSeenHash() => r'487948f8fb1076723de40d2f5655183ea0d4c8ff';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,16 +29,24 @@ class _SystemHash {
   }
 }
 
-/// See also [nCommentsSeen].
-@ProviderFor(nCommentsSeen)
+abstract class _$NCommentsSeen extends BuildlessAutoDisposeAsyncNotifier<int> {
+  late final int? storyId;
+
+  FutureOr<int> build(
+    int? storyId,
+  );
+}
+
+/// See also [NCommentsSeen].
+@ProviderFor(NCommentsSeen)
 const nCommentsSeenProvider = NCommentsSeenFamily();
 
-/// See also [nCommentsSeen].
+/// See also [NCommentsSeen].
 class NCommentsSeenFamily extends Family<AsyncValue<int>> {
-  /// See also [nCommentsSeen].
+  /// See also [NCommentsSeen].
   const NCommentsSeenFamily();
 
-  /// See also [nCommentsSeen].
+  /// See also [NCommentsSeen].
   NCommentsSeenProvider call(
     int? storyId,
   ) {
@@ -71,16 +79,14 @@ class NCommentsSeenFamily extends Family<AsyncValue<int>> {
   String? get name => r'nCommentsSeenProvider';
 }
 
-/// See also [nCommentsSeen].
-class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
-  /// See also [nCommentsSeen].
+/// See also [NCommentsSeen].
+class NCommentsSeenProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<NCommentsSeen, int> {
+  /// See also [NCommentsSeen].
   NCommentsSeenProvider(
     int? storyId,
   ) : this._internal(
-          (ref) => nCommentsSeen(
-            ref as NCommentsSeenRef,
-            storyId,
-          ),
+          () => NCommentsSeen()..storyId = storyId,
           from: nCommentsSeenProvider,
           name: r'nCommentsSeenProvider',
           debugGetCreateSourceHash:
@@ -106,13 +112,20 @@ class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
   final int? storyId;
 
   @override
-  Override overrideWith(
-    FutureOr<int> Function(NCommentsSeenRef provider) create,
+  FutureOr<int> runNotifierBuild(
+    covariant NCommentsSeen notifier,
   ) {
+    return notifier.build(
+      storyId,
+    );
+  }
+
+  @override
+  Override overrideWith(NCommentsSeen Function() create) {
     return ProviderOverride(
       origin: this,
       override: NCommentsSeenProvider._internal(
-        (ref) => create(ref as NCommentsSeenRef),
+        () => create()..storyId = storyId,
         from: from,
         name: null,
         dependencies: null,
@@ -124,7 +137,7 @@ class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<int> createElement() {
+  AutoDisposeAsyncNotifierProviderElement<NCommentsSeen, int> createElement() {
     return _NCommentsSeenProviderElement(this);
   }
 
@@ -142,13 +155,14 @@ class NCommentsSeenProvider extends AutoDisposeFutureProvider<int> {
   }
 }
 
-mixin NCommentsSeenRef on AutoDisposeFutureProviderRef<int> {
+mixin NCommentsSeenRef on AutoDisposeAsyncNotifierProviderRef<int> {
   /// The parameter `storyId` of this provider.
   int? get storyId;
 }
 
 class _NCommentsSeenProviderElement
-    extends AutoDisposeFutureProviderElement<int> with NCommentsSeenRef {
+    extends AutoDisposeAsyncNotifierProviderElement<NCommentsSeen, int>
+    with NCommentsSeenRef {
   _NCommentsSeenProviderElement(super.provider);
 
   @override

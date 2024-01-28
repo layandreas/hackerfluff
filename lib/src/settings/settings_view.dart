@@ -15,6 +15,8 @@ class SettingsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final nCommentsSeenAsync = ref.watch(nCommentsSeenProvider(null));
+    final nCommentsSeenNotifier =
+        ref.watch(nCommentsSeenProvider(null).notifier);
     final nCommentsSeen = switch (nCommentsSeenAsync) {
       AsyncData(:final value) => value,
       _ => 0,
@@ -125,8 +127,11 @@ class SettingsView extends ConsumerWidget {
                                 child: const Text('Cancel'),
                               ),
                               TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Confirm'),
+                                onPressed: () {
+                                  nCommentsSeenNotifier
+                                      .deleteCommentsSeenHistory();
+                                  Navigator.pop(context, 'Confirm');
+                                },
                                 child: const Text('Confirm'),
                               ),
                             ],
