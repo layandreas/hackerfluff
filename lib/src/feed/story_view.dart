@@ -75,22 +75,33 @@ class StoryView extends ConsumerWidget {
                     fontSize: MediaQuery.of(context)
                         .textScaler
                         .scale(DefaultTextStyle.of(context).style.fontSize!)))),
-        RichText(
-            text: TextSpan(
-                text:
-                    '${story.score.toString()} points • $numberOfCommentsFormatted ',
-                children: [
-                  TextSpan(
-                      text: '($nCommentsSeen read)',
-                      style: DefaultTextStyle.of(context).style.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: MediaQuery.of(context).textScaler.scale(
-                              DefaultTextStyle.of(context).style.fontSize!)))
-                ],
-                style: DefaultTextStyle.of(context).style.copyWith(
-                    fontSize: MediaQuery.of(context)
-                        .textScaler
-                        .scale(DefaultTextStyle.of(context).style.fontSize!)))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RichText(
+                text: TextSpan(
+                    text:
+                        '${story.score.toString()} points • $numberOfCommentsFormatted ',
+                    children: [
+                      TextSpan(
+                          text: '($nCommentsSeen read)',
+                          style: DefaultTextStyle.of(context).style.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: MediaQuery.of(context).textScaler.scale(
+                                  DefaultTextStyle.of(context)
+                                      .style
+                                      .fontSize!)))
+                    ],
+                    style: DefaultTextStyle.of(context).style.copyWith(
+                        fontSize: MediaQuery.of(context).textScaler.scale(
+                            DefaultTextStyle.of(context).style.fontSize!)))),
+            IconButton(
+                onPressed: () => (),
+                icon: const Icon(
+                  Icons.bookmark_outline,
+                ))
+          ],
+        ),
         const Divider()
       ]),
     );
