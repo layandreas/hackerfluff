@@ -4,11 +4,9 @@ import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'src/settings/settings_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Map<ThemeSetting, ThemeData> themes = {};
 
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
@@ -22,7 +20,6 @@ void main() async {
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
   runApp(ProviderScope(
-    child:
-        HackernewsApp(settingsController: settingsController, themes: themes),
+    child: HackernewsApp(settingsController: settingsController),
   ));
 }
