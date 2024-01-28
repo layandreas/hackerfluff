@@ -9,7 +9,7 @@ part of 'settings_model.dart';
 _$FontSettingsModelImpl _$$FontSettingsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$FontSettingsModelImpl(
-      textScaleFactor: (json['textScaleFactor'] as num?)?.toDouble(),
+      textScaleFactor: (json['textScaleFactor'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$FontSettingsModelImplToJson(
@@ -21,19 +21,19 @@ Map<String, dynamic> _$$FontSettingsModelImplToJson(
 _$ThemeSettingsModelImpl _$$ThemeSettingsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ThemeSettingsModelImpl(
-      theme: $enumDecodeNullable(_$ThemeSettingEnumMap, json['theme']),
+      theme: $enumDecode(_$ThemeSettingEnumMap, json['theme']),
       defaultLightTheme:
-          $enumDecodeNullable(_$DefaultThemeEnumMap, json['defaultLightTheme']),
+          $enumDecode(_$DefaultThemeEnumMap, json['defaultLightTheme']),
       defaultDarkTheme:
-          $enumDecodeNullable(_$DefaultThemeEnumMap, json['defaultDarkTheme']),
+          $enumDecode(_$DefaultThemeEnumMap, json['defaultDarkTheme']),
     );
 
 Map<String, dynamic> _$$ThemeSettingsModelImplToJson(
         _$ThemeSettingsModelImpl instance) =>
     <String, dynamic>{
-      'theme': _$ThemeSettingEnumMap[instance.theme],
-      'defaultLightTheme': _$DefaultThemeEnumMap[instance.defaultLightTheme],
-      'defaultDarkTheme': _$DefaultThemeEnumMap[instance.defaultDarkTheme],
+      'theme': _$ThemeSettingEnumMap[instance.theme]!,
+      'defaultLightTheme': _$DefaultThemeEnumMap[instance.defaultLightTheme]!,
+      'defaultDarkTheme': _$DefaultThemeEnumMap[instance.defaultDarkTheme]!,
     };
 
 const _$ThemeSettingEnumMap = {
