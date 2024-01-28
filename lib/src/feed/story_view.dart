@@ -47,37 +47,34 @@ class StoryView extends ConsumerWidget {
       urlFormatted = '';
     }
 
-    return Card(
-      elevation: 0,
-      color: Colors.transparent,
-      shadowColor: Colors.transparent,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        RichText(
-            text: TextSpan(
-          text: story.title,
-          style: DefaultTextStyle.of(context).style.copyWith(
-              fontSize: MediaQuery.of(context)
-                  .textScaler
-                  .scale(Theme.of(context).textTheme.titleMedium!.fontSize!),
-              fontWeight: FontWeight.bold),
-        )),
-        RichText(
-            text: TextSpan(
-                text: urlFormatted,
-                style: DefaultTextStyle.of(context).style.copyWith(
-                    fontSize: MediaQuery.of(context)
-                        .textScaler
-                        .scale(DefaultTextStyle.of(context).style.fontSize!)))),
-        RichText(
-            text: TextSpan(
-                text: '${story.by} • $timeSinceStoryFmt',
-                style: DefaultTextStyle.of(context).style.copyWith(
-                    fontSize: MediaQuery.of(context)
-                        .textScaler
-                        .scale(DefaultTextStyle.of(context).style.fontSize!)))),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+    return Stack(
+      children: [
+        Card(
+          elevation: 0,
+          color: Colors.transparent,
+          shadowColor: Colors.transparent,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            RichText(
+                text: TextSpan(
+              text: story.title,
+              style: DefaultTextStyle.of(context).style.copyWith(
+                  fontSize: MediaQuery.of(context).textScaler.scale(
+                      Theme.of(context).textTheme.titleMedium!.fontSize!),
+                  fontWeight: FontWeight.bold),
+            )),
+            RichText(
+                text: TextSpan(
+                    text: urlFormatted,
+                    style: DefaultTextStyle.of(context).style.copyWith(
+                        fontSize: MediaQuery.of(context).textScaler.scale(
+                            DefaultTextStyle.of(context).style.fontSize!)))),
+            RichText(
+                text: TextSpan(
+                    text: '${story.by} • $timeSinceStoryFmt',
+                    style: DefaultTextStyle.of(context).style.copyWith(
+                        fontSize: MediaQuery.of(context).textScaler.scale(
+                            DefaultTextStyle.of(context).style.fontSize!)))),
             RichText(
                 text: TextSpan(
                     text:
@@ -95,15 +92,22 @@ class StoryView extends ConsumerWidget {
                     style: DefaultTextStyle.of(context).style.copyWith(
                         fontSize: MediaQuery.of(context).textScaler.scale(
                             DefaultTextStyle.of(context).style.fontSize!)))),
-            IconButton(
-                onPressed: () => (),
-                icon: const Icon(
-                  Icons.bookmark_outline,
-                ))
-          ],
+            const Divider()
+          ]),
         ),
-        const Divider()
-      ]),
+        Positioned.fill(
+          bottom: 6,
+          child: Align(
+              alignment: Alignment.bottomRight,
+              child: IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () => (),
+                  icon: const Icon(
+                    Icons.bookmark_outline,
+                  ))),
+        )
+      ],
     );
   }
 }
