@@ -6,7 +6,7 @@ part of 'top_stories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$topStoriesHash() => r'e7c9e722bea0d93a6de9b26d1ed3a5f23a51ce43';
+String _$topStoriesHash() => r'885a8c7edf422a28bd6803438c0a06d26680090a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +34,7 @@ class _SystemHash {
 const topStoriesProvider = TopStoriesFamily();
 
 /// See also [topStories].
-class TopStoriesFamily extends Family<AsyncValue<TopStories>> {
+class TopStoriesFamily extends Family<AsyncValue<TopStoriesModel>> {
   /// See also [topStories].
   const TopStoriesFamily();
 
@@ -72,7 +72,7 @@ class TopStoriesFamily extends Family<AsyncValue<TopStories>> {
 }
 
 /// See also [topStories].
-class TopStoriesProvider extends FutureProvider<TopStories> {
+class TopStoriesProvider extends FutureProvider<TopStoriesModel> {
   /// See also [topStories].
   TopStoriesProvider(
     StoryListEndpoint storyListEndPoint,
@@ -107,7 +107,7 @@ class TopStoriesProvider extends FutureProvider<TopStories> {
 
   @override
   Override overrideWith(
-    FutureOr<TopStories> Function(TopStoriesRef provider) create,
+    FutureOr<TopStoriesModel> Function(TopStoriesRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -124,7 +124,7 @@ class TopStoriesProvider extends FutureProvider<TopStories> {
   }
 
   @override
-  FutureProviderElement<TopStories> createElement() {
+  FutureProviderElement<TopStoriesModel> createElement() {
     return _TopStoriesProviderElement(this);
   }
 
@@ -143,12 +143,12 @@ class TopStoriesProvider extends FutureProvider<TopStories> {
   }
 }
 
-mixin TopStoriesRef on FutureProviderRef<TopStories> {
+mixin TopStoriesRef on FutureProviderRef<TopStoriesModel> {
   /// The parameter `storyListEndPoint` of this provider.
   StoryListEndpoint get storyListEndPoint;
 }
 
-class _TopStoriesProviderElement extends FutureProviderElement<TopStories>
+class _TopStoriesProviderElement extends FutureProviderElement<TopStoriesModel>
     with TopStoriesRef {
   _TopStoriesProviderElement(super.provider);
 

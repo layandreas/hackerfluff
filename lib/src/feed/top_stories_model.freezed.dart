@@ -14,33 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-TopStories _$TopStoriesFromJson(Map<String, dynamic> json) {
+TopStoriesModel _$TopStoriesModelFromJson(Map<String, dynamic> json) {
   return _TopStories.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TopStories {
+mixin _$TopStoriesModel {
   List<int> get storyIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TopStoriesCopyWith<TopStories> get copyWith =>
+  $TopStoriesModelCopyWith<TopStoriesModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TopStoriesCopyWith<$Res> {
-  factory $TopStoriesCopyWith(
-          TopStories value, $Res Function(TopStories) then) =
-      _$TopStoriesCopyWithImpl<$Res, TopStories>;
+abstract class $TopStoriesModelCopyWith<$Res> {
+  factory $TopStoriesModelCopyWith(
+          TopStoriesModel value, $Res Function(TopStoriesModel) then) =
+      _$TopStoriesModelCopyWithImpl<$Res, TopStoriesModel>;
   @useResult
   $Res call({List<int> storyIds});
 }
 
 /// @nodoc
-class _$TopStoriesCopyWithImpl<$Res, $Val extends TopStories>
-    implements $TopStoriesCopyWith<$Res> {
-  _$TopStoriesCopyWithImpl(this._value, this._then);
+class _$TopStoriesModelCopyWithImpl<$Res, $Val extends TopStoriesModel>
+    implements $TopStoriesModelCopyWith<$Res> {
+  _$TopStoriesModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -63,7 +63,7 @@ class _$TopStoriesCopyWithImpl<$Res, $Val extends TopStories>
 
 /// @nodoc
 abstract class _$$TopStoriesImplCopyWith<$Res>
-    implements $TopStoriesCopyWith<$Res> {
+    implements $TopStoriesModelCopyWith<$Res> {
   factory _$$TopStoriesImplCopyWith(
           _$TopStoriesImpl value, $Res Function(_$TopStoriesImpl) then) =
       __$$TopStoriesImplCopyWithImpl<$Res>;
@@ -74,7 +74,7 @@ abstract class _$$TopStoriesImplCopyWith<$Res>
 
 /// @nodoc
 class __$$TopStoriesImplCopyWithImpl<$Res>
-    extends _$TopStoriesCopyWithImpl<$Res, _$TopStoriesImpl>
+    extends _$TopStoriesModelCopyWithImpl<$Res, _$TopStoriesImpl>
     implements _$$TopStoriesImplCopyWith<$Res> {
   __$$TopStoriesImplCopyWithImpl(
       _$TopStoriesImpl _value, $Res Function(_$TopStoriesImpl) _then)
@@ -112,7 +112,7 @@ class _$TopStoriesImpl implements _TopStories {
 
   @override
   String toString() {
-    return 'TopStories(storyIds: $storyIds)';
+    return 'TopStoriesModel(storyIds: $storyIds)';
   }
 
   @override
@@ -142,7 +142,7 @@ class _$TopStoriesImpl implements _TopStories {
   }
 }
 
-abstract class _TopStories implements TopStories {
+abstract class _TopStories implements TopStoriesModel {
   factory _TopStories({required final List<int> storyIds}) = _$TopStoriesImpl;
 
   factory _TopStories.fromJson(Map<String, dynamic> json) =
