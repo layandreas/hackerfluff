@@ -341,8 +341,8 @@ SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SettingsModel {
-  ThemeSettingsModel? get themeSettings => throw _privateConstructorUsedError;
-  FontSettingsModel? get fontSettings => throw _privateConstructorUsedError;
+  ThemeSettingsModel get themeSettings => throw _privateConstructorUsedError;
+  FontSettingsModel get fontSettings => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -356,11 +356,10 @@ abstract class $SettingsModelCopyWith<$Res> {
           SettingsModel value, $Res Function(SettingsModel) then) =
       _$SettingsModelCopyWithImpl<$Res, SettingsModel>;
   @useResult
-  $Res call(
-      {ThemeSettingsModel? themeSettings, FontSettingsModel? fontSettings});
+  $Res call({ThemeSettingsModel themeSettings, FontSettingsModel fontSettings});
 
-  $ThemeSettingsModelCopyWith<$Res>? get themeSettings;
-  $FontSettingsModelCopyWith<$Res>? get fontSettings;
+  $ThemeSettingsModelCopyWith<$Res> get themeSettings;
+  $FontSettingsModelCopyWith<$Res> get fontSettings;
 }
 
 /// @nodoc
@@ -376,41 +375,33 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? themeSettings = freezed,
-    Object? fontSettings = freezed,
+    Object? themeSettings = null,
+    Object? fontSettings = null,
   }) {
     return _then(_value.copyWith(
-      themeSettings: freezed == themeSettings
+      themeSettings: null == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
-              as ThemeSettingsModel?,
-      fontSettings: freezed == fontSettings
+              as ThemeSettingsModel,
+      fontSettings: null == fontSettings
           ? _value.fontSettings
           : fontSettings // ignore: cast_nullable_to_non_nullable
-              as FontSettingsModel?,
+              as FontSettingsModel,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ThemeSettingsModelCopyWith<$Res>? get themeSettings {
-    if (_value.themeSettings == null) {
-      return null;
-    }
-
-    return $ThemeSettingsModelCopyWith<$Res>(_value.themeSettings!, (value) {
+  $ThemeSettingsModelCopyWith<$Res> get themeSettings {
+    return $ThemeSettingsModelCopyWith<$Res>(_value.themeSettings, (value) {
       return _then(_value.copyWith(themeSettings: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $FontSettingsModelCopyWith<$Res>? get fontSettings {
-    if (_value.fontSettings == null) {
-      return null;
-    }
-
-    return $FontSettingsModelCopyWith<$Res>(_value.fontSettings!, (value) {
+  $FontSettingsModelCopyWith<$Res> get fontSettings {
+    return $FontSettingsModelCopyWith<$Res>(_value.fontSettings, (value) {
       return _then(_value.copyWith(fontSettings: value) as $Val);
     });
   }
@@ -424,13 +415,12 @@ abstract class _$$SettingsModelImplCopyWith<$Res>
       __$$SettingsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {ThemeSettingsModel? themeSettings, FontSettingsModel? fontSettings});
+  $Res call({ThemeSettingsModel themeSettings, FontSettingsModel fontSettings});
 
   @override
-  $ThemeSettingsModelCopyWith<$Res>? get themeSettings;
+  $ThemeSettingsModelCopyWith<$Res> get themeSettings;
   @override
-  $FontSettingsModelCopyWith<$Res>? get fontSettings;
+  $FontSettingsModelCopyWith<$Res> get fontSettings;
 }
 
 /// @nodoc
@@ -444,18 +434,18 @@ class __$$SettingsModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? themeSettings = freezed,
-    Object? fontSettings = freezed,
+    Object? themeSettings = null,
+    Object? fontSettings = null,
   }) {
     return _then(_$SettingsModelImpl(
-      themeSettings: freezed == themeSettings
+      themeSettings: null == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
-              as ThemeSettingsModel?,
-      fontSettings: freezed == fontSettings
+              as ThemeSettingsModel,
+      fontSettings: null == fontSettings
           ? _value.fontSettings
           : fontSettings // ignore: cast_nullable_to_non_nullable
-              as FontSettingsModel?,
+              as FontSettingsModel,
     ));
   }
 }
@@ -463,15 +453,16 @@ class __$$SettingsModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SettingsModelImpl implements _SettingsModel {
-  const _$SettingsModelImpl({this.themeSettings, this.fontSettings});
+  const _$SettingsModelImpl(
+      {required this.themeSettings, required this.fontSettings});
 
   factory _$SettingsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsModelImplFromJson(json);
 
   @override
-  final ThemeSettingsModel? themeSettings;
+  final ThemeSettingsModel themeSettings;
   @override
-  final FontSettingsModel? fontSettings;
+  final FontSettingsModel fontSettings;
 
   @override
   String toString() {
@@ -509,16 +500,16 @@ class _$SettingsModelImpl implements _SettingsModel {
 
 abstract class _SettingsModel implements SettingsModel {
   const factory _SettingsModel(
-      {final ThemeSettingsModel? themeSettings,
-      final FontSettingsModel? fontSettings}) = _$SettingsModelImpl;
+      {required final ThemeSettingsModel themeSettings,
+      required final FontSettingsModel fontSettings}) = _$SettingsModelImpl;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
       _$SettingsModelImpl.fromJson;
 
   @override
-  ThemeSettingsModel? get themeSettings;
+  ThemeSettingsModel get themeSettings;
   @override
-  FontSettingsModel? get fontSettings;
+  FontSettingsModel get fontSettings;
   @override
   @JsonKey(ignore: true)
   _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
