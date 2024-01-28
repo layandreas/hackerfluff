@@ -13,12 +13,10 @@ import 'settings/settings_model.dart';
 class HackernewsApp extends ConsumerWidget {
   const HackernewsApp({
     super.key,
-    required this.themes,
     required this.settingsController,
   });
 
   final SettingsController settingsController;
-  final Map<ThemeSetting, ThemeData> themes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
