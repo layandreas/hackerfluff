@@ -26,7 +26,7 @@ class HackernewsApp extends ConsumerWidget {
 
     final settings = switch (settingsAsyncValue) {
       AsyncData(:final value) => value,
-      _ => null
+      _ => defaultSettings
     };
 
     var lightTheme = ThemeData(
@@ -34,62 +34,48 @@ class HackernewsApp extends ConsumerWidget {
     );
     var darkTheme = themeDark;
     var themeMode = ThemeMode.system;
-    ThemeData? defaultLightTheme;
-    ThemeData? defaultDarkTheme;
+    ThemeData defaultLightTheme;
+    ThemeData defaultDarkTheme;
 
-    if (settings?.themeSettings.defaultLightTheme != null) {
-      switch (settings?.themeSettings.defaultLightTheme) {
-        case DefaultTheme.light:
-          defaultLightTheme = lightTheme;
-        case DefaultTheme.dark:
-          defaultLightTheme = darkTheme;
-        case DefaultTheme.oledDark:
-          defaultLightTheme = themeOledDark;
-        case DefaultTheme.blue:
-          defaultLightTheme = themeBlue;
-        case _:
-          defaultLightTheme = lightTheme;
-      }
+    switch (settings.themeSettings.defaultLightTheme) {
+      case DefaultTheme.light:
+        defaultLightTheme = lightTheme;
+      case DefaultTheme.dark:
+        defaultLightTheme = darkTheme;
+      case DefaultTheme.oledDark:
+        defaultLightTheme = themeOledDark;
+      case DefaultTheme.blue:
+        defaultLightTheme = themeBlue;
     }
 
-    if (settings?.themeSettings.defaultDarkTheme != null) {
-      switch (settings?.themeSettings.defaultDarkTheme) {
-        case DefaultTheme.light:
-          defaultDarkTheme = lightTheme;
-        case DefaultTheme.dark:
-          defaultDarkTheme = darkTheme;
-        case DefaultTheme.oledDark:
-          defaultDarkTheme = themeOledDark;
-        case DefaultTheme.blue:
-          defaultDarkTheme = themeBlue;
-        case _:
-          defaultDarkTheme = darkTheme;
-      }
+    switch (settings.themeSettings.defaultDarkTheme) {
+      case DefaultTheme.light:
+        defaultDarkTheme = lightTheme;
+      case DefaultTheme.dark:
+        defaultDarkTheme = darkTheme;
+      case DefaultTheme.oledDark:
+        defaultDarkTheme = themeOledDark;
+      case DefaultTheme.blue:
+        defaultDarkTheme = themeBlue;
     }
 
-    if (settings?.themeSettings != null) {
-      switch (settings?.themeSettings.theme) {
-        case ThemeSetting.system:
-          lightTheme = defaultLightTheme ?? lightTheme;
-          darkTheme = defaultDarkTheme ?? darkTheme;
-          themeMode = ThemeMode.system;
-        case ThemeSetting.blue:
-          darkTheme = themeBlue;
-          themeMode = ThemeMode.dark;
-        case ThemeSetting.light:
-          lightTheme = lightTheme;
-          themeMode = ThemeMode.light;
-        case ThemeSetting.dark:
-          darkTheme = themeDark;
-          themeMode = ThemeMode.dark;
-        case ThemeSetting.oledDark:
-          darkTheme = themeOledDark;
-          themeMode = ThemeMode.dark;
-        case _:
-          lightTheme = lightTheme;
-          darkTheme = themeDark;
-          themeMode = ThemeMode.system;
-      }
+    switch (settings.themeSettings.theme) {
+      case ThemeSetting.system:
+        lightTheme = defaultLightTheme;
+        darkTheme = defaultDarkTheme;
+        themeMode = ThemeMode.system;
+      case ThemeSetting.blue:
+        darkTheme = themeBlue;
+        themeMode = ThemeMode.dark;
+      case ThemeSetting.light:
+        lightTheme = lightTheme;
+        themeMode = ThemeMode.light;
+      case ThemeSetting.dark:
+        darkTheme = themeDark;
+        themeMode = ThemeMode.dark;
+      case ThemeSetting.oledDark:
+        darkTheme = themeOledDark;
+        themeMode = ThemeMode.dark;
     }
 
     // Glue the SettingsController to the MaterialApp.
@@ -98,8 +84,7 @@ class HackernewsApp extends ConsumerWidget {
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(
-        textScaler:
-            TextScaler.linear((settings?.fontSettings.textScaleFactor) ?? 1),
+        textScaler: TextScaler.linear(settings.fontSettings.textScaleFactor),
       ),
       child: ListenableBuilder(
         listenable: settingsController,
