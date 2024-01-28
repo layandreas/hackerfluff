@@ -23,6 +23,8 @@ Future<Database> database(DatabaseRef ref) async {
         'create table if not exists comments (id integer primary key, story_id integer, comment_was_seen integer)');
     await db.execute(
         'create table if not exists settings (setting_name text primary key, settings_json string)');
+    await db.execute(
+        'create table if not exists bookmarks (id integer primary key, insert_time timestamp default current_timestamp)');
   });
 
   return db;
