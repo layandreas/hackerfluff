@@ -10,7 +10,7 @@ part 'db_provider.g.dart';
 @Riverpod(keepAlive: true)
 Future<Database> database(DatabaseRef ref) async {
   var databasesPath = await getLibraryDirectory();
-  String path = join(databasesPath.toString(), 'hacker.db');
+  String path = join(databasesPath.path, 'hacker.db');
 
   log('Database path is: $path');
 
