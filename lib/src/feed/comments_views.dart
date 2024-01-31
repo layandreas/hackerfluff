@@ -107,6 +107,14 @@ class CommentCard extends ConsumerStatefulWidget {
 }
 
 class _CommentCardState extends ConsumerState<CommentCard> {
+  late bool hasFadedOut;
+
+  @override
+  void initState() {
+    super.initState();
+    hasFadedOut = widget.hideCard;
+  }
+
   @override
   Widget build(BuildContext context) {
     final commentStatusAsyncValue = ref.watch(commentStatusProvider(widget.id));
@@ -119,6 +127,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
     } else {
       commentWasSeen = false;
     }
+
     // final commentWasSeen =
     //     ((commentStatus?.commentWasSeen) ?? 0) == 0 ? false : true;
 
@@ -149,10 +158,20 @@ class _CommentCardState extends ConsumerState<CommentCard> {
                   )
                 ],
               ),
-              if (!widget.hideCard)
-                if ((widget.hideReadComments && !commentWasSeen) ||
-                    !widget.hideReadComments)
-                  HtmlWidget(widget.widget.comment.text ?? ''),
+              Visibility(
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: !hasFadedOut,
+                  child: AnimatedOpacity(
+                      duration: Duration(milliseconds: hasFadedOut ? 1 : 250),
+                      onEnd: () {
+                        setState(() {
+                          hasFadedOut = !hasFadedOut;
+                        });
+                      },
+                      curve: Curves.fastOutSlowIn,
+                      opacity: !widget.hideCard ? 1 : 0,
+                      child: HtmlWidget(widget.widget.comment.text ?? ''))),
             ],
           ),
         ));
