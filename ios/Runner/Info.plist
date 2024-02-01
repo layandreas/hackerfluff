@@ -50,5 +50,7 @@
 	<string>sms</string>
 	<string>tel</string>
 	</array>
+	<key>FLTUseFlutterMetalLayer</key>
+	<true/>
 </dict>
 </plist>
