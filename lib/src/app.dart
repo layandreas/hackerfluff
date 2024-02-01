@@ -40,6 +40,8 @@ class HackernewsApp extends ConsumerWidget {
         defaultLightTheme = lightTheme;
       case DefaultTheme.dark:
         defaultLightTheme = darkTheme;
+      case DefaultTheme.darker:
+        defaultLightTheme = themeDarker;
       case DefaultTheme.oledDark:
         defaultLightTheme = themeOledDark;
       case DefaultTheme.blue:
@@ -51,6 +53,8 @@ class HackernewsApp extends ConsumerWidget {
         defaultDarkTheme = lightTheme;
       case DefaultTheme.dark:
         defaultDarkTheme = darkTheme;
+      case DefaultTheme.darker:
+        defaultDarkTheme = themeDarker;
       case DefaultTheme.oledDark:
         defaultDarkTheme = themeOledDark;
       case DefaultTheme.blue:
@@ -70,6 +74,9 @@ class HackernewsApp extends ConsumerWidget {
         themeMode = ThemeMode.light;
       case ThemeSetting.dark:
         darkTheme = themeDark;
+        themeMode = ThemeMode.dark;
+      case ThemeSetting.darker:
+        darkTheme = themeDarker;
         themeMode = ThemeMode.dark;
       case ThemeSetting.oledDark:
         darkTheme = themeOledDark;
@@ -222,6 +229,38 @@ final themeDark = ThemeData(
       secondary: Color(0xFFC20E5E),
       background: Color.fromARGB(255, 16, 20, 24),
       surface: Color.fromARGB(255, 16, 20, 24),
+      onBackground: Color(0xFFE2E2E6),
+      onSurface: Color(0xFFE2E2E6),
+      error: Color(0xFFFFB4AB),
+      onError: Color(0xFFFF6900),
+      brightness: Brightness.dark,
+      onPrimary: Color(0xFF3F0019),
+      onSecondary: Color(0xFF3F0019),
+      onPrimaryContainer: Color(0xFF3F0019),
+      onSecondaryContainer: Color(0xFF3F0019),
+      onErrorContainer: Color(0xFFFFB4AB),
+      onSurfaceVariant: Color(0xFFC3C7CF),
+      onTertiary: Color(0xFF3B2948),
+      onTertiaryContainer: Color(0xFFFFF2DA),
+      surfaceVariant: Color(0xFF43474E),
+      surfaceTint: Color(0xFF9ECAFF),
+      scrim: Color(0xFF000000),
+      outline: Color(0xFF8D9199),
+      outlineVariant: Color(0xFF43474E),
+      shadow: Color(0xFF000000),
+      inversePrimary: Color(0xFF0061A4),
+      inverseSurface: Color(0xFFE2E2E6),
+      onInverseSurface: Color(0xFF2F3033),
+    ));
+
+final themeDarker = ThemeData(
+    brightness: Brightness.dark,
+    fontFamily: "SourceSans3",
+    colorScheme: const ColorScheme(
+      primary: Color.fromARGB(255, 37, 150, 190),
+      secondary: Color(0xFFC20E5E),
+      background: Color.fromARGB(255, 15, 15, 15),
+      surface: Color.fromARGB(255, 15, 15, 15),
       onBackground: Color(0xFFE2E2E6),
       onSurface: Color(0xFFE2E2E6),
       error: Color(0xFFFFB4AB),

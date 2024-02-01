@@ -40,6 +40,7 @@ const _$ThemeSettingEnumMap = {
   ThemeSetting.system: 'system',
   ThemeSetting.light: 'light',
   ThemeSetting.dark: 'dark',
+  ThemeSetting.darker: 'darker',
   ThemeSetting.oledDark: 'oledDark',
   ThemeSetting.blue: 'blue',
 };
@@ -48,6 +49,7 @@ const _$DefaultThemeEnumMap = {
   DefaultTheme.light: 'light',
   DefaultTheme.dark: 'dark',
   DefaultTheme.oledDark: 'oledDark',
+  DefaultTheme.darker: 'darker',
   DefaultTheme.blue: 'blue',
 };
 

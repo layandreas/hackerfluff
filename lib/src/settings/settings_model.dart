@@ -4,9 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'settings_model.g.dart';
 part 'settings_model.freezed.dart';
 
-enum ThemeSetting { system, light, dark, oledDark, blue }
+enum ThemeSetting { system, light, dark, darker, oledDark, blue }
 
-enum DefaultTheme { light, dark, oledDark, blue }
+enum DefaultTheme { light, dark, oledDark, darker, blue }
 
 @freezed
 class FontSettingsModel with _$FontSettingsModel {
