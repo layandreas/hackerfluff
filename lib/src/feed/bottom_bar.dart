@@ -37,7 +37,7 @@ class BottomBar extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 25),
               alignment: Alignment.center,
               width: double.infinity,
-              height: 80,
+              height: 75,
               //color: Theme.of(context).colorScheme.background.withOpacity(0.85),
               child: Row(children: [
                 Expanded(
