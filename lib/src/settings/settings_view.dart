@@ -164,6 +164,7 @@ class SettingsView extends ConsumerWidget {
                   ]),
                 ),
                 const SettingsCard(text: ''),
+                const SettingsCard(text: ''),
               ],
             ),
           ),

@@ -21,13 +21,24 @@ class BottomBar extends StatelessWidget {
         child,
         ClipRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              padding: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .background
+                      .withOpacity(0.70),
+                  border: Border(
+                      top: BorderSide(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .inverseSurface
+                              .withAlpha(75)))),
+              padding: const EdgeInsets.only(bottom: 25),
               alignment: Alignment.center,
               width: double.infinity,
-              height: 65,
-              color: Theme.of(context).colorScheme.background.withOpacity(0.85),
+              height: 80,
+              //color: Theme.of(context).colorScheme.background.withOpacity(0.85),
               child: Row(children: [
                 Expanded(
                     child: IconButton(
