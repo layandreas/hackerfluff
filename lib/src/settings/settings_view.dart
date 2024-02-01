@@ -296,6 +296,15 @@ class ThemeSettingsView extends ConsumerWidget {
                 : null,
             onTap: () => onTapSetting(selectedTheme: ThemeSetting.dark)),
         SettingsCard(
+            text: 'Darker',
+            trailing: (selectedTheme == ThemeSetting.darker)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () => onTapSetting(selectedTheme: ThemeSetting.darker)),
+        SettingsCard(
             text: 'OLED-Dark',
             trailing: (selectedTheme == ThemeSetting.oledDark)
                 ? Icon(
@@ -366,6 +375,16 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
                 : null,
             onTap: () =>
                 onTapSetting(selectedDefaultLightTheme: DefaultTheme.dark)),
+        SettingsCard(
+            text: 'Darker',
+            trailing: (selectedDefaultLightTheme == DefaultTheme.darker)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultLightTheme: DefaultTheme.darker)),
         SettingsCard(
             text: 'OLED-Dark',
             trailing: (selectedDefaultLightTheme == DefaultTheme.oledDark)
@@ -439,6 +458,16 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
                 : null,
             onTap: () =>
                 onTapSetting(selectedDefaultDarkTheme: DefaultTheme.dark)),
+        SettingsCard(
+            text: 'Darker',
+            trailing: (selectedDefaultDarkTheme == DefaultTheme.darker)
+                ? Icon(
+                    Icons.check,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : null,
+            onTap: () =>
+                onTapSetting(selectedDefaultDarkTheme: DefaultTheme.darker)),
         SettingsCard(
             text: 'OLED-Dark',
             trailing: (selectedDefaultDarkTheme == DefaultTheme.oledDark)
