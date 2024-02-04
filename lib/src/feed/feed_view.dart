@@ -67,10 +67,12 @@ class FeedViewSkeleton extends ConsumerStatefulWidget {
   const FeedViewSkeleton(
       {super.key,
       required this.storyListEndpoint,
-      this.invalidateBookmarkProvider = true});
+      this.invalidateBookmarkProvider = true,
+      this.collapseOnBookmarkRemoval = false});
 
   final StoryListEndpoint storyListEndpoint;
   final bool invalidateBookmarkProvider;
+  final bool collapseOnBookmarkRemoval;
 
   @override
   ConsumerState<FeedViewSkeleton> createState() => _FeedViewState();
@@ -80,6 +82,13 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  List<int> collapsedToHeightZero = [];
+
+  void addToCollapsedStories({required int storyId}) {
+    setState(() {
+      collapsedToHeightZero.add(storyId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +112,10 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
       bookmarkedStoriesNotifier.removeBookmarkedStory(
           storyId: storyId,
           invalidateProvider: widget.invalidateBookmarkProvider);
+
+      if (widget.collapseOnBookmarkRemoval) {
+        addToCollapsedStories(storyId: storyId);
+      }
     }
 
     return EndlessScrollView(
@@ -121,6 +134,8 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
             isBookmarked: bookmarkedStories?.storyIds
                     .contains(storiesState.stories[index].id) ??
                 false,
+            isCollapsedToHeightZero:
+                collapsedToHeightZero.contains(storiesState.stories[index].id),
           ),
           onTap: () {
             Navigator.push(
