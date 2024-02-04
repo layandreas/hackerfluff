@@ -41,9 +41,13 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
     final bookmarkedStoriesNotifier =
         ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
 
-    void onPressedBookmark({required int storyId, required String title}) {
+    void onAddBookmark({required int storyId, required String title}) {
       bookmarkedStoriesNotifier.addBookmarkedStory(
           storyId: storyId, title: title);
+    }
+
+    void onRemoveBookmark({required int storyId}) {
+      bookmarkedStoriesNotifier.removeBookmarkedStory(storyId: storyId);
     }
 
     // Function to open the link
@@ -106,7 +110,8 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                   openStoryUrl();
                 },
                 child: StoryView(
-                  onPressedBookmark: onPressedBookmark,
+                  onRemoveBookmark: onRemoveBookmark,
+                  onAddBookmark: onAddBookmark,
                   story: widget.story,
                   isBookmarked:
                       bookmarkedStories?.storyIds.contains(widget.story.id) ??
