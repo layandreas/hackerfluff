@@ -8,6 +8,7 @@ import 'feed/feed_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings/settings_provider.dart';
 import 'settings/settings_model.dart';
+import 'bookmarks/bookmarks_view.dart';
 
 /// The Widget that configures your application.
 class HackernewsApp extends ConsumerWidget {
@@ -144,6 +145,9 @@ class HackernewsApp extends ConsumerWidget {
                     //case SampleItemListView.routeName:
                     case FeedView.routeName:
                       return const FeedView();
+                    case BookmarksView.routeName:
+                      return const BookmarksView();
+
                     default:
                       return const FeedView();
                   }
