@@ -37,22 +37,22 @@ class FeedView extends ConsumerWidget {
         body: const BottomBar(
           child: TabBarView(
             children: [
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.topstories,
               ),
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.beststories,
               ),
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.newstories,
               ),
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.showstories,
               ),
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.askstories,
               ),
-              _FeedView(
+              FeedViewSkeleton(
                 storyListEndpoint: StoryListEndpoint.jobstories,
               ),
             ],
@@ -63,16 +63,16 @@ class FeedView extends ConsumerWidget {
   }
 }
 
-class _FeedView extends ConsumerStatefulWidget {
-  const _FeedView({required this.storyListEndpoint});
+class FeedViewSkeleton extends ConsumerStatefulWidget {
+  const FeedViewSkeleton({super.key, required this.storyListEndpoint});
 
   final StoryListEndpoint storyListEndpoint;
 
   @override
-  ConsumerState<_FeedView> createState() => _FeedViewState();
+  ConsumerState<FeedViewSkeleton> createState() => _FeedViewState();
 }
 
-class _FeedViewState extends ConsumerState<_FeedView>
+class _FeedViewState extends ConsumerState<FeedViewSkeleton>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
