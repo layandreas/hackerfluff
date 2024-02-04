@@ -9,12 +9,14 @@ class StoryView extends ConsumerWidget {
       {super.key,
       required this.story,
       required this.isBookmarked,
-      required this.onPressedBookmark});
+      required this.onAddBookmark,
+      required this.onRemoveBookmark});
 
   final Story story;
   final bool isBookmarked;
   final void Function({required int storyId, required String title})
-      onPressedBookmark;
+      onAddBookmark;
+  final void Function({required int storyId}) onRemoveBookmark;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,14 +114,14 @@ class StoryView extends ConsumerWidget {
                   onPressed: () => (),
                   icon: isBookmarked
                       ? IconButton(
-                          onPressed: () => (),
+                          onPressed: () => onRemoveBookmark(storyId: story.id),
                           icon: Icon(
                             Icons.bookmark,
                             color: Theme.of(context).colorScheme.primary,
                           ),
                         )
                       : IconButton(
-                          onPressed: () => onPressedBookmark(
+                          onPressed: () => onAddBookmark(
                               storyId: story.id, title: story.title),
                           icon: const Icon(
                             Icons.bookmark_outline,

@@ -56,6 +56,17 @@ class TopStories extends _$TopStories {
     }
   }
 
+  void removeBookmarkedStory(
+      {required int storyId, bool invalidateProvider = true}) async {
+    final db = await ref.watch(databaseProvider.future);
+
+    await db.rawInsert('delete from bookmarks where id = ?', [storyId]);
+
+    if (invalidateProvider) {
+      ref.invalidateSelf();
+    }
+  }
+
   Future<TopStoriesModel> loadBookmarkedStories() async {
     final db = await ref.watch(databaseProvider.future);
     final List<Map<String, Object?>> bookmarksResponse;

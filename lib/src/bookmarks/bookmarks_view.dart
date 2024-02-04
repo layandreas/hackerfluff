@@ -18,6 +18,7 @@ class BookmarksView extends ConsumerWidget {
       body: const BottomBar(
         child: FeedViewSkeleton(
           storyListEndpoint: StoryListEndpoint.bookmarks,
+          invalidateBookmarkProvider: true,
         ),
       ),
     );

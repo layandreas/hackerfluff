@@ -64,9 +64,13 @@ class FeedView extends ConsumerWidget {
 }
 
 class FeedViewSkeleton extends ConsumerStatefulWidget {
-  const FeedViewSkeleton({super.key, required this.storyListEndpoint});
+  const FeedViewSkeleton(
+      {super.key,
+      required this.storyListEndpoint,
+      this.invalidateBookmarkProvider = true});
 
   final StoryListEndpoint storyListEndpoint;
+  final bool invalidateBookmarkProvider;
 
   @override
   ConsumerState<FeedViewSkeleton> createState() => _FeedViewState();
@@ -88,9 +92,17 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
     final bookmarkedStoriesNotifier =
         ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
 
-    void onPressedBookmark({required int storyId, required String title}) {
+    void onAddBookmark({required int storyId, required String title}) {
       bookmarkedStoriesNotifier.addBookmarkedStory(
-          storyId: storyId, title: title);
+          storyId: storyId,
+          title: title,
+          invalidateProvider: widget.invalidateBookmarkProvider);
+    }
+
+    void onRemoveBookmark({required int storyId}) {
+      bookmarkedStoriesNotifier.removeBookmarkedStory(
+          storyId: storyId,
+          invalidateProvider: widget.invalidateBookmarkProvider);
     }
 
     return EndlessScrollView(
@@ -102,8 +114,9 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
       itemBuilder: (index, storiesState) {
         return GestureDetector(
           child: StoryView(
+            onRemoveBookmark: onRemoveBookmark,
             key: ValueKey(index),
-            onPressedBookmark: onPressedBookmark,
+            onAddBookmark: onAddBookmark,
             story: storiesState.stories[index],
             isBookmarked: bookmarkedStories?.storyIds
                     .contains(storiesState.stories[index].id) ??
