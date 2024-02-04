@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'top_stories_model.dart';
+import '../storage/db_provider.dart';
 
 part 'top_stories_provider.g.dart';
 
@@ -13,17 +14,38 @@ enum StoryListEndpoint {
   beststories,
   askstories,
   showstories,
-  jobstories
+  jobstories,
+  bookmarks
 }
 
 @Riverpod(keepAlive: true)
-Future<TopStoriesModel> topStories(
-    TopStoriesRef ref, StoryListEndpoint storyListEndPoint) async {
-  // Using package:http, we fetch a random activity from the Bored API.
-  final response = await http.get(Uri.https(
-      'hacker-news.firebaseio.com', '/v0/${storyListEndPoint.name}.json'));
-  // Using dart:convert, we then decode the JSON payload into a Map data structure.
-  final json = jsonDecode(response.body) as List<dynamic>;
-  // Finally, we convert the Map into an Activity instance.
-  return TopStoriesModel.fromJson({'storyIds': json});
+class TopStories extends _$TopStories {
+  @override
+  Future<TopStoriesModel> build(StoryListEndpoint storyListEndPoint) async {
+    switch (storyListEndPoint) {
+      case StoryListEndpoint.bookmarks:
+        final topStoriesModel = loadBookmarkedStories();
+        return topStoriesModel;
+      default:
+        final topStoriesModel = loadStoriesFromApi(storyListEndPoint);
+        return topStoriesModel;
+    }
+  }
+
+  Future<TopStoriesModel> loadStoriesFromApi(
+      StoryListEndpoint storyListEndPoint) async {
+    final response = await http.get(Uri.https(
+        'hacker-news.firebaseio.com', '/v0/${storyListEndPoint.name}.json'));
+    final json = jsonDecode(response.body) as List<dynamic>;
+    return TopStoriesModel.fromJson({'storyIds': json});
+  }
+
+  Future<TopStoriesModel> loadBookmarkedStories() async {
+    //final db = await ref.watch(databaseProvider.future);
+    //final List<Map<String, Object?>> bookmarkedStoriesResponse;
+
+    //bookmarkedStories = await db.rawQuery("select id from bookmarks");
+
+    return TopStoriesModel(storyIds: [39243794, 39232717]);
+  }
 }

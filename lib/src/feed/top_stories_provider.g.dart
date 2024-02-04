@@ -6,7 +6,7 @@ part of 'top_stories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$topStoriesHash() => r'885a8c7edf422a28bd6803438c0a06d26680090a';
+String _$topStoriesHash() => r'bb0b554d3c86fd385bc3301d5386cbae785d67cb';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,16 +29,24 @@ class _SystemHash {
   }
 }
 
-/// See also [topStories].
-@ProviderFor(topStories)
+abstract class _$TopStories extends BuildlessAsyncNotifier<TopStoriesModel> {
+  late final StoryListEndpoint storyListEndPoint;
+
+  FutureOr<TopStoriesModel> build(
+    StoryListEndpoint storyListEndPoint,
+  );
+}
+
+/// See also [TopStories].
+@ProviderFor(TopStories)
 const topStoriesProvider = TopStoriesFamily();
 
-/// See also [topStories].
+/// See also [TopStories].
 class TopStoriesFamily extends Family<AsyncValue<TopStoriesModel>> {
-  /// See also [topStories].
+  /// See also [TopStories].
   const TopStoriesFamily();
 
-  /// See also [topStories].
+  /// See also [TopStories].
   TopStoriesProvider call(
     StoryListEndpoint storyListEndPoint,
   ) {
@@ -71,16 +79,14 @@ class TopStoriesFamily extends Family<AsyncValue<TopStoriesModel>> {
   String? get name => r'topStoriesProvider';
 }
 
-/// See also [topStories].
-class TopStoriesProvider extends FutureProvider<TopStoriesModel> {
-  /// See also [topStories].
+/// See also [TopStories].
+class TopStoriesProvider
+    extends AsyncNotifierProviderImpl<TopStories, TopStoriesModel> {
+  /// See also [TopStories].
   TopStoriesProvider(
     StoryListEndpoint storyListEndPoint,
   ) : this._internal(
-          (ref) => topStories(
-            ref as TopStoriesRef,
-            storyListEndPoint,
-          ),
+          () => TopStories()..storyListEndPoint = storyListEndPoint,
           from: topStoriesProvider,
           name: r'topStoriesProvider',
           debugGetCreateSourceHash:
@@ -106,13 +112,20 @@ class TopStoriesProvider extends FutureProvider<TopStoriesModel> {
   final StoryListEndpoint storyListEndPoint;
 
   @override
-  Override overrideWith(
-    FutureOr<TopStoriesModel> Function(TopStoriesRef provider) create,
+  FutureOr<TopStoriesModel> runNotifierBuild(
+    covariant TopStories notifier,
   ) {
+    return notifier.build(
+      storyListEndPoint,
+    );
+  }
+
+  @override
+  Override overrideWith(TopStories Function() create) {
     return ProviderOverride(
       origin: this,
       override: TopStoriesProvider._internal(
-        (ref) => create(ref as TopStoriesRef),
+        () => create()..storyListEndPoint = storyListEndPoint,
         from: from,
         name: null,
         dependencies: null,
@@ -124,7 +137,7 @@ class TopStoriesProvider extends FutureProvider<TopStoriesModel> {
   }
 
   @override
-  FutureProviderElement<TopStoriesModel> createElement() {
+  AsyncNotifierProviderElement<TopStories, TopStoriesModel> createElement() {
     return _TopStoriesProviderElement(this);
   }
 
@@ -143,12 +156,13 @@ class TopStoriesProvider extends FutureProvider<TopStoriesModel> {
   }
 }
 
-mixin TopStoriesRef on FutureProviderRef<TopStoriesModel> {
+mixin TopStoriesRef on AsyncNotifierProviderRef<TopStoriesModel> {
   /// The parameter `storyListEndPoint` of this provider.
   StoryListEndpoint get storyListEndPoint;
 }
 
-class _TopStoriesProviderElement extends FutureProviderElement<TopStoriesModel>
+class _TopStoriesProviderElement
+    extends AsyncNotifierProviderElement<TopStories, TopStoriesModel>
     with TopStoriesRef {
   _TopStoriesProviderElement(super.provider);
 
