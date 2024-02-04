@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../settings/settings_view.dart';
 import 'feed_view.dart';
+import '../bookmarks/bookmarks_view.dart';
 
 class BottomBar extends StatelessWidget {
   final Widget child;
@@ -59,10 +60,21 @@ class BottomBar extends StatelessWidget {
                     size: 30,
                   ),
                 )),
-                const Expanded(
-                    child: Icon(
-                  Icons.bookmark_outline_rounded,
-                  size: 30,
+                Expanded(
+                    child: IconButton(
+                  isSelected: routeIsSelected(context, BookmarksView.routeName)
+                      ? true
+                      : false,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () => {
+                    if (!routeIsSelected(context, BookmarksView.routeName))
+                      {
+                        Navigator.pushReplacementNamed(
+                            context, BookmarksView.routeName)
+                      }
+                  },
+                  icon: const Icon(Icons.bookmark_outline_rounded, size: 30),
                 )),
                 Expanded(
                     child: IconButton(
