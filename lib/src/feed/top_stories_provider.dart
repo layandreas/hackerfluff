@@ -57,11 +57,16 @@ class TopStories extends _$TopStories {
   }
 
   Future<TopStoriesModel> loadBookmarkedStories() async {
-    //final db = await ref.watch(databaseProvider.future);
-    //final List<Map<String, Object?>> bookmarkedStoriesResponse;
+    final db = await ref.watch(databaseProvider.future);
+    final List<Map<String, Object?>> bookmarksResponse;
+    final List<int> bookmarks;
 
     //bookmarkedStories = await db.rawQuery("select id from bookmarks");
+    bookmarksResponse = await db.rawQuery("select id  "
+        "from bookmarks order by insert_time desc");
 
-    return TopStoriesModel(storyIds: [39251095, 39232717]);
+    bookmarks = bookmarksResponse.map((e) => (e["id"] as int)).toList();
+
+    return TopStoriesModel(storyIds: bookmarks);
   }
 }
