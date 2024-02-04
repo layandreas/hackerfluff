@@ -24,7 +24,7 @@ Future<Database> database(DatabaseRef ref) async {
     await db.execute(
         'create table if not exists settings (setting_name text primary key, settings_json string)');
     await db.execute(
-        'create table if not exists bookmarks (id integer primary key, title text, insert_time timestamp default current_timestamp)');
+        'create table if not exists bookmarks (id integer primary key, title string, insert_time timestamp default current_timestamp)');
   });
 
   return db;

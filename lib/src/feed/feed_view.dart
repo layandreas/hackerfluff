@@ -88,6 +88,11 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
     final bookmarkedStoriesNotifier =
         ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
 
+    void onPressedBookmark({required int storyId, required String title}) {
+      bookmarkedStoriesNotifier.addBookmarkedStory(
+          storyId: storyId, title: title);
+    }
+
     return EndlessScrollView(
       key: Key(widget.storyListEndpoint.name),
       storiesState: storiesState,
@@ -98,6 +103,7 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
         return GestureDetector(
           child: StoryView(
             key: ValueKey(index),
+            onPressedBookmark: onPressedBookmark,
             story: storiesState.stories[index],
             isBookmarked: bookmarkedStories?.storyIds
                     .contains(storiesState.stories[index].id) ??
