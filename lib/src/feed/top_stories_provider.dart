@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'top_stories_model.dart';
-import '../storage/db_provider.dart';
+//import '../storage/db_provider.dart';
 
 part 'top_stories_provider.g.dart';
 
@@ -26,6 +26,7 @@ class TopStories extends _$TopStories {
       case StoryListEndpoint.bookmarks:
         final topStoriesModel = loadBookmarkedStories();
         return topStoriesModel;
+
       default:
         final topStoriesModel = loadStoriesFromApi(storyListEndPoint);
         return topStoriesModel;
