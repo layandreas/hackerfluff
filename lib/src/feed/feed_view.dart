@@ -78,10 +78,7 @@ class FeedViewSkeleton extends ConsumerStatefulWidget {
   ConsumerState<FeedViewSkeleton> createState() => _FeedViewState();
 }
 
-class _FeedViewState extends ConsumerState<FeedViewSkeleton>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _FeedViewState extends ConsumerState<FeedViewSkeleton> {
   List<int> collapsedToHeightZero = [];
 
   void addToCollapsedStories({required int storyId}) {
@@ -92,7 +89,6 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final storiesState = ref.watch(storiesProvider(widget.storyListEndpoint));
     final storiesNotifier =
         ref.read(storiesProvider(widget.storyListEndpoint).notifier);
