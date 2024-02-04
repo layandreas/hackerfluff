@@ -3,4 +3,12 @@
     "**/*.freezed.dart": true,
     "**/*.g.dart": true
   },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "test",
+      "database": "/Users/andreaslay/Library/Developer/CoreSimulator/Devices/81D6FFBC-0009-4194-A24E-749232E083AC/data/Containers/Data/Application/0F46A912-8187-4A10-BBC0-8033CB88E480/Library/hacker.db"
+    }
+  ],
 }
