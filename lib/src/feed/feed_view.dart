@@ -83,6 +83,10 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
     final storiesState = ref.watch(storiesProvider(widget.storyListEndpoint));
     final storiesNotifier =
         ref.read(storiesProvider(widget.storyListEndpoint).notifier);
+    final bookmarkedStories =
+        ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks)).value;
+    final bookmarkedStoriesNotifier =
+        ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
 
     return EndlessScrollView(
       key: Key(widget.storyListEndpoint.name),
@@ -93,7 +97,12 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton>
       itemBuilder: (index, storiesState) {
         return GestureDetector(
           child: StoryView(
-              key: ValueKey(index), story: storiesState.stories[index]),
+            key: ValueKey(index),
+            story: storiesState.stories[index],
+            isBookmarked: bookmarkedStories?.storyIds
+                    .contains(storiesState.stories[index].id) ??
+                false,
+          ),
           onTap: () {
             Navigator.push(
                 context,
