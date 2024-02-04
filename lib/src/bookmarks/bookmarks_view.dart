@@ -20,7 +20,7 @@ class BookmarksView extends ConsumerWidget {
       ),
       body: const BottomBar(
         child: _FeedView(
-          storyListEndpoint: StoryListEndpoint.topstories,
+          storyListEndpoint: StoryListEndpoint.bookmarks,
         ),
       ),
     );
