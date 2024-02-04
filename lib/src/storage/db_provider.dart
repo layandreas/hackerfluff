@@ -15,7 +15,7 @@ Future<Database> database(DatabaseRef ref) async {
   log('Database path is: $path');
 
   // open the database
-  Database db = await openDatabase(path, version: 1,
+  Database db = await openDatabase(path, version: 2,
       onCreate: (Database db, int version) async {
     // When creating the db, create the table
     log('Creating table "comments"');
@@ -24,7 +24,7 @@ Future<Database> database(DatabaseRef ref) async {
     await db.execute(
         'create table if not exists settings (setting_name text primary key, settings_json string)');
     await db.execute(
-        'create table if not exists bookmarks (id integer primary key, title string, insert_time timestamp default current_timestamp)');
+        'create table if not exists bookmarks (id integer primary key, title text, insert_time timestamp default current_timestamp)');
   });
 
   return db;
