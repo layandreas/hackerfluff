@@ -5,10 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'n_comments_seen_provider.dart';
 
 class StoryView extends ConsumerWidget {
-  const StoryView({super.key, required this.story, this.isBookmarked = false});
+  const StoryView(
+      {super.key,
+      required this.story,
+      required this.isBookmarked,
+      required this.onPressedBookmark});
 
   final Story story;
   final bool isBookmarked;
+  final void Function({required int storyId, required String title})
+      onPressedBookmark;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -105,12 +111,19 @@ class StoryView extends ConsumerWidget {
                   highlightColor: Colors.transparent,
                   onPressed: () => (),
                   icon: isBookmarked
-                      ? Icon(
-                          Icons.bookmark,
-                          color: Theme.of(context).colorScheme.primary,
+                      ? IconButton(
+                          onPressed: () => (),
+                          icon: Icon(
+                            Icons.bookmark,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         )
-                      : const Icon(
-                          Icons.bookmark_outline,
+                      : IconButton(
+                          onPressed: () => onPressedBookmark(
+                              storyId: story.id, title: story.title),
+                          icon: const Icon(
+                            Icons.bookmark_outline,
+                          ),
                         ))),
         )
       ],

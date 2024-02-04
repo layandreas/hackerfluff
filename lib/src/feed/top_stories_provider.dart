@@ -48,7 +48,7 @@ class TopStories extends _$TopStories {
     final db = await ref.watch(databaseProvider.future);
 
     await db.rawInsert(
-        'insert or replace into settings(id, title) values(?, ?)',
+        'insert or replace into bookmarks(id, title) values(?, ?)',
         [storyId, title]);
 
     if (invalidateProvider) {

@@ -8,6 +8,7 @@ import 'comment_provider.dart';
 import 'story_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+import 'top_stories_provider.dart';
 
 class CommentsFeedView extends ConsumerStatefulWidget {
   const CommentsFeedView({super.key, required this.story});
@@ -35,6 +36,15 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
     final commentsProvider = CommentsProvider(widget.story);
     final commentState = ref.watch(commentsProvider);
     final commentsNotifier = ref.read(commentsProvider.notifier);
+    final bookmarkedStories =
+        ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks)).value;
+    final bookmarkedStoriesNotifier =
+        ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
+
+    void onPressedBookmark({required int storyId, required String title}) {
+      bookmarkedStoriesNotifier.addBookmarkedStory(
+          storyId: storyId, title: title);
+    }
 
     // Function to open the link
     void openStoryUrl() async {
@@ -96,7 +106,11 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                   openStoryUrl();
                 },
                 child: StoryView(
+                  onPressedBookmark: onPressedBookmark,
                   story: widget.story,
+                  isBookmarked:
+                      bookmarkedStories?.storyIds.contains(widget.story.id) ??
+                          false,
                 ),
               )
             ],
