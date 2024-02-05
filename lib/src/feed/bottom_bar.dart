@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../settings/settings_view.dart';
 import 'feed_view.dart';
 import '../bookmarks/bookmarks_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'top_stories_provider.dart';
 
-class BottomBar extends StatelessWidget {
+class BottomBar extends ConsumerWidget {
   final Widget child;
   const BottomBar({super.key, required this.child});
 
@@ -15,7 +17,7 @@ class BottomBar extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -67,12 +69,16 @@ class BottomBar extends StatelessWidget {
                       : false,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => {
-                    if (!routeIsSelected(context, BookmarksView.routeName))
-                      {
-                        Navigator.pushReplacementNamed(
-                            context, BookmarksView.routeName)
-                      }
+                  onPressed: () {
+                    if (!routeIsSelected(context, BookmarksView.routeName)) {
+                      // We need this to make sure the bookmarkspage is always
+                      // up-to-date as the page doesn't invalidate the bookmarks
+                      // provider
+                      ref.invalidate(
+                          topStoriesProvider(StoryListEndpoint.bookmarks));
+                      Navigator.pushReplacementNamed(
+                          context, BookmarksView.routeName);
+                    }
                   },
                   icon: const Icon(Icons.bookmark_outline_rounded, size: 30),
                 )),
