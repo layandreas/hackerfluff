@@ -153,10 +153,4 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton> {
       },
     );
   }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    ref.invalidate(topStoriesProvider(StoryListEndpoint.bookmarks));
-  }
 }
