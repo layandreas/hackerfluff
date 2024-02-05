@@ -97,6 +97,13 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton> {
     final bookmarkedStoriesNotifier =
         ref.watch(topStoriesProvider(StoryListEndpoint.bookmarks).notifier);
 
+    // Needed so bookmarks page is refreshed when
+    if (storiesState.stories.isEmpty &&
+        !storiesState.isLoading &&
+        !storiesState.reachedEnd) {
+      Future(storiesNotifier.fetchStories);
+    }
+
     void onAddBookmark({required int storyId, required String title}) {
       bookmarkedStoriesNotifier.addBookmarkedStory(
           storyId: storyId,
