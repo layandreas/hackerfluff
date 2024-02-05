@@ -50,12 +50,17 @@ class BottomBar extends ConsumerWidget {
                       : false,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => {
-                    if (!routeIsSelected(context, FeedView.routeName))
-                      {
-                        Navigator.pushReplacementNamed(
-                            context, FeedView.routeName)
-                      }
+                  onPressed: () {
+                    if (!routeIsSelected(context, FeedView.routeName)) {
+                      // We need this to make sure the bookmarkspage is always
+                      // up-to-date as the page doesn't invalidate the bookmarks
+                      // provider
+                      ref.invalidate(
+                          topStoriesProvider(StoryListEndpoint.bookmarks));
+
+                      Navigator.pushReplacementNamed(
+                          context, FeedView.routeName);
+                    }
                   },
                   icon: const Icon(
                     Icons.home_outlined,
