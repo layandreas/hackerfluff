@@ -36,18 +36,18 @@ class StoryView extends ConsumerWidget {
         isUtc: true);
     Duration timeSinceStory = DateTime.now().toUtc().difference(storyTime);
     final String timeSinceStoryFmt = switch (timeSinceStory.inMinutes) {
-      < 60 => '${timeSinceStory.inMinutes}m ago',
-      >= 60 && < 1440 => '${timeSinceStory.inHours}h ago',
-      >= 1440 => '${timeSinceStory.inDays}d ago',
+      < 60 => '${timeSinceStory.inMinutes}m',
+      >= 60 && < 1440 => '${timeSinceStory.inHours}h',
+      >= 1440 => '${timeSinceStory.inDays}d',
       _ => ''
     };
 
     final descendants = story.descendants ?? 0;
     final String numberOfCommentsFormatted = switch (descendants) {
-      == 0 => '$descendants comments',
-      == 1 => '$descendants comment',
-      > 1 => '$descendants comments',
-      _ => '$descendants comment',
+      == 0 => '$descendants',
+      == 1 => '$descendants',
+      > 1 => '$descendants',
+      _ => '$descendants',
     };
 
     Uri? urlParsed;
@@ -59,6 +59,17 @@ class StoryView extends ConsumerWidget {
     } else {
       urlFormatted = '';
     }
+
+    final defaultTextStyle = DefaultTextStyle.of(context);
+    final mediaQuery = MediaQuery.of(context);
+
+    final textScaler = mediaQuery.textScaler;
+    final textScalerDefaultTextStyle =
+        textScaler.scale(defaultTextStyle.style.fontSize!);
+    final textScalerTitleMedium =
+        textScaler.scale(Theme.of(context).textTheme.titleMedium!.fontSize!);
+    final textScalerIcon = textScaler.scale(18);
+    final theme = Theme.of(context);
 
     return AnimatedSize(
       alignment: Alignment.topLeft,
@@ -78,58 +89,62 @@ class StoryView extends ConsumerWidget {
                     RichText(
                         text: TextSpan(
                       text: story.title,
-                      style: DefaultTextStyle.of(context).style.copyWith(
-                          fontSize: MediaQuery.of(context).textScaler.scale(
-                              Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .fontSize!),
+                      style: defaultTextStyle.style.copyWith(
+                          fontSize: textScalerTitleMedium,
                           fontWeight: FontWeight.bold),
                     )),
                     RichText(
                         text: TextSpan(
                             text: urlFormatted,
-                            style: DefaultTextStyle.of(context).style.copyWith(
-                                fontSize: MediaQuery.of(context)
-                                    .textScaler
-                                    .scale(DefaultTextStyle.of(context)
-                                        .style
-                                        .fontSize!)))),
+                            style: defaultTextStyle.style.copyWith(
+                                fontSize: textScalerDefaultTextStyle))),
                     RichText(
                         text: TextSpan(
-                            text: '${story.by} • $timeSinceStoryFmt',
-                            style: DefaultTextStyle.of(context).style.copyWith(
-                                fontSize: MediaQuery.of(context)
-                                    .textScaler
-                                    .scale(DefaultTextStyle.of(context)
-                                        .style
-                                        .fontSize!)))),
-                    RichText(
-                        text: TextSpan(
-                            text:
-                                '${story.score.toString()} points • $numberOfCommentsFormatted ',
                             children: [
-                              TextSpan(
-                                  text: '($nCommentsSeen read)',
-                                  style: DefaultTextStyle.of(context)
-                                      .style
-                                      .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          fontSize: MediaQuery.of(context)
-                                              .textScaler
-                                              .scale(
-                                                  DefaultTextStyle.of(context)
-                                                      .style
-                                                      .fontSize!)))
-                            ],
-                            style: DefaultTextStyle.of(context).style.copyWith(
-                                fontSize: MediaQuery.of(context)
-                                    .textScaler
-                                    .scale(DefaultTextStyle.of(context)
-                                        .style
-                                        .fontSize!)))),
+                          WidgetSpan(
+                              child: Icon(Icons.person_2_outlined,
+                                  size: textScalerIcon)),
+                          TextSpan(
+                            text: ' ${story.by} • ',
+                          ),
+                          WidgetSpan(
+                              child: Icon(Icons.schedule_outlined,
+                                  size: textScalerIcon)),
+                          TextSpan(
+                            text: ' $timeSinceStoryFmt',
+                          )
+                        ],
+                            style: defaultTextStyle.style.copyWith(
+                                fontSize: textScalerDefaultTextStyle))),
+                    RichText(
+                        text: TextSpan(
+                            children: [
+                          WidgetSpan(
+                              child: Icon(Icons.thumb_up_outlined,
+                                  size: textScalerIcon)),
+                          TextSpan(text: ' ${story.score.toString()} • '),
+                          WidgetSpan(
+                              child: Icon(Icons.mode_comment_outlined,
+                                  size: textScalerIcon)),
+                          TextSpan(text: ' $numberOfCommentsFormatted '),
+                          TextSpan(
+                              children: [
+                                const TextSpan(text: '('),
+                                WidgetSpan(
+                                    child: Icon(
+                                  Icons.check,
+                                  size: textScalerIcon,
+                                  color: theme.colorScheme.primary,
+                                )),
+                                TextSpan(text: ' $nCommentsSeen'),
+                                const TextSpan(text: ')'),
+                              ],
+                              style: defaultTextStyle.style.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  fontSize: textScalerDefaultTextStyle))
+                        ],
+                            style: defaultTextStyle.style.copyWith(
+                                fontSize: textScalerDefaultTextStyle))),
                     const Divider()
                   ]),
             ),
