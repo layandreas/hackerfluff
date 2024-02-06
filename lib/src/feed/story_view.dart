@@ -3,6 +3,7 @@ import 'story_model.dart';
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'n_comments_seen_provider.dart';
+import 'package:flutter/services.dart';
 
 class StoryView extends ConsumerWidget {
   const StoryView(
@@ -133,31 +134,38 @@ class StoryView extends ConsumerWidget {
                   ]),
             ),
             Positioned.fill(
-              bottom: 6,
+              bottom: 7,
               child: Align(
                   alignment: Alignment.bottomRight,
-                  child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () => (),
-                      icon: isBookmarked
-                          ? IconButton(
-                              iconSize: isCollapsedToHeightZero ? 0 : null,
-                              onPressed: () =>
-                                  onRemoveBookmark(storyId: story.id),
-                              icon: Icon(
-                                Icons.bookmark,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            )
-                          : IconButton(
-                              iconSize: isCollapsedToHeightZero ? 0 : null,
-                              onPressed: () => onAddBookmark(
-                                  storyId: story.id, title: story.title),
-                              icon: const Icon(
-                                Icons.bookmark_outline,
-                              ),
-                            ))),
+                  child: isBookmarked
+                      ? IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          iconSize: isCollapsedToHeightZero ? 0 : null,
+                          onPressed: () {
+                            HapticFeedback.mediumImpact();
+
+                            onRemoveBookmark(storyId: story.id);
+                          },
+                          icon: Icon(
+                            Icons.bookmark,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        )
+                      : IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          iconSize: isCollapsedToHeightZero ? 0 : null,
+                          onPressed: () {
+                            HapticFeedback.mediumImpact();
+
+                            onAddBookmark(
+                                storyId: story.id, title: story.title);
+                          },
+                          icon: const Icon(
+                            Icons.bookmark_outline,
+                          ),
+                        )),
             )
           ],
         ),
