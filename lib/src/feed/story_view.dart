@@ -136,7 +136,7 @@ class StoryView extends ConsumerWidget {
                                   size: textScalerIcon,
                                   color: theme.colorScheme.primary,
                                 )),
-                                TextSpan(text: ' $nCommentsSeen'),
+                                TextSpan(text: '$nCommentsSeen'),
                                 const TextSpan(text: ')'),
                               ],
                               style: defaultTextStyle.style.copyWith(
