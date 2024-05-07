@@ -89,65 +89,58 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
               ))
         ],
       ),
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 1100),
-          child: EndlessScrollView(
-            key: ValueKey(widget.story.id),
-            cacheExtent: 6000,
-            storiesState: commentState,
-            dataFetcher: () => commentsNotifier.fetchStories(),
-            refreshCallback: () {
-              setState(() {
-                hiddenComments = {};
-              });
-              return Future.delayed(const Duration(milliseconds: 100),
-                  () => ref.refresh(commentsProvider));
+      body: EndlessScrollView(
+        key: ValueKey(widget.story.id),
+        cacheExtent: 6000,
+        storiesState: commentState,
+        dataFetcher: () => commentsNotifier.fetchStories(),
+        refreshCallback: () {
+          setState(() {
+            hiddenComments = {};
+          });
+          return Future.delayed(const Duration(milliseconds: 100),
+              () => ref.refresh(commentsProvider));
+        },
+        topOfListWidgets: [
+          GestureDetector(
+            onTap: () {
+              openStoryUrl();
             },
-            topOfListWidgets: [
-              GestureDetector(
-                onTap: () {
-                  openStoryUrl();
-                },
-                child: StoryView(
-                  onRemoveBookmark: onRemoveBookmark,
-                  onAddBookmark: onAddBookmark,
-                  story: widget.story,
-                  isBookmarked:
-                      bookmarkedStories?.storyIds.contains(widget.story.id) ??
-                          false,
-                ),
-              )
-            ],
-            itemBuilder: (index, commentsState) {
-              if (commentsState.stories[index].text != null &&
-                  !hiddenComments.contains(index)) {
-                return SingleCommentsView(
-                    key: ValueKey(index),
-                    comment: commentsState.stories[index],
-                    storyId: widget.story.id,
-                    hideReadComments: hideReadComments,
-                    setHiddenComments: (bool isHidden) => {
-                          setState(() {
-                            final nChildren =
-                                commentsState.stories[index]?.nChildren ?? 0;
-                            final hiddenChildrenIndeces = List.generate(
-                                nChildren,
-                                (listIndex) => listIndex + index + 1);
-                            isHidden
-                                ? hiddenComments.addAll(hiddenChildrenIndeces)
-                                : hiddenComments
-                                    .removeAll(hiddenChildrenIndeces);
-                          })
-                        });
-              } else {
-                return Container(
-                  height: 0,
-                );
-              }
-            },
-          ),
-        ),
+            child: StoryView(
+              onRemoveBookmark: onRemoveBookmark,
+              onAddBookmark: onAddBookmark,
+              story: widget.story,
+              isBookmarked:
+                  bookmarkedStories?.storyIds.contains(widget.story.id) ??
+                      false,
+            ),
+          )
+        ],
+        itemBuilder: (index, commentsState) {
+          if (commentsState.stories[index].text != null &&
+              !hiddenComments.contains(index)) {
+            return SingleCommentsView(
+                key: ValueKey(index),
+                comment: commentsState.stories[index],
+                storyId: widget.story.id,
+                hideReadComments: hideReadComments,
+                setHiddenComments: (bool isHidden) => {
+                      setState(() {
+                        final nChildren =
+                            commentsState.stories[index]?.nChildren ?? 0;
+                        final hiddenChildrenIndeces = List.generate(
+                            nChildren, (listIndex) => listIndex + index + 1);
+                        isHidden
+                            ? hiddenComments.addAll(hiddenChildrenIndeces)
+                            : hiddenComments.removeAll(hiddenChildrenIndeces);
+                      })
+                    });
+          } else {
+            return Container(
+              height: 0,
+            );
+          }
+        },
       ),
     );
   }

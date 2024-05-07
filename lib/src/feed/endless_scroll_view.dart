@@ -89,16 +89,20 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
             controller: scrollController,
             child: ListView.builder(
               cacheExtent: widget.cacheExtent,
-              physics: const AlwaysScrollableScrollPhysics(),
               controller: scrollController,
               itemCount: numberOfComments + numberOfTopListWidgets + 1,
               itemBuilder: (context, index) {
-                return EndlessScrollItem(
-                    key: ValueKey(index),
-                    index: index,
-                    storiesState: widget.storiesState,
-                    itemBuilder: widget.itemBuilder,
-                    topOfListWidgets: widget.topOfListWidgets);
+                return Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 1100),
+                    child: EndlessScrollItem(
+                        key: ValueKey(index),
+                        index: index,
+                        storiesState: widget.storiesState,
+                        itemBuilder: widget.itemBuilder,
+                        topOfListWidgets: widget.topOfListWidgets),
+                  ),
+                );
               },
             ),
           ),
