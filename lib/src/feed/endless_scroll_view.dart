@@ -87,23 +87,32 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           },
           child: Scrollbar(
             controller: scrollController,
-            child: ListView.builder(
-              cacheExtent: widget.cacheExtent,
-              controller: scrollController,
-              itemCount: numberOfComments + numberOfTopListWidgets + 1,
-              itemBuilder: (context, index) {
-                return Center(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 1100),
-                    child: EndlessScrollItem(
-                        key: ValueKey(index),
-                        index: index,
-                        storiesState: widget.storiesState,
-                        itemBuilder: widget.itemBuilder,
-                        topOfListWidgets: widget.topOfListWidgets),
+            child: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    cacheExtent: widget.cacheExtent,
+                    controller: scrollController,
+                    itemCount: numberOfComments + numberOfTopListWidgets + 1,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 1100),
+                          child: EndlessScrollItem(
+                              key: ValueKey(index),
+                              index: index,
+                              storiesState: widget.storiesState,
+                              itemBuilder: widget.itemBuilder,
+                              topOfListWidgets: widget.topOfListWidgets),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+              ),
             ),
           ),
         ),
