@@ -119,8 +119,10 @@ class _CommentCardState extends ConsumerState<CommentCard> {
     } else {
       commentWasSeen = false;
     }
-    // final commentWasSeen =
-    //     ((commentStatus?.commentWasSeen) ?? 0) == 0 ? false : true;
+
+    final comment = (widget.widget.comment.text ?? '')
+        .replaceAll("<pre>", '<div style="white-space: pre;">')
+        .replaceAll("</pre>", '</div">');
 
     return VisibilityDetector(
         key: Key('comment-visibility-${widget.key}'),
@@ -152,7 +154,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
               if (!widget.hideCard)
                 if ((widget.hideReadComments && !commentWasSeen) ||
                     !widget.hideReadComments)
-                  HtmlWidget(widget.widget.comment.text ?? ''),
+                  HtmlWidget(comment),
             ],
           ),
         ));
