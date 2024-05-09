@@ -1,4 +1,3 @@
-import 'package:hackernews_flutter/src/feed/top_stories_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
