@@ -27,10 +27,8 @@ class BottomBar extends ConsumerWidget {
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .background
-                      .withOpacity(0.70),
+                  color:
+                      Theme.of(context).colorScheme.surface.withOpacity(0.70),
                   border: Border(
                       top: BorderSide(
                           color: Theme.of(context)
