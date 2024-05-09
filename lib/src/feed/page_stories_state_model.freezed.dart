@@ -12,7 +12,7 @@ part of 'page_stories_state_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PagedStoriesState {
@@ -21,6 +21,7 @@ mixin _$PagedStoriesState {
   int get storiesPerPage => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get reachedEnd => throw _privateConstructorUsedError;
+  int get nErrors => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PagedStoriesStateCopyWith<PagedStoriesState> get copyWith =>
@@ -38,7 +39,8 @@ abstract class $PagedStoriesStateCopyWith<$Res> {
       List<Story> stories,
       int storiesPerPage,
       bool isLoading,
-      bool reachedEnd});
+      bool reachedEnd,
+      int nErrors});
 }
 
 /// @nodoc
@@ -59,6 +61,7 @@ class _$PagedStoriesStateCopyWithImpl<$Res, $Val extends PagedStoriesState>
     Object? storiesPerPage = null,
     Object? isLoading = null,
     Object? reachedEnd = null,
+    Object? nErrors = null,
   }) {
     return _then(_value.copyWith(
       currentPage: null == currentPage
@@ -81,6 +84,10 @@ class _$PagedStoriesStateCopyWithImpl<$Res, $Val extends PagedStoriesState>
           ? _value.reachedEnd
           : reachedEnd // ignore: cast_nullable_to_non_nullable
               as bool,
+      nErrors: null == nErrors
+          ? _value.nErrors
+          : nErrors // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -98,7 +105,8 @@ abstract class _$$PagedStoriesStateImplCopyWith<$Res>
       List<Story> stories,
       int storiesPerPage,
       bool isLoading,
-      bool reachedEnd});
+      bool reachedEnd,
+      int nErrors});
 }
 
 /// @nodoc
@@ -117,6 +125,7 @@ class __$$PagedStoriesStateImplCopyWithImpl<$Res>
     Object? storiesPerPage = null,
     Object? isLoading = null,
     Object? reachedEnd = null,
+    Object? nErrors = null,
   }) {
     return _then(_$PagedStoriesStateImpl(
       currentPage: null == currentPage
@@ -139,6 +148,10 @@ class __$$PagedStoriesStateImplCopyWithImpl<$Res>
           ? _value.reachedEnd
           : reachedEnd // ignore: cast_nullable_to_non_nullable
               as bool,
+      nErrors: null == nErrors
+          ? _value.nErrors
+          : nErrors // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -151,7 +164,8 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
       final List<Story> stories = const [],
       this.storiesPerPage = 2,
       this.isLoading = false,
-      this.reachedEnd = false})
+      this.reachedEnd = false,
+      this.nErrors = 0})
       : _stories = stories;
 
   @override
@@ -175,10 +189,13 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
   @override
   @JsonKey()
   final bool reachedEnd;
+  @override
+  @JsonKey()
+  final int nErrors;
 
   @override
   String toString() {
-    return 'PagedStoriesState(currentPage: $currentPage, stories: $stories, storiesPerPage: $storiesPerPage, isLoading: $isLoading, reachedEnd: $reachedEnd)';
+    return 'PagedStoriesState(currentPage: $currentPage, stories: $stories, storiesPerPage: $storiesPerPage, isLoading: $isLoading, reachedEnd: $reachedEnd, nErrors: $nErrors)';
   }
 
   @override
@@ -194,7 +211,8 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.reachedEnd, reachedEnd) ||
-                other.reachedEnd == reachedEnd));
+                other.reachedEnd == reachedEnd) &&
+            (identical(other.nErrors, nErrors) || other.nErrors == nErrors));
   }
 
   @override
@@ -204,7 +222,8 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
       const DeepCollectionEquality().hash(_stories),
       storiesPerPage,
       isLoading,
-      reachedEnd);
+      reachedEnd,
+      nErrors);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +239,8 @@ abstract class _PagedStoriesState implements PagedStoriesState {
       final List<Story> stories,
       final int storiesPerPage,
       final bool isLoading,
-      final bool reachedEnd}) = _$PagedStoriesStateImpl;
+      final bool reachedEnd,
+      final int nErrors}) = _$PagedStoriesStateImpl;
 
   @override
   int get currentPage;
@@ -232,6 +252,8 @@ abstract class _PagedStoriesState implements PagedStoriesState {
   bool get isLoading;
   @override
   bool get reachedEnd;
+  @override
+  int get nErrors;
   @override
   @JsonKey(ignore: true)
   _$$PagedStoriesStateImplCopyWith<_$PagedStoriesStateImpl> get copyWith =>

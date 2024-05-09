@@ -1,3 +1,4 @@
+import 'package:hackernews_flutter/src/feed/top_stories_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -28,7 +29,8 @@ class Stories extends _$Stories implements FetchingNotifier {
         stories: [],
         storiesPerPage: 10,
         isLoading: false,
-        reachedEnd: false);
+        reachedEnd: false,
+        nErrors: 0);
 
     return state;
   }
@@ -41,6 +43,7 @@ class Stories extends _$Stories implements FetchingNotifier {
       final db = await ref.watch(databaseProvider.future);
       final storyStartIndex = state.currentPage * state.storiesPerPage;
       final storyEndIndex = storyStartIndex + state.storiesPerPage;
+      var nErrors = 0;
 
       if (state.isLoading) {
         return;
@@ -59,7 +62,6 @@ class Stories extends _$Stories implements FetchingNotifier {
 
         final topStoriesOnPage = topStories.storyIds.sublist(
             storyStartIndex, min(storyEndIndex, topStories.storyIds.length));
-
         var allResponsesFuture = <Future>[];
         var allNCommentsSeenFuture = <Future<List<Map<String, Object?>>>>[];
         for (final storyId in topStoriesOnPage) {
@@ -77,19 +79,25 @@ class Stories extends _$Stories implements FetchingNotifier {
 
         var allTopStories = const <Story>[];
         for (int i = 0; i <= allResponses.length - 1; i++) {
-          var json = jsonDecode(allResponses[i].body);
-          var topStory = Story.fromJson(json);
-          if (allNCommentsSeen[i].length == 1) {
-            var nCommentsSeen = allNCommentsSeen[i][0]["nCommentsSeen"] as int;
-            topStory = topStory.copyWith(nCommentsSeen: nCommentsSeen);
+          try {
+            var json = jsonDecode(allResponses[i].body);
+            var topStory = Story.fromJson(json);
+            if (allNCommentsSeen[i].length == 1) {
+              var nCommentsSeen =
+                  allNCommentsSeen[i][0]["nCommentsSeen"] as int;
+              topStory = topStory.copyWith(nCommentsSeen: nCommentsSeen);
+            }
+            allTopStories = [...allTopStories, topStory];
+          } catch (e) {
+            nErrors += 1;
           }
-          allTopStories = [...allTopStories, topStory];
         }
 
         state = state.copyWith(
             currentPage: state.currentPage + 1,
             stories: [...state.stories, ...allTopStories],
-            isLoading: false);
+            isLoading: false,
+            nErrors: state.nErrors + nErrors);
       } finally {
         state = state.copyWith(isLoading: false);
       }

@@ -15,5 +15,6 @@ class PagedStoriesState
     @Default(2) int storiesPerPage,
     @Default(false) bool isLoading,
     @Default(false) bool reachedEnd,
+    @Default(0) int nErrors,
   }) = _PagedStoriesState;
 }
