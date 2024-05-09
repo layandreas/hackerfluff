@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'sample_feature/sample_item_details_view.dart';
 import 'settings/settings_controller.dart';
@@ -106,7 +106,7 @@ class HackernewsApp extends ConsumerWidget {
             // allows descendant Widgets to display the correct translations
             // depending on the user's locale.
             localizationsDelegates: const [
-              AppLocalizations.delegate,
+              // AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -120,8 +120,8 @@ class HackernewsApp extends ConsumerWidget {
             //
             // The appTitle is defined in .arb files found in the localization
             // directory.
-            onGenerateTitle: (BuildContext context) =>
-                AppLocalizations.of(context)!.appTitle,
+            // onGenerateTitle: (BuildContext context) =>
+            //     AppLocalizations.of(context)!.appTitle,
 
             // Define a light and dark color theme. Then, read the user's
             // preferred ThemeMode (light, dark, or system default) from the
@@ -167,9 +167,7 @@ final themeOledDark = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color(0xFFC20E5E),
       secondary: Color(0xFFC20E5E),
-      background: Color(0xFF000000),
       surface: Color(0xFF000000),
-      onBackground: Color(0xFFE2E2E6),
       onSurface: Color(0xFFE2E2E6),
       error: Color(0xFFFFB4AB),
       onError: Color(0xFFFF6900),
@@ -182,7 +180,7 @@ final themeOledDark = ThemeData(
       onSurfaceVariant: Color(0xFFC3C7CF),
       onTertiary: Color(0xFF3B2948),
       onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceVariant: Color(0xFF43474E),
+      surfaceContainerHighest: Color(0xFF43474E),
       surfaceTint: Color(0xFF9ECAFF),
       scrim: Color(0xFF000000),
       outline: Color(0xFF8D9199),
@@ -199,9 +197,7 @@ final themeBlue = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color(0xFF9ECAFF),
       secondary: Color(0xFFBBC7DB),
-      background: Color(0xFF00131F),
       surface: Color(0xFF00131F),
-      onBackground: Color(0xFFF6FAFF),
       onSurface: Color(0xFFF2FBFF),
       error: Color(0xFFFFB4AB),
       onError: Color(0xFF690005),
@@ -214,7 +210,7 @@ final themeBlue = ThemeData(
       onSurfaceVariant: Color(0xFFC3C7CF),
       onTertiary: Color(0xFF3B2948),
       onTertiaryContainer: Color(0xFFF2DAFF),
-      surfaceVariant: Color(0xFF43474E),
+      surfaceContainerHighest: Color(0xFF43474E),
       surfaceTint: Color(0xFF9ECAFF),
       scrim: Color(0xFF000000),
       outline: Color(0xFF8D9199),
@@ -231,9 +227,7 @@ final themeDark = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color.fromARGB(255, 37, 150, 190),
       secondary: Color(0xFFC20E5E),
-      background: Color.fromARGB(255, 16, 20, 24),
       surface: Color.fromARGB(255, 16, 20, 24),
-      onBackground: Color(0xFFE2E2E6),
       onSurface: Color(0xFFE2E2E6),
       error: Color(0xFFFFB4AB),
       onError: Color(0xFFFF6900),
@@ -246,7 +240,7 @@ final themeDark = ThemeData(
       onSurfaceVariant: Color(0xFFC3C7CF),
       onTertiary: Color(0xFF3B2948),
       onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceVariant: Color(0xFF43474E),
+      surfaceContainerHighest: Color(0xFF43474E),
       surfaceTint: Color(0xFF9ECAFF),
       scrim: Color(0xFF000000),
       outline: Color(0xFF8D9199),
@@ -263,9 +257,7 @@ final themeDarker = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color.fromARGB(255, 37, 150, 190),
       secondary: Color(0xFFC20E5E),
-      background: Color.fromARGB(255, 15, 15, 15),
       surface: Color.fromARGB(255, 15, 15, 15),
-      onBackground: Color(0xFFE2E2E6),
       onSurface: Color(0xFFE2E2E6),
       error: Color(0xFFFFB4AB),
       onError: Color(0xFFFF6900),
@@ -278,7 +270,7 @@ final themeDarker = ThemeData(
       onSurfaceVariant: Color(0xFFC3C7CF),
       onTertiary: Color(0xFF3B2948),
       onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceVariant: Color(0xFF43474E),
+      surfaceContainerHighest: Color(0xFF43474E),
       surfaceTint: Color(0xFF9ECAFF),
       scrim: Color(0xFF000000),
       outline: Color(0xFF8D9199),
