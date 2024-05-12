@@ -80,6 +80,7 @@ class StoryView extends ConsumerWidget {
         child: Stack(
           children: [
             Card(
+              margin: const EdgeInsets.only(top: 0),
               elevation: 0,
               color: Colors.transparent,
               shadowColor: Colors.transparent,
