@@ -8,15 +8,18 @@ part of 'story_model.dart';
 
 _$StoryImpl _$$StoryImplFromJson(Map<String, dynamic> json) => _$StoryImpl(
       title: json['title'] as String,
-      id: json['id'] as int,
-      kids: (json['kids'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      descendants: json['descendants'] as int?,
+      id: (json['id'] as num).toInt(),
+      kids: (json['kids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
+      descendants: (json['descendants'] as num?)?.toInt(),
       by: json['by'] as String?,
-      score: json['score'] as int?,
-      time: json['time'] as int?,
+      score: (json['score'] as num?)?.toInt(),
+      time: (json['time'] as num?)?.toInt(),
       type: json['type'] as String?,
       url: json['url'] as String?,
-      nCommentsSeen: json['nCommentsSeen'] as int?,
+      nCommentsSeen: (json['nCommentsSeen'] as num?)?.toInt(),
+      text: json['text'] as String?,
     );
 
 Map<String, dynamic> _$$StoryImplToJson(_$StoryImpl instance) =>
@@ -31,4 +34,5 @@ Map<String, dynamic> _$$StoryImplToJson(_$StoryImpl instance) =>
       'type': instance.type,
       'url': instance.url,
       'nCommentsSeen': instance.nCommentsSeen,
+      'text': instance.text,
     };

@@ -93,11 +93,12 @@ class StoryView extends ConsumerWidget {
                           fontSize: textScalerTitleMedium,
                           fontWeight: FontWeight.bold),
                     )),
-                    RichText(
-                        text: TextSpan(
-                            text: urlFormatted,
-                            style: defaultTextStyle.style.copyWith(
-                                fontSize: textScalerDefaultTextStyle))),
+                    if (story.url != null)
+                      RichText(
+                          text: TextSpan(
+                              text: urlFormatted,
+                              style: defaultTextStyle.style.copyWith(
+                                  fontSize: textScalerDefaultTextStyle))),
                     RichText(
                         text: TextSpan(
                             children: [

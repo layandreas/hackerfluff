@@ -9,6 +9,7 @@ import 'story_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'top_stories_provider.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class CommentsFeedView extends ConsumerStatefulWidget {
   const CommentsFeedView({super.key, required this.story});
@@ -114,7 +115,9 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
                   bookmarkedStories?.storyIds.contains(widget.story.id) ??
                       false,
             ),
-          )
+          ),
+          if (widget.story.text != null) HtmlWidget(widget.story.text ?? ''),
+          const Divider()
         ],
         itemBuilder: (index, commentsState) {
           if (commentsState.stories[index].text != null &&

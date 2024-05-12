@@ -12,7 +12,7 @@ part of 'story_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Story _$StoryFromJson(Map<String, dynamic> json) {
   return _Story.fromJson(json);
@@ -30,6 +30,7 @@ mixin _$Story {
   String? get type => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   int? get nCommentsSeen => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $StoryCopyWith<$Res> {
       int? time,
       String? type,
       String? url,
-      int? nCommentsSeen});
+      int? nCommentsSeen,
+      String? text});
 }
 
 /// @nodoc
@@ -77,6 +79,7 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
     Object? type = freezed,
     Object? url = freezed,
     Object? nCommentsSeen = freezed,
+    Object? text = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -119,6 +122,10 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
           ? _value.nCommentsSeen
           : nCommentsSeen // ignore: cast_nullable_to_non_nullable
               as int?,
+      text: freezed == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -140,7 +147,8 @@ abstract class _$$StoryImplCopyWith<$Res> implements $StoryCopyWith<$Res> {
       int? time,
       String? type,
       String? url,
-      int? nCommentsSeen});
+      int? nCommentsSeen,
+      String? text});
 }
 
 /// @nodoc
@@ -164,6 +172,7 @@ class __$$StoryImplCopyWithImpl<$Res>
     Object? type = freezed,
     Object? url = freezed,
     Object? nCommentsSeen = freezed,
+    Object? text = freezed,
   }) {
     return _then(_$StoryImpl(
       title: null == title
@@ -206,6 +215,10 @@ class __$$StoryImplCopyWithImpl<$Res>
           ? _value.nCommentsSeen
           : nCommentsSeen // ignore: cast_nullable_to_non_nullable
               as int?,
+      text: freezed == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -223,7 +236,8 @@ class _$StoryImpl implements _Story {
       this.time,
       this.type,
       this.url,
-      this.nCommentsSeen})
+      this.nCommentsSeen,
+      this.text})
       : _kids = kids;
 
   factory _$StoryImpl.fromJson(Map<String, dynamic> json) =>
@@ -257,10 +271,12 @@ class _$StoryImpl implements _Story {
   final String? url;
   @override
   final int? nCommentsSeen;
+  @override
+  final String? text;
 
   @override
   String toString() {
-    return 'Story(title: $title, id: $id, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url, nCommentsSeen: $nCommentsSeen)';
+    return 'Story(title: $title, id: $id, kids: $kids, descendants: $descendants, by: $by, score: $score, time: $time, type: $type, url: $url, nCommentsSeen: $nCommentsSeen, text: $text)';
   }
 
   @override
@@ -279,7 +295,8 @@ class _$StoryImpl implements _Story {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.nCommentsSeen, nCommentsSeen) ||
-                other.nCommentsSeen == nCommentsSeen));
+                other.nCommentsSeen == nCommentsSeen) &&
+            (identical(other.text, text) || other.text == text));
   }
 
   @JsonKey(ignore: true)
@@ -295,7 +312,8 @@ class _$StoryImpl implements _Story {
       time,
       type,
       url,
-      nCommentsSeen);
+      nCommentsSeen,
+      text);
 
   @JsonKey(ignore: true)
   @override
@@ -322,7 +340,8 @@ abstract class _Story implements Story {
       final int? time,
       final String? type,
       final String? url,
-      final int? nCommentsSeen}) = _$StoryImpl;
+      final int? nCommentsSeen,
+      final String? text}) = _$StoryImpl;
 
   factory _Story.fromJson(Map<String, dynamic> json) = _$StoryImpl.fromJson;
 
@@ -346,6 +365,8 @@ abstract class _Story implements Story {
   String? get url;
   @override
   int? get nCommentsSeen;
+  @override
+  String? get text;
   @override
   @JsonKey(ignore: true)
   _$$StoryImplCopyWith<_$StoryImpl> get copyWith =>

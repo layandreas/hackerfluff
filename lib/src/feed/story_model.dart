@@ -6,18 +6,18 @@ part 'story_model.freezed.dart';
 
 @freezed
 class Story with _$Story {
-  const factory Story({
-    required String title,
-    required int id,
-    List<int>? kids,
-    int? descendants,
-    String? by,
-    int? score,
-    int? time,
-    String? type,
-    String? url,
-    int? nCommentsSeen,
-  }) = _Story;
+  const factory Story(
+      {required String title,
+      required int id,
+      List<int>? kids,
+      int? descendants,
+      String? by,
+      int? score,
+      int? time,
+      String? type,
+      String? url,
+      int? nCommentsSeen,
+      String? text}) = _Story;
 
   factory Story.fromJson(Map<String, Object?> json) => _$StoryFromJson(json);
 }
