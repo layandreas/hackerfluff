@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Themes {
-  static String fontFamily = "SourceSans3";
+const textTheme = TextTheme(
+  titleLarge: TextStyle(fontSize: 16),
+);
 
+const fontFamily = "SourceSans3";
+
+class Themes {
   final lightTheme = ThemeData(
       fontFamily: fontFamily,
+      textTheme: textTheme,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light().copyWith(
         primary: const Color.fromARGB(255, 245, 109, 11),
@@ -14,6 +19,7 @@ class Themes {
   final themeDark = ThemeData(
       fontFamily: fontFamily,
       brightness: Brightness.dark,
+      textTheme: textTheme,
       colorScheme: const ColorScheme(
         primary: Color.fromARGB(255, 245, 109, 11),
         secondary: Color(0xFFC20E5E),
@@ -44,6 +50,7 @@ class Themes {
   final themeDarker = ThemeData(
       fontFamily: fontFamily,
       brightness: Brightness.dark,
+      textTheme: textTheme,
       colorScheme: const ColorScheme(
         primary: Color.fromARGB(255, 245, 109, 11),
         secondary: Color(0xFFC20E5E),
@@ -74,6 +81,7 @@ class Themes {
   final themeOledDark = ThemeData(
       fontFamily: fontFamily,
       brightness: Brightness.dark,
+      textTheme: textTheme,
       colorScheme: const ColorScheme(
         primary: Color(0xFFC20E5E),
         secondary: Color(0xFFC20E5E),
@@ -104,6 +112,7 @@ class Themes {
   final themeBlue = ThemeData(
       fontFamily: fontFamily,
       brightness: Brightness.dark,
+      textTheme: textTheme,
       colorScheme: const ColorScheme(
         primary: Color(0xFF9ECAFF),
         secondary: Color(0xFFBBC7DB),
