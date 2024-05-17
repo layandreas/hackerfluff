@@ -8,6 +8,7 @@ import 'feed/feed_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'settings/settings_provider.dart';
 import 'settings/settings_model.dart';
+import 'themes.dart';
 import 'bookmarks/bookmarks_view.dart';
 
 /// The Widget that configures your application.
@@ -28,10 +29,10 @@ class HackernewsApp extends ConsumerWidget {
       _ => defaultSettings
     };
 
-    var lightTheme = ThemeData(
-      fontFamily: "SourceSans3",
-    );
-    var darkTheme = themeDark;
+    final themes = Themes();
+    var lightTheme = themes.lightTheme;
+
+    var darkTheme = themes.themeDark;
     var themeMode = ThemeMode.system;
     ThemeData defaultLightTheme;
     ThemeData defaultDarkTheme;
@@ -42,11 +43,11 @@ class HackernewsApp extends ConsumerWidget {
       case DefaultTheme.dark:
         defaultLightTheme = darkTheme;
       case DefaultTheme.darker:
-        defaultLightTheme = themeDarker;
+        defaultLightTheme = themes.themeDarker;
       case DefaultTheme.oledDark:
-        defaultLightTheme = themeOledDark;
+        defaultLightTheme = themes.themeOledDark;
       case DefaultTheme.blue:
-        defaultLightTheme = themeBlue;
+        defaultLightTheme = themes.themeBlue;
     }
 
     switch (settings.themeSettings.defaultDarkTheme) {
@@ -55,11 +56,11 @@ class HackernewsApp extends ConsumerWidget {
       case DefaultTheme.dark:
         defaultDarkTheme = darkTheme;
       case DefaultTheme.darker:
-        defaultDarkTheme = themeDarker;
+        defaultDarkTheme = themes.themeDarker;
       case DefaultTheme.oledDark:
-        defaultDarkTheme = themeOledDark;
+        defaultDarkTheme = themes.themeOledDark;
       case DefaultTheme.blue:
-        defaultDarkTheme = themeBlue;
+        defaultDarkTheme = themes.themeBlue;
     }
 
     switch (settings.themeSettings.theme) {
@@ -68,19 +69,19 @@ class HackernewsApp extends ConsumerWidget {
         darkTheme = defaultDarkTheme;
         themeMode = ThemeMode.system;
       case ThemeSetting.blue:
-        darkTheme = themeBlue;
+        darkTheme = themes.themeBlue;
         themeMode = ThemeMode.dark;
       case ThemeSetting.light:
         lightTheme = lightTheme;
         themeMode = ThemeMode.light;
       case ThemeSetting.dark:
-        darkTheme = themeDark;
+        darkTheme = themes.themeDark;
         themeMode = ThemeMode.dark;
       case ThemeSetting.darker:
-        darkTheme = themeDarker;
+        darkTheme = themes.themeDarker;
         themeMode = ThemeMode.dark;
       case ThemeSetting.oledDark:
-        darkTheme = themeOledDark;
+        darkTheme = themes.themeOledDark;
         themeMode = ThemeMode.dark;
     }
 
@@ -160,126 +161,6 @@ class HackernewsApp extends ConsumerWidget {
     );
   }
 }
-
-final themeOledDark = ThemeData(
-    fontFamily: "SourceSans3",
-    brightness: Brightness.dark,
-    colorScheme: const ColorScheme(
-      primary: Color(0xFFC20E5E),
-      secondary: Color(0xFFC20E5E),
-      surface: Color(0xFF000000),
-      onSurface: Color(0xFFE2E2E6),
-      error: Color(0xFFFFB4AB),
-      onError: Color(0xFFFF6900),
-      brightness: Brightness.dark,
-      onPrimary: Color(0xFF3F0019),
-      onSecondary: Color(0xFF3F0019),
-      onPrimaryContainer: Color(0xFF3F0019),
-      onSecondaryContainer: Color(0xFF3F0019),
-      onErrorContainer: Color(0xFFFFB4AB),
-      onSurfaceVariant: Color(0xFFC3C7CF),
-      onTertiary: Color(0xFF3B2948),
-      onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceContainerHighest: Color(0xFF43474E),
-      surfaceTint: Color(0xFF9ECAFF),
-      scrim: Color(0xFF000000),
-      outline: Color(0xFF8D9199),
-      outlineVariant: Color(0xFF43474E),
-      shadow: Color(0xFF000000),
-      inversePrimary: Color(0xFF0061A4),
-      inverseSurface: Color(0xFFE2E2E6),
-      onInverseSurface: Color(0xFF2F3033),
-    ));
-
-final themeBlue = ThemeData(
-    fontFamily: "SourceSans3",
-    brightness: Brightness.dark,
-    colorScheme: const ColorScheme(
-      primary: Color(0xFF9ECAFF),
-      secondary: Color(0xFFBBC7DB),
-      surface: Color(0xFF00131F),
-      onSurface: Color(0xFFF2FBFF),
-      error: Color(0xFFFFB4AB),
-      onError: Color(0xFF690005),
-      brightness: Brightness.dark,
-      onPrimary: Color(0xFF003258),
-      onSecondary: Color(0xFF253140),
-      onPrimaryContainer: Color(0xFFD1E4FF),
-      onSecondaryContainer: Color(0xFFD7E3F7),
-      onErrorContainer: Color(0xFFFFB4AB),
-      onSurfaceVariant: Color(0xFFC3C7CF),
-      onTertiary: Color(0xFF3B2948),
-      onTertiaryContainer: Color(0xFFF2DAFF),
-      surfaceContainerHighest: Color(0xFF43474E),
-      surfaceTint: Color(0xFF9ECAFF),
-      scrim: Color(0xFF000000),
-      outline: Color(0xFF8D9199),
-      outlineVariant: Color(0xFF43474E),
-      shadow: Color(0xFF000000),
-      inversePrimary: Color(0xFF0061A4),
-      inverseSurface: Color(0xFFE2E2E6),
-      onInverseSurface: Color(0xFF2F3033),
-    ));
-
-final themeDark = ThemeData(
-    brightness: Brightness.dark,
-    fontFamily: "SourceSans3",
-    colorScheme: const ColorScheme(
-      primary: Color.fromARGB(255, 37, 150, 190),
-      secondary: Color(0xFFC20E5E),
-      surface: Color.fromARGB(255, 16, 20, 24),
-      onSurface: Color(0xFFE2E2E6),
-      error: Color(0xFFFFB4AB),
-      onError: Color(0xFFFF6900),
-      brightness: Brightness.dark,
-      onPrimary: Color(0xFF3F0019),
-      onSecondary: Color(0xFF3F0019),
-      onPrimaryContainer: Color(0xFF3F0019),
-      onSecondaryContainer: Color(0xFF3F0019),
-      onErrorContainer: Color(0xFFFFB4AB),
-      onSurfaceVariant: Color(0xFFC3C7CF),
-      onTertiary: Color(0xFF3B2948),
-      onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceContainerHighest: Color(0xFF43474E),
-      surfaceTint: Color(0xFF9ECAFF),
-      scrim: Color(0xFF000000),
-      outline: Color(0xFF8D9199),
-      outlineVariant: Color(0xFF43474E),
-      shadow: Color(0xFF000000),
-      inversePrimary: Color(0xFF0061A4),
-      inverseSurface: Color(0xFFE2E2E6),
-      onInverseSurface: Color(0xFF2F3033),
-    ));
-
-final themeDarker = ThemeData(
-    brightness: Brightness.dark,
-    fontFamily: "SourceSans3",
-    colorScheme: const ColorScheme(
-      primary: Color.fromARGB(255, 37, 150, 190),
-      secondary: Color(0xFFC20E5E),
-      surface: Color.fromARGB(255, 15, 15, 15),
-      onSurface: Color(0xFFE2E2E6),
-      error: Color(0xFFFFB4AB),
-      onError: Color(0xFFFF6900),
-      brightness: Brightness.dark,
-      onPrimary: Color(0xFF3F0019),
-      onSecondary: Color(0xFF3F0019),
-      onPrimaryContainer: Color(0xFF3F0019),
-      onSecondaryContainer: Color(0xFF3F0019),
-      onErrorContainer: Color(0xFFFFB4AB),
-      onSurfaceVariant: Color(0xFFC3C7CF),
-      onTertiary: Color(0xFF3B2948),
-      onTertiaryContainer: Color(0xFFFFF2DA),
-      surfaceContainerHighest: Color(0xFF43474E),
-      surfaceTint: Color(0xFF9ECAFF),
-      scrim: Color(0xFF000000),
-      outline: Color(0xFF8D9199),
-      outlineVariant: Color(0xFF43474E),
-      shadow: Color(0xFF000000),
-      inversePrimary: Color(0xFF0061A4),
-      inverseSurface: Color(0xFFE2E2E6),
-      onInverseSurface: Color(0xFF2F3033),
-    ));
 
 class UnanimatedPageRoute<T> extends MaterialPageRoute<T> {
   UnanimatedPageRoute({
