@@ -5,6 +5,7 @@ const textTheme = TextTheme(
 );
 
 const fontFamily = "SourceSans3";
+const orange = Color.fromARGB(255, 217, 93, 5);
 
 class Themes {
   final lightTheme = ThemeData(
@@ -12,7 +13,7 @@ class Themes {
       textTheme: textTheme,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light().copyWith(
-        primary: const Color.fromARGB(255, 245, 109, 11),
+        primary: orange,
         secondary: const Color(0xFFC20E5E),
       ));
 
@@ -21,7 +22,7 @@ class Themes {
       brightness: Brightness.dark,
       textTheme: textTheme,
       colorScheme: const ColorScheme(
-        primary: Color.fromARGB(255, 245, 109, 11),
+        primary: orange,
         secondary: Color(0xFFC20E5E),
         surface: Color.fromARGB(255, 16, 20, 24),
         onSurface: Color(0xFFE2E2E6),
@@ -52,7 +53,7 @@ class Themes {
       brightness: Brightness.dark,
       textTheme: textTheme,
       colorScheme: const ColorScheme(
-        primary: Color.fromARGB(255, 245, 109, 11),
+        primary: orange,
         secondary: Color(0xFFC20E5E),
         surface: Color.fromARGB(255, 15, 15, 15),
         onSurface: Color(0xFFE2E2E6),
