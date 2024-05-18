@@ -18,6 +18,17 @@ class FeedView extends ConsumerWidget {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+                )
+              : null,
           toolbarHeight: 35,
           title: Text('Stories',
               style: TextStyle(color: Theme.of(context).colorScheme.primary)),

@@ -13,6 +13,17 @@ class BookmarksView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        leading: ModalRoute.of(context)?.canPop == true
+            ? IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 15,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+              )
+            : null,
         title: Text('Bookmarks',
             style: TextStyle(color: Theme.of(context).colorScheme.primary)),
       ),
