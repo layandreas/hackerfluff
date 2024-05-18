@@ -65,6 +65,17 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: ModalRoute.of(context)?.canPop == true
+            ? IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 15,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+              )
+            : null,
         title: Text(
           'Comments',
           style: TextStyle(color: Theme.of(context).colorScheme.primary),

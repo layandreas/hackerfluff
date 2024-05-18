@@ -45,6 +45,17 @@ class SettingsView extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+                )
+              : null,
           title: Text('Settings',
               style: TextStyle(color: Theme.of(context).colorScheme.primary)),
         ),
@@ -265,7 +276,20 @@ class ThemeSettingsView extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme')),
+      appBar: AppBar(
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+                )
+              : null,
+          title: Text('Theme',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -352,7 +376,20 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Default Light Theme')),
+      appBar: AppBar(
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+                )
+              : null,
+          title: Text('Default Light Theme',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -435,7 +472,20 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Default Dark Theme')),
+      appBar: AppBar(
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+// used onPressed here
+                )
+              : null,
+          title: Text('Default Dark Theme',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
