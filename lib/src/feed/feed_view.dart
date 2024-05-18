@@ -19,7 +19,8 @@ class FeedView extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 35,
-          title: const Text('Stories'),
+          title: Text('Stories',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
             isScrollable: false,

@@ -45,7 +45,8 @@ class SettingsView extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Settings'),
+          title: Text('Settings',
+              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
         ),
         body: BottomBar(
           child: SafeArea(

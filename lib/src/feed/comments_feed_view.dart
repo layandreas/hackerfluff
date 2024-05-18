@@ -65,7 +65,10 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comments'),
+        title: Text(
+          'Comments',
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+        ),
         actions: [
           IconButton(
               onPressed: () {
