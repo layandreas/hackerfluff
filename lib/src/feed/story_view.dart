@@ -104,14 +104,19 @@ class StoryView extends ConsumerWidget {
                         text: TextSpan(
                             children: [
                           WidgetSpan(
-                              child: Icon(Icons.person_2_outlined,
-                                  size: textScalerIcon)),
+                              child: Icon(
+                            Icons.person_2_outlined,
+                            size: textScalerIcon,
+                            color: Theme.of(context).colorScheme.primary,
+                          )),
                           TextSpan(
                             text: ' ${story.by} • ',
                           ),
                           WidgetSpan(
                               child: Icon(Icons.schedule_outlined,
-                                  size: textScalerIcon)),
+                                  size: textScalerIcon,
+                                  color:
+                                      Theme.of(context).colorScheme.primary)),
                           TextSpan(
                             text: ' $timeSinceStoryFmt',
                           )
@@ -123,11 +128,15 @@ class StoryView extends ConsumerWidget {
                             children: [
                           WidgetSpan(
                               child: Icon(Icons.thumb_up_outlined,
-                                  size: textScalerIcon)),
+                                  size: textScalerIcon,
+                                  color:
+                                      Theme.of(context).colorScheme.primary)),
                           TextSpan(text: ' ${story.score.toString()} • '),
                           WidgetSpan(
                               child: Icon(Icons.mode_comment_outlined,
-                                  size: textScalerIcon)),
+                                  size: textScalerIcon,
+                                  color:
+                                      Theme.of(context).colorScheme.primary)),
                           TextSpan(text: ' $numberOfCommentsFormatted '),
                           TextSpan(
                               children: [
