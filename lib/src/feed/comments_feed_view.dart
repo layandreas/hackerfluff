@@ -65,6 +65,7 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
 
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: ModalRoute.of(context)?.canPop == true
             ? IconButton(
                 icon: Icon(

@@ -13,6 +13,7 @@ class BookmarksView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: ModalRoute.of(context)?.canPop == true
             ? IconButton(
                 icon: Icon(
