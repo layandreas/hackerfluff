@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'sample_feature/sample_item_details_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'feed/feed_view.dart';
@@ -141,14 +140,10 @@ class HackernewsApp extends ConsumerWidget {
                   switch (routeSettings.name) {
                     case SettingsView.routeName:
                       return const SettingsView();
-                    case SampleItemDetailsView.routeName:
-                      return const SampleItemDetailsView();
-                    //case SampleItemListView.routeName:
                     case FeedView.routeName:
                       return const FeedView();
                     case BookmarksView.routeName:
                       return const BookmarksView();
-
                     default:
                       return const FeedView();
                   }
