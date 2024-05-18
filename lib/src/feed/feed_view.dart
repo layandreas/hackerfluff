@@ -18,6 +18,7 @@ class FeedView extends ConsumerWidget {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: ModalRoute.of(context)?.canPop == true
               ? IconButton(
                   icon: Icon(

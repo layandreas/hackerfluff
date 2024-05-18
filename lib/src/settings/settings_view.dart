@@ -45,6 +45,7 @@ class SettingsView extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: ModalRoute.of(context)?.canPop == true
               ? IconButton(
                   icon: Icon(
@@ -277,6 +278,7 @@ class ThemeSettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: ModalRoute.of(context)?.canPop == true
               ? IconButton(
                   icon: Icon(
@@ -377,6 +379,7 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: ModalRoute.of(context)?.canPop == true
               ? IconButton(
                   icon: Icon(
@@ -473,6 +476,7 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: ModalRoute.of(context)?.canPop == true
               ? IconButton(
                   icon: Icon(
