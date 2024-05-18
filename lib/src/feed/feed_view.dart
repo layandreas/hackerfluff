@@ -123,44 +123,42 @@ class _FeedViewState extends ConsumerState<FeedViewSkeleton> {
       }
     }
 
-    return Column(
-      children: [
-        const SizedBox(
-          height: 6,
-        ),
-        Expanded(
-          child: EndlessScrollView(
-            key: Key(widget.storyListEndpoint.name),
-            storiesState: storiesState,
-            dataFetcher: () => storiesNotifier.fetchStories(),
-            refreshCallback: () => ref
-                .refresh(topStoriesProvider(widget.storyListEndpoint).future),
-            itemBuilder: (index, storiesState) {
-              return GestureDetector(
-                child: StoryView(
-                  onRemoveBookmark: onRemoveBookmark,
-                  key: ValueKey(index),
-                  onAddBookmark: onAddBookmark,
-                  story: storiesState.stories[index],
-                  isBookmarked: bookmarkedStories?.storyIds
-                          .contains(storiesState.stories[index].id) ??
-                      false,
-                  isCollapsedToHeightZero: collapsedToHeightZero
-                      .contains(storiesState.stories[index].id),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CommentsFeedView(
-                                story: storiesState.stories[index],
-                              )));
-                },
-              );
+    return Expanded(
+      child: EndlessScrollView(
+        key: Key(widget.storyListEndpoint.name),
+        storiesState: storiesState,
+        dataFetcher: () => storiesNotifier.fetchStories(),
+        refreshCallback: () =>
+            ref.refresh(topStoriesProvider(widget.storyListEndpoint).future),
+        topOfListWidgets: const [
+          SizedBox(
+            height: 6,
+          )
+        ],
+        itemBuilder: (index, storiesState) {
+          return GestureDetector(
+            child: StoryView(
+              onRemoveBookmark: onRemoveBookmark,
+              key: ValueKey(index),
+              onAddBookmark: onAddBookmark,
+              story: storiesState.stories[index],
+              isBookmarked: bookmarkedStories?.storyIds
+                      .contains(storiesState.stories[index].id) ??
+                  false,
+              isCollapsedToHeightZero: collapsedToHeightZero
+                  .contains(storiesState.stories[index].id),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CommentsFeedView(
+                            story: storiesState.stories[index],
+                          )));
             },
-          ),
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 }
