@@ -94,6 +94,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
                   child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     cacheExtent: widget.cacheExtent,
                     controller: scrollController,
                     itemCount: numberOfComments + numberOfTopListWidgets + 1,
