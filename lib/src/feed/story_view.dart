@@ -156,7 +156,11 @@ class StoryView extends ConsumerWidget {
                         ],
                             style: defaultTextStyle.style.copyWith(
                                 fontSize: textScalerDefaultTextStyle))),
-                    const Divider()
+                    Divider(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .inverseSurface
+                            .withAlpha(75))
                   ]),
             ),
             Positioned.fill(

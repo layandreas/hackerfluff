@@ -134,7 +134,10 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
             ),
           ),
           if (widget.story.text != null) HtmlWidget(widget.story.text ?? ''),
-          if (widget.story.text != null) const Divider()
+          if (widget.story.text != null)
+            Divider(
+                color:
+                    Theme.of(context).colorScheme.inverseSurface.withAlpha(75))
         ],
         itemBuilder: (index, commentsState) {
           if (commentsState.stories[index].text != null &&
