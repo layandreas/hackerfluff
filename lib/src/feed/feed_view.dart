@@ -32,7 +32,9 @@ class FeedView extends ConsumerWidget {
               : null,
           toolbarHeight: 35,
           title: Text('Stories',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold)),
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
             isScrollable: false,
