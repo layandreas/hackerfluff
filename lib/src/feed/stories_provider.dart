@@ -17,7 +17,32 @@ interface class FetchingNotifier {
   fetchStories() {}
 }
 
-final m = Mutex();
+final mutexTopstories = Mutex();
+final mutexNewstories = Mutex();
+final mutexBeststories = Mutex();
+final mutexAskstories = Mutex();
+final mutexShowstories = Mutex();
+final mutexJobstories = Mutex();
+final mutexBookmarks = Mutex();
+
+Mutex getMutex(StoryListEndpoint storyListEndpoint) {
+  switch (storyListEndpoint) {
+    case StoryListEndpoint.topstories:
+      return mutexTopstories;
+    case StoryListEndpoint.newstories:
+      return mutexNewstories;
+    case StoryListEndpoint.beststories:
+      return mutexBeststories;
+    case StoryListEndpoint.askstories:
+      return mutexAskstories;
+    case StoryListEndpoint.showstories:
+      return mutexShowstories;
+    case StoryListEndpoint.jobstories:
+      return mutexJobstories;
+    case StoryListEndpoint.bookmarks:
+      return mutexBookmarks;
+  }
+}
 
 @Riverpod(keepAlive: true)
 class Stories extends _$Stories implements FetchingNotifier {
@@ -36,7 +61,13 @@ class Stories extends _$Stories implements FetchingNotifier {
 
   @override
   void fetchStories() async {
+    final m = getMutex(storyListEndpoint);
     await m.protect(() async {
+      if (state.isLoading) {
+        return;
+      }
+      state = state.copyWith(isLoading: true);
+
       final topStories =
           await ref.watch(topStoriesProvider(storyListEndpoint).future);
       final db = await ref.watch(databaseProvider.future);
@@ -44,12 +75,7 @@ class Stories extends _$Stories implements FetchingNotifier {
       final storyEndIndex = storyStartIndex + state.storiesPerPage;
       var nErrors = 0;
 
-      if (state.isLoading) {
-        return;
-      }
-
       state = state.copyWith(
-          isLoading: true,
           reachedEnd:
               storyStartIndex > topStories.storyIds.length - 1 ? true : false);
       try {
