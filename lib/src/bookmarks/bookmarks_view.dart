@@ -26,7 +26,9 @@ class BookmarksView extends ConsumerWidget {
               )
             : null,
         title: Text('Bookmarks',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold)),
       ),
       body: const BottomBar(
         child: FeedViewSkeleton(

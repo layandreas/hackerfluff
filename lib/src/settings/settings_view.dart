@@ -58,7 +58,9 @@ class SettingsView extends ConsumerWidget {
                 )
               : null,
           title: Text('Settings',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold)),
         ),
         body: BottomBar(
           child: SafeArea(
@@ -291,7 +293,9 @@ class ThemeSettingsView extends ConsumerWidget {
                 )
               : null,
           title: Text('Theme',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -392,7 +396,9 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
                 )
               : null,
           title: Text('Default Light Theme',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -489,7 +495,9 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
                 )
               : null,
           title: Text('Default Dark Theme',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary))),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold))),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(

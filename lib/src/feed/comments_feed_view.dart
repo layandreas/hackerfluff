@@ -79,7 +79,9 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
             : null,
         title: Text(
           'Comments',
-          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
