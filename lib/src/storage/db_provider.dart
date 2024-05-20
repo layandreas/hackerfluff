@@ -16,7 +16,7 @@ Future<Database> database(DatabaseRef ref) async {
   if (kIsWeb) {
     // Change default factory on the web
     databaseFactory = databaseFactoryFfiWeb;
-    path = 'my_web_web.db';
+    path = 'hacker.db';
   } else {
     final databasesPath = await getLibraryDirectory();
     path = join(databasesPath.path, 'hacker.db');

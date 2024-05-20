@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'paged_data_state_interface.dart';
 import 'package:flutter/services.dart';
+import 'dart:ui';
 
 class EndlessScrollView extends StatefulWidget {
   const EndlessScrollView({
@@ -91,8 +92,15 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 1100),
                 child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    scrollbars: false,
+                    physics: const BouncingScrollPhysics(),
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                      PointerDeviceKind.trackpad,
+                    },
+                  ),
                   child: ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     cacheExtent: widget.cacheExtent,
