@@ -116,9 +116,19 @@ class _CommentCardState extends ConsumerState<CommentCard> {
     final bool commentWasSeen;
     if (commentStatus != null) {
       commentWasSeen = (commentStatus.commentWasSeen == 1) ? true : false;
+    } else if (widget.hideReadComments == true) {
+      // Important: If we hide comments (widget.hideReadComments == true)
+      // then the default of commentWasSeen is true: Otherwise scrolling up
+      // won't work as status of comments above are jumping from non-read
+      // to read when future commentStatus resolves, which leads to jumping
+      // up and down irratically when trying to scroll upwards
+      commentWasSeen = true;
     } else {
+      // When not hiding comments we set the default commentWasSeen to true
+      // as there are no scrolling problems in this case
       commentWasSeen = false;
     }
+    ;
 
     final comment = (widget.widget.comment.text ?? '')
         .replaceAll("<pre>", '<div style="white-space: pre;">')
