@@ -128,7 +128,6 @@ class _CommentCardState extends ConsumerState<CommentCard> {
       // as there are no scrolling problems in this case
       commentWasSeen = false;
     }
-    ;
 
     final comment = (widget.widget.comment.text ?? '')
         .replaceAll("<pre>", '<div style="white-space: pre;">')
