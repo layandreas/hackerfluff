@@ -134,7 +134,7 @@ class _CommentCardState extends ConsumerState<CommentCard> {
         .replaceAll("</pre>", '</div">');
 
     return VisibilityDetector(
-        key: Key('comment-visibility-${widget.key}'),
+        key: Key('comment-visibility-${widget.id}'),
         onVisibilityChanged: (visibilityInfo) {
           if (!commentWasSeen) {
             commentStatusNotifier.insertCommentStatus(
