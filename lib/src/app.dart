@@ -27,7 +27,7 @@ class HackernewsApp extends ConsumerWidget {
     final themes = Themes();
     var lightTheme = themes.lightTheme;
 
-    var darkTheme = themes.themeDark;
+    var darkTheme = themes.themeDarker;
     var themeMode = ThemeMode.system;
     ThemeData defaultLightTheme;
     ThemeData defaultDarkTheme;
