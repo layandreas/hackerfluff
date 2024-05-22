@@ -43,6 +43,6 @@ class SettingsModel with _$SettingsModel {
 const defaultSettings = SettingsModel(
     themeSettings: ThemeSettingsModel(
         theme: ThemeSetting.system,
-        defaultDarkTheme: DefaultTheme.dark,
+        defaultDarkTheme: DefaultTheme.darker,
         defaultLightTheme: DefaultTheme.light),
     fontSettings: FontSettingsModel(textScaleFactor: 1.0));
