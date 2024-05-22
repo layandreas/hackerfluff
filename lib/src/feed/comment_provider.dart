@@ -10,7 +10,7 @@ import 'paged_comments_state_model.dart';
 // Necessary for code-generation to work
 part 'comment_provider.g.dart';
 
-Future<CommentModel> fetchCommentTree(int id) async {
+Future<CommentModel> fetchCommentTree(int id, http.Client client) async {
   try {
     final response = await http
         .get(Uri.https('hacker-news.firebaseio.com', '/v0/item/$id.json'));
@@ -20,7 +20,7 @@ Future<CommentModel> fetchCommentTree(int id) async {
 
     List<Future<CommentModel>> childrenFutures = [];
     for (var childId in comment.kids ?? []) {
-      var childCommentFuture = fetchCommentTree(childId);
+      var childCommentFuture = fetchCommentTree(childId, client);
       childrenFutures.add(childCommentFuture);
     }
     final children = await Future.wait(childrenFutures);
@@ -114,11 +114,18 @@ class Comments extends _$Comments {
           kids.sublist(commentStartIndex, min(commentEndIndex, kids.length));
 
       var allCommentModelsFuture = <Future<CommentModel>>[];
-      for (final kid in commentsOnPage) {
-        var commentModel = fetchCommentTree(kid);
-        allCommentModelsFuture.add(commentModel);
+      late List<CommentModel> allCommentModels;
+
+      final client = http.Client();
+      try {
+        for (final kid in commentsOnPage) {
+          var commentModel = fetchCommentTree(kid, client);
+          allCommentModelsFuture.add(commentModel);
+        }
+        allCommentModels = await Future.wait(allCommentModelsFuture);
+      } finally {
+        client.close();
       }
-      final allCommentModels = await Future.wait(allCommentModelsFuture);
 
       final List<CommentModelFlat> allCommentModelsFlat = [];
       for (final commentModel in allCommentModels) {

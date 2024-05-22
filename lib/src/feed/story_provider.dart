@@ -15,13 +15,19 @@ Stream<List<Story>> story(
       await ref.watch(topStoriesProvider(storyListEndPoint).future);
 
   var allResponsesFuture = <Future>[];
-  var allResponses = <dynamic>[];
-  for (final storyId in topStories.storyIds) {
-    var response = http
-        .get(Uri.https('hacker-news.firebaseio.com', '/v0/item/$storyId.json'));
-    allResponsesFuture.add(response);
+  late List<dynamic> allResponses;
+
+  final client = http.Client();
+  try {
+    for (final storyId in topStories.storyIds) {
+      var response = client.get(
+          Uri.https('hacker-news.firebaseio.com', '/v0/item/$storyId.json'));
+      allResponsesFuture.add(response);
+    }
+    allResponses = await Future.wait(allResponsesFuture);
+  } finally {
+    client.close();
   }
-  allResponses = await Future.wait(allResponsesFuture);
 
   //var allResponses = await Future.wait(allResponsesFuture);
   var allTopStories = const <Story>[];
