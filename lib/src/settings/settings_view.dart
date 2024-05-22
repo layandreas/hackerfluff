@@ -178,6 +178,17 @@ class SettingsView extends ConsumerWidget {
                         icon: const Icon(Icons.text_increase_outlined))
                   ]),
                 ),
+                SettingsCard(
+                  text: "Acknowledgements",
+                  leading: const Icon(Icons.file_copy_outlined),
+                  onTap: () {
+                    showLicensePage(
+                        applicationName: "Hackerfluff",
+                        applicationVersion: "1.0.0",
+                        context: context,
+                        useRootNavigator: true);
+                  },
+                ),
                 const SettingsCard(text: ''),
                 const SettingsCard(text: ''),
               ],
