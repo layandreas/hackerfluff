@@ -29,7 +29,7 @@ class EndlessScrollView extends StatefulWidget {
 
 class _EndlessScrollViewState extends State<EndlessScrollView> {
   final scrollController = ScrollController();
-  Timer? initialStoryFetchesTimer;
+  late Timer initialStoryFetchesTimer;
   final Duration initialStoryFetchesPeriod = const Duration(milliseconds: 500);
 
   @override
@@ -46,16 +46,20 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
   void dispose() {
     super.dispose();
     scrollController.dispose();
-    initialStoryFetchesTimer?.cancel();
+    initialStoryFetchesTimer.cancel();
   }
 
   void initialStoryFetches(Timer timer) {
-    if (!widget.storiesState.isLoading && !widget.storiesState.reachedEnd) {
-      Future(widget.dataFetcher);
-    }
+    if (scrollController.hasClients) {
+      if (!widget.storiesState.isLoading && !widget.storiesState.reachedEnd) {
+        Future(widget.dataFetcher);
+      }
 
-    if (widget.storiesState.reachedEnd ||
-        scrollController.position.maxScrollExtent > 0) {
+      if (widget.storiesState.reachedEnd ||
+          scrollController.position.maxScrollExtent > 0) {
+        timer.cancel();
+      }
+    } else {
       timer.cancel();
     }
   }
@@ -81,6 +85,7 @@ class _EndlessScrollViewState extends State<EndlessScrollView> {
           onRefresh: () {
             HapticFeedback.mediumImpact();
 
+            initialStoryFetchesTimer.cancel();
             initialStoryFetchesTimer =
                 Timer.periodic(initialStoryFetchesPeriod, initialStoryFetches);
 
