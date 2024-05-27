@@ -9,6 +9,7 @@ import 'top_stories_provider.dart';
 import 'story_model.dart';
 import '../storage/db_provider.dart';
 import 'package:mutex/mutex.dart';
+import 'package:home_widget/home_widget.dart';
 
 // Necessary for code-generation to work
 part 'stories_provider.g.dart';
@@ -116,6 +117,12 @@ class Stories extends _$Stories implements FetchingNotifier {
           } catch (e) {
             nErrors += 1;
           }
+        }
+
+        if (state.currentPage == 0 && allTopStories.isNotEmpty) {
+          final widgetStory = allTopStories.first;
+          HomeWidget.saveWidgetData<String>('widgetTitle', widgetStory.title);
+          HomeWidget.updateWidget(iOSName: "HackerfluffWidgets");
         }
 
         state = state.copyWith(
