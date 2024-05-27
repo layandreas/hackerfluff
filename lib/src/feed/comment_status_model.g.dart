@@ -9,8 +9,8 @@ part of 'comment_status_model.dart';
 _$CommentStatusModelImpl _$$CommentStatusModelImplFromJson(
         Map<String, dynamic> json) =>
     _$CommentStatusModelImpl(
-      id: json['id'] as int,
-      commentWasSeen: json['commentWasSeen'] as int,
+      id: (json['id'] as num).toInt(),
+      commentWasSeen: (json['commentWasSeen'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$CommentStatusModelImplToJson(
