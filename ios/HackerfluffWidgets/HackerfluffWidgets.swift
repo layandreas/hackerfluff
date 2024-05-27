@@ -9,46 +9,41 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    func placeholder(in context: Context) -> Story {
+        Story(date: Date(), title: "Regular Expression Matching with a Trigram Index")
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
-        completion(entry)
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
+    func getSnapshot(in context: Context, completion: @escaping (Story) -> ()) {
+        let story: Story
+        if context.isPreview{
+            story = placeholder(in: context)
+        } else {
+            let userDefaults = UserDefaults(suiteName: "group.com.layandreas.hackerfluff")
+            let title = userDefaults?.string(forKey: "widgetTitle") ?? "No title found"
+            story = Story(date: Date(), title: title)
         }
+        completion(story)
+    }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Story>) -> ()) {
+        getSnapshot(in: context) {(story) in
+            let timeline = Timeline(entries: [story], policy: .atEnd)
+            completion(timeline)
+        }
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct Story: TimelineEntry {
     let date: Date
-    let emoji: String
+    let title: String
 }
 
 struct HackerfluffWidgetsEntryView : View {
-    var entry: Provider.Entry
+    var story: Provider.Entry
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+            Text(story.title)
         }
     }
 }
@@ -59,10 +54,10 @@ struct HackerfluffWidgets: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                HackerfluffWidgetsEntryView(entry: entry)
+                HackerfluffWidgetsEntryView(story: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                HackerfluffWidgetsEntryView(entry: entry)
+                HackerfluffWidgetsEntryView(story: entry)
                     .padding()
                     .background()
             }
@@ -75,6 +70,6 @@ struct HackerfluffWidgets: Widget {
 #Preview(as: .systemSmall) {
     HackerfluffWidgets()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    Story(date: .now, title: "This is the title")
+    Story(date: .now, title: "This is a second title")
 }
