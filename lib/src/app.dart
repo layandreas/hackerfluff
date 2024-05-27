@@ -34,9 +34,9 @@ class HackernewsApp extends ConsumerWidget {
 
     switch (settings.themeSettings.defaultLightTheme) {
       case DefaultTheme.light:
-        defaultLightTheme = lightTheme;
+        defaultLightTheme = themes.lightTheme;
       case DefaultTheme.dark:
-        defaultLightTheme = darkTheme;
+        defaultLightTheme = themes.themeDark;
       case DefaultTheme.darker:
         defaultLightTheme = themes.themeDarker;
       case DefaultTheme.oledDark:
@@ -47,9 +47,9 @@ class HackernewsApp extends ConsumerWidget {
 
     switch (settings.themeSettings.defaultDarkTheme) {
       case DefaultTheme.light:
-        defaultDarkTheme = lightTheme;
+        defaultDarkTheme = themes.lightTheme;
       case DefaultTheme.dark:
-        defaultDarkTheme = darkTheme;
+        defaultDarkTheme = themes.themeDark;
       case DefaultTheme.darker:
         defaultDarkTheme = themes.themeDarker;
       case DefaultTheme.oledDark:
@@ -67,7 +67,7 @@ class HackernewsApp extends ConsumerWidget {
         darkTheme = themes.themeBlue;
         themeMode = ThemeMode.dark;
       case ThemeSetting.light:
-        lightTheme = lightTheme;
+        lightTheme = themes.lightTheme;
         themeMode = ThemeMode.light;
       case ThemeSetting.dark:
         darkTheme = themes.themeDark;
