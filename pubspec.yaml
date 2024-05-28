@@ -4,7 +4,7 @@ description: "A new Flutter project."
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+1
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -20,6 +20,7 @@ dependencies:
   freezed: ^2.4.6
   freezed_annotation: ^2.4.1
   fwfh_url_launcher: ^0.9.0+4
+  home_widget: ^0.6.0
   html_unescape: ^2.0.0
   http: ^1.1.2
   json_annotation: ^4.8.1

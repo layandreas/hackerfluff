@@ -4,6 +4,7 @@ import 'paged_data_state_interface.dart';
 
 // Necessary for code-generation to work
 part 'page_stories_state_model.freezed.dart';
+part 'page_stories_state_model.g.dart';
 
 @freezed
 class PagedStoriesState
@@ -17,4 +18,7 @@ class PagedStoriesState
     @Default(false) bool reachedEnd,
     @Default(0) int nErrors,
   }) = _PagedStoriesState;
+
+  factory PagedStoriesState.fromJson(Map<String, dynamic> json) =>
+      _$PagedStoriesStateFromJson(json);
 }

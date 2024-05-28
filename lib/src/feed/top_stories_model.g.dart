@@ -8,8 +8,9 @@ part of 'top_stories_model.dart';
 
 _$TopStoriesImpl _$$TopStoriesImplFromJson(Map<String, dynamic> json) =>
     _$TopStoriesImpl(
-      storyIds:
-          (json['storyIds'] as List<dynamic>).map((e) => e as int).toList(),
+      storyIds: (json['storyIds'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
     );
 
 Map<String, dynamic> _$$TopStoriesImplToJson(_$TopStoriesImpl instance) =>

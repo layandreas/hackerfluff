@@ -3,12 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'dart:math';
+import 'dart:io' show Platform;
 
 import 'page_stories_state_model.dart';
 import 'top_stories_provider.dart';
 import 'story_model.dart';
 import '../storage/db_provider.dart';
 import 'package:mutex/mutex.dart';
+import 'package:home_widget/home_widget.dart';
 
 // Necessary for code-generation to work
 part 'stories_provider.g.dart';
@@ -116,6 +118,20 @@ class Stories extends _$Stories implements FetchingNotifier {
           } catch (e) {
             nErrors += 1;
           }
+        }
+
+        if (state.currentPage == 0 &&
+            allTopStories.isNotEmpty &&
+            Platform.isIOS) {
+          final widgetStory = allTopStories.first;
+          final allTopStoriesCopy =
+              allTopStories.map((story) => story.copyWith(kids: [])).toList();
+          final storiesForHomeWidget = jsonEncode(
+              PagedStoriesState(stories: allTopStoriesCopy).toJson());
+          HomeWidget.saveWidgetData<String>('widgetTitle', widgetStory.title);
+          HomeWidget.saveWidgetData<String>(
+              'storiesForHomeWidget', storiesForHomeWidget);
+          HomeWidget.updateWidget(iOSName: "HackerfluffWidgets");
         }
 
         state = state.copyWith(
