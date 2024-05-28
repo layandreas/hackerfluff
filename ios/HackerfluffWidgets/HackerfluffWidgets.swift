@@ -26,7 +26,6 @@ struct Provider: TimelineProvider {
             if let jsonString = userDefaults?.string(forKey: "storiesForHomeWidget"),
                let jsonData = jsonString.data(using: .utf8),
                let decodedState = try? JSONDecoder().decode(PagedStoriesState.self, from: jsonData) {
-                print(decodedState)
                 state = PagedStoriesStateTimelineEntry(currentPage:decodedState.currentPage, stories: decodedState.stories, date: Date())
             } else {
                 state = PagedStoriesStateTimelineEntry(date: Date())
@@ -43,21 +42,64 @@ struct Provider: TimelineProvider {
     }
 }
 
-
-struct HackerfluffWidgetsEntryView: View {
-    var state: PagedStoriesStateTimelineEntry
-
+struct HackerfluffWidgetsEntryView : View {
+    var entry: Provider.Entry
+    
+    @Environment(\.widgetFamily) var family
+    
+    @ViewBuilder
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("**Top Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green: 93/255, blue: 5/255))
-            ForEach(state.stories.prefix(5)) { story in
-                Text(story.title).padding([.bottom], 2)
+        if entry.stories.isEmpty {
+            Text("No stories to show!").lineLimit(4)
+        } else {
+            switch family {
+            case .systemSmall:
+                VStack {
+                    Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
+                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
+                        if index<=0{
+                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+                            Divider()
+                        }
+                    }
+                }
+            case .systemMedium:
+                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
+                VStack {
+                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
+                        if index<=1{
+                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+                            Divider()
+                        }
+                    }
+                }
+            case .systemLarge:
+                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
+
+                VStack {
+                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
+                        if index<=4{
+                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+                            Divider()
+                        }
+                    }
+                }
+            default:
+                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
+
+                VStack {
+                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
+                        if index<=1{
+                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+                            Divider()
+                        }
+                    }
+                }
             }
         }
-        .padding()
+        
     }
 }
-
 
 struct HackerfluffWidgets: Widget {
     let kind: String = "HackerfluffWidgets"
@@ -65,18 +107,46 @@ struct HackerfluffWidgets: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                HackerfluffWidgetsEntryView(state: entry)
+                HackerfluffWidgetsEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                HackerfluffWidgetsEntryView(state: entry)
+                HackerfluffWidgetsEntryView(entry: entry)
                     .padding()
                     .background()
             }
         }
-        .configurationDisplayName("Hackerfluff Widget")
-        .description("Shows Hackernews Top Stories")
+        .configurationDisplayName("Hackerfluff Widgets")
+        .description("Hackernews Stories")
     }
 }
+
+struct EmojiRangerWidgetEntryView: View {
+    var entry: Provider.Entry
+    
+    @Environment(\.widgetFamily) var family
+
+
+    @ViewBuilder
+    var body: some View {
+        switch family {
+
+        case .systemSmall:
+            if let story = entry.stories.first {
+                Text("a")
+            }
+            else {
+                Text("No stories")
+            }
+        case .systemLarge:
+            Text("b")
+        case .systemMedium:
+            Text("c")
+        default:
+            Text("d")
+    }
+}
+}
+
 
 #Preview(as: .systemMedium) {
     HackerfluffWidgets()
