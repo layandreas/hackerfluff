@@ -13,8 +13,11 @@ import Foundation
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> PagedStoriesStateTimelineEntry {
         PagedStoriesStateTimelineEntry(stories: [
-            Story(title: "Regular Expression Matching with a Trigram Index", id: 1)
-        ], date: Date())
+            Story(title: "Ask HN: What would you spend your time working on if you didn't need money?", id: 1),
+            Story(title: "Electromagnetic Waves and Antennas", id: 2),
+            Story(title: "TTE: Terminal Text Effects", id: 3),
+            Story(title: "An air quality model that is evolving with the times", id: 4),
+            Story(title: "A robot will soon try to remove melted nuclear fuel from Fukushima reactor", id: 5)        ], date: Date())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (PagedStoriesStateTimelineEntry) -> ()) {
@@ -102,40 +105,16 @@ struct HackerfluffWidgets: Widget {
     }
 }
 
-struct EmojiRangerWidgetEntryView: View {
-    var entry: Provider.Entry
-    
-    @Environment(\.widgetFamily) var family
-
-
-    @ViewBuilder
-    var body: some View {
-        switch family {
-
-        case .systemSmall:
-            if let story = entry.stories.first {
-                Text("a")
-            }
-            else {
-                Text("No stories")
-            }
-        case .systemLarge:
-            Text("b")
-        case .systemMedium:
-            Text("c")
-        default:
-            Text("d")
-    }
-}
-}
-
 
 #Preview(as: .systemMedium) {
     HackerfluffWidgets()
 } timeline: {
     PagedStoriesStateTimelineEntry(stories: [
-        Story(title: "Preview Story 1", id: 1),
-        Story(title: "Preview Story 2", id: 2)
+        Story(title: "Ask HN: What would you spend your time working on if you didn't need money?", id: 1),
+        Story(title: "Electromagnetic Waves and Antennas", id: 2),
+        Story(title: "TTE: Terminal Text Effects", id: 3),
+        Story(title: "An air quality model that is evolving with the times", id: 4),
+        Story(title: "A robot will soon try to remove melted nuclear fuel from Fukushima reactor", id: 5)
     ],date: Date())
 }
 
