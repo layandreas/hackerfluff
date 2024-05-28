@@ -7,47 +7,57 @@
 
 import WidgetKit
 import SwiftUI
+import Foundation
+
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> Story {
-        Story(date: Date(), title: "Regular Expression Matching with a Trigram Index")
+    func placeholder(in context: Context) -> PagedStoriesStateTimelineEntry {
+        PagedStoriesStateTimelineEntry(stories: [
+            Story(title: "Regular Expression Matching with a Trigram Index", id: 1)
+        ], date: Date())
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (Story) -> ()) {
-        let story: Story
-        if context.isPreview{
-            story = placeholder(in: context)
+    func getSnapshot(in context: Context, completion: @escaping (PagedStoriesStateTimelineEntry) -> ()) {
+        let state: PagedStoriesStateTimelineEntry
+        if context.isPreview {
+            state = placeholder(in: context)
         } else {
             let userDefaults = UserDefaults(suiteName: "group.com.layandreas.hackerfluff")
-            let title = userDefaults?.string(forKey: "widgetTitle") ?? "No title found"
-            story = Story(date: Date(), title: title)
+            if let jsonString = userDefaults?.string(forKey: "storiesForHomeWidget"),
+               let jsonData = jsonString.data(using: .utf8),
+               let decodedState = try? JSONDecoder().decode(PagedStoriesState.self, from: jsonData) {
+                print(decodedState)
+                state = PagedStoriesStateTimelineEntry(currentPage:decodedState.currentPage, stories: decodedState.stories, date: Date())
+            } else {
+                state = PagedStoriesStateTimelineEntry(date: Date())
+            }
         }
-        completion(story)
+        completion(state)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Story>) -> ()) {
-        getSnapshot(in: context) {(story) in
-            let timeline = Timeline(entries: [story], policy: .atEnd)
+    func getTimeline(in context: Context, completion: @escaping (Timeline<PagedStoriesStateTimelineEntry>) -> ()) {
+        getSnapshot(in: context) { (state) in
+            let timeline = Timeline(entries: [state], policy: .atEnd)
             completion(timeline)
         }
     }
 }
 
-struct Story: TimelineEntry {
-    let date: Date
-    let title: String
-}
 
-struct HackerfluffWidgetsEntryView : View {
-    var story: Provider.Entry
+struct HackerfluffWidgetsEntryView: View {
+    var state: PagedStoriesStateTimelineEntry
 
     var body: some View {
-        VStack {
-            Text("**Top Story**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
-            Text(story.title)
+        VStack(alignment: .leading) {
+            Text("**Top Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green: 93/255, blue: 5/255))
+            ForEach(state.stories.prefix(5)) { story in
+                Text(story.title).padding([.bottom], 2)
+            }
         }
+        .padding()
     }
 }
+
 
 struct HackerfluffWidgets: Widget {
     let kind: String = "HackerfluffWidgets"
@@ -55,10 +65,10 @@ struct HackerfluffWidgets: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                HackerfluffWidgetsEntryView(story: entry)
+                HackerfluffWidgetsEntryView(state: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                HackerfluffWidgetsEntryView(story: entry)
+                HackerfluffWidgetsEntryView(state: entry)
                     .padding()
                     .background()
             }
@@ -68,9 +78,47 @@ struct HackerfluffWidgets: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
+#Preview(as: .systemMedium) {
     HackerfluffWidgets()
 } timeline: {
-    Story(date: .now, title: "This is the title")
-    Story(date: .now, title: "This is a second title")
+    PagedStoriesStateTimelineEntry(stories: [
+        Story(title: "Preview Story 1", id: 1),
+        Story(title: "Preview Story 2", id: 2)
+    ],date: Date())
+}
+
+
+struct PagedStoriesStateTimelineEntry: Decodable, TimelineEntry {
+    var currentPage: Int = 0
+    var stories: [Story] = []
+    var storiesPerPage: Int = 2
+    var isLoading: Bool = false
+    var reachedEnd: Bool = false
+    var nErrors: Int = 0
+    var date: Date
+}
+
+
+struct PagedStoriesState: Decodable {
+    var currentPage: Int = 0
+    var stories: [Story] = []
+    var storiesPerPage: Int = 2
+    var isLoading: Bool = false
+    var reachedEnd: Bool = false
+    var nErrors: Int = 0
+}
+
+
+struct Story: Decodable, Identifiable {
+    var title: String
+    var id: Int
+    var kids: [Int]?
+    var descendants: Int?
+    var by: String?
+    var score: Int?
+    var time: Int?
+    var type: String?
+    var url: String?
+    var nCommentsSeen: Int?
+    var text: String?
 }
