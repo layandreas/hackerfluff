@@ -52,54 +52,36 @@ struct HackerfluffWidgetsEntryView : View {
         if entry.stories.isEmpty {
             Text("No stories to show!").lineLimit(4)
         } else {
+            Text("**Stories**").foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
+
+            Divider().padding([.bottom], 3)
+
             switch family {
             case .systemSmall:
-                VStack {
-                    Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
-                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
-                        if index<=0{
-                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                        }
-                    }
-                }
+                displayStories(upToIndex: 0)
             case .systemMedium:
-                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
-                VStack {
-                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
-                        if index<=1{
-                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                        }
-                    }
-                }
+                displayStories(upToIndex: 1)
             case .systemLarge:
-                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
-
-                VStack {
-                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
-                        if index<=4{
-                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                        }
-                    }
-                }
+                displayStories(upToIndex: 4)
             default:
-                Text("**Stories**").padding([.bottom], 5).foregroundColor(Color(red: 217/255, green:93/255,blue:5/255))
-
-                VStack {
-                    ForEach(Array(entry.stories.enumerated()),id: \.offset) {index, story in
-                        if index<=1{
-                            Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                        }
-                    }
+                displayStories(upToIndex: 1)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func displayStories(upToIndex index: Int) -> some View {
+        VStack {
+            ForEach(Array(entry.stories.enumerated()), id: \.offset) { i, story in
+                if i <= index {
+                    Text(story.title).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+                    Divider()
                 }
             }
         }
-        
     }
 }
+
 
 struct HackerfluffWidgets: Widget {
     let kind: String = "HackerfluffWidgets"
