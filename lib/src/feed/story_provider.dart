@@ -29,7 +29,6 @@ Stream<List<Story>> story(
     client.close();
   }
 
-  //var allResponses = await Future.wait(allResponsesFuture);
   var allTopStories = const <Story>[];
 
   for (final response in allResponses) {

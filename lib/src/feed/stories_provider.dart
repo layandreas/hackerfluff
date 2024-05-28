@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'dart:math';
+import 'dart:io' show Platform;
 
 import 'page_stories_state_model.dart';
 import 'top_stories_provider.dart';
@@ -119,7 +120,9 @@ class Stories extends _$Stories implements FetchingNotifier {
           }
         }
 
-        if (state.currentPage == 0 && allTopStories.isNotEmpty) {
+        if (state.currentPage == 0 &&
+            allTopStories.isNotEmpty &&
+            Platform.isIOS) {
           final widgetStory = allTopStories.first;
           final allTopStoriesCopy =
               allTopStories.map((story) => story.copyWith(kids: [])).toList();
