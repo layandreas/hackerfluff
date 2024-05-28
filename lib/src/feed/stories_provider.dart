@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -121,7 +122,13 @@ class Stories extends _$Stories implements FetchingNotifier {
 
         if (state.currentPage == 0 && allTopStories.isNotEmpty) {
           final widgetStory = allTopStories.first;
+          final allTopStoriesCopy =
+              allTopStories.map((story) => story.copyWith(kids: [])).toList();
+          final storiesForHomeWidget = jsonEncode(
+              PagedStoriesState(stories: allTopStoriesCopy).toJson());
           HomeWidget.saveWidgetData<String>('widgetTitle', widgetStory.title);
+          HomeWidget.saveWidgetData<String>(
+              'storiesForHomeWidget', storiesForHomeWidget);
           HomeWidget.updateWidget(iOSName: "HackerfluffWidgets");
         }
 

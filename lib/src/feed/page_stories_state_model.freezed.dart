@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+PagedStoriesState _$PagedStoriesStateFromJson(Map<String, dynamic> json) {
+  return _PagedStoriesState.fromJson(json);
+}
+
 /// @nodoc
 mixin _$PagedStoriesState {
   int get currentPage => throw _privateConstructorUsedError;
@@ -23,6 +27,7 @@ mixin _$PagedStoriesState {
   bool get reachedEnd => throw _privateConstructorUsedError;
   int get nErrors => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PagedStoriesStateCopyWith<PagedStoriesState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -157,7 +162,7 @@ class __$$PagedStoriesStateImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$PagedStoriesStateImpl implements _PagedStoriesState {
   const _$PagedStoriesStateImpl(
       {this.currentPage = 0,
@@ -167,6 +172,9 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
       this.reachedEnd = false,
       this.nErrors = 0})
       : _stories = stories;
+
+  factory _$PagedStoriesStateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PagedStoriesStateImplFromJson(json);
 
   @override
   @JsonKey()
@@ -215,6 +223,7 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
             (identical(other.nErrors, nErrors) || other.nErrors == nErrors));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -231,6 +240,13 @@ class _$PagedStoriesStateImpl implements _PagedStoriesState {
   _$$PagedStoriesStateImplCopyWith<_$PagedStoriesStateImpl> get copyWith =>
       __$$PagedStoriesStateImplCopyWithImpl<_$PagedStoriesStateImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PagedStoriesStateImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _PagedStoriesState implements PagedStoriesState {
@@ -241,6 +257,9 @@ abstract class _PagedStoriesState implements PagedStoriesState {
       final bool isLoading,
       final bool reachedEnd,
       final int nErrors}) = _$PagedStoriesStateImpl;
+
+  factory _PagedStoriesState.fromJson(Map<String, dynamic> json) =
+      _$PagedStoriesStateImpl.fromJson;
 
   @override
   int get currentPage;
