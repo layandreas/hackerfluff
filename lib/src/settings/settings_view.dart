@@ -184,7 +184,7 @@ class SettingsView extends ConsumerWidget {
                   onTap: () {
                     showLicensePage(
                         applicationName: "Hackerfluff",
-                        applicationVersion: "1.0.0",
+                        applicationVersion: "1.0.1",
                         context: context,
                         useRootNavigator: true);
                   },
