@@ -4,8 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 import '../storage/db_provider.dart';
 import 'top_stories_model.dart';
-//import '../storage/db_provider.dart';
-
+import 'dart:developer';
 part 'top_stories_provider.g.dart';
 
 enum StoryListEndpoint {
@@ -35,10 +34,16 @@ class TopStories extends _$TopStories {
 
   Future<TopStoriesModel> loadStoriesFromApi(
       StoryListEndpoint storyListEndPoint) async {
-    final response = await http.get(Uri.https(
-        'hacker-news.firebaseio.com', '/v0/${storyListEndPoint.name}.json'));
-    final json = jsonDecode(response.body) as List<dynamic>;
-    return TopStoriesModel.fromJson({'storyIds': json});
+    try {
+      final response = await http.get(Uri.https(
+          'hacker-news.firebaseio.com', '/v0/${storyListEndPoint.name}.json'));
+      final json = jsonDecode(response.body) as List<dynamic>;
+
+      return TopStoriesModel.fromJson({'storyIds': json});
+    } catch (e) {
+      log("Error fetching list of top stories: $e");
+      return TopStoriesModel(storyIds: []);
+    }
   }
 
   void addBookmarkedStory(
