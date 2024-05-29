@@ -7,4 +7,3 @@ this [blog post](https://layandreas.github.io/personal-blog/posts/hackerfluff-a-
 ## Web Version
 
 You can check out the web build under this link: [**Web Version**](https://layandreas.github.io/hackerfluff-web/)
-
