@@ -12,7 +12,7 @@ part 'comment_provider.g.dart';
 
 Future<CommentModel> fetchCommentTree(int id, http.Client client) async {
   try {
-    final response = await http
+    final response = await client
         .get(Uri.https('hacker-news.firebaseio.com', '/v0/item/$id.json'));
     final json = jsonDecode(response.body);
     var comment = Comment.fromJson(json);
