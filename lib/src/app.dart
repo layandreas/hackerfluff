@@ -125,7 +125,6 @@ class HackernewsApp extends ConsumerWidget {
           return UnanimatedPageRoute<void>(
             settings: routeSettings,
             builder: (BuildContext context) {
-              //return const MyWidget();
               switch (routeSettings.name) {
                 case SettingsView.routeName:
                   return const SettingsView();
