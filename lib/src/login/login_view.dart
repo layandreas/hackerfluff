@@ -3,14 +3,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../widgets/scaffold.dart' show customScaffold;
 import '../feed/bottom_bar.dart' show BottomBar;
+import 'login.dart' show login;
 
-class LoginView extends ConsumerWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   static const routeName = '/login';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends ConsumerState<LoginView> {
+  String? user;
+  String? password;
+
+  @override
+  Widget build(BuildContext context) {
     return customScaffold(
         context: context,
         title: Text('Settings',
@@ -25,6 +34,11 @@ class LoginView extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextFormField(
+                onChanged: (text) {
+                  setState(() {
+                    user = text;
+                  });
+                },
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   labelText: 'Username',
@@ -34,6 +48,11 @@ class LoginView extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextFormField(
+                  onChanged: (text) {
+                    setState(() {
+                      password = text;
+                    });
+                  },
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Password',
@@ -44,7 +63,10 @@ class LoginView extends ConsumerWidget {
             ),
             Center(
                 child: ElevatedButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                          if (user != null && password != null)
+                            {login(user: user!, password: password!)}
+                        },
                     child: const Text(
                       'Submit',
                       style: TextStyle(fontWeight: FontWeight.bold),
