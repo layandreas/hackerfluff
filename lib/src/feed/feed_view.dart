@@ -6,6 +6,7 @@ import 'endless_scroll_view.dart';
 import 'comments_feed_view.dart';
 import 'story_view.dart';
 import 'bottom_bar.dart';
+import '../widgets/scaffold.dart' show customScaffold;
 
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
@@ -16,25 +17,8 @@ class FeedView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       length: 6,
-      child: Scaffold(
-        appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: ModalRoute.of(context)?.canPop == true
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-                )
-              : null,
-          toolbarHeight: 35,
-          title: Text('Stories',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold)),
+      child: customScaffold(
+          context: context,
           bottom: const TabBar(
             labelPadding: EdgeInsets.all(7),
             isScrollable: false,
@@ -48,32 +32,35 @@ class FeedView extends ConsumerWidget {
             ],
             tabAlignment: TabAlignment.fill,
           ),
-        ),
-        body: const BottomBar(
-          child: TabBarView(
-            children: [
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.topstories,
-              ),
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.beststories,
-              ),
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.newstories,
-              ),
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.showstories,
-              ),
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.askstories,
-              ),
-              FeedViewSkeleton(
-                storyListEndpoint: StoryListEndpoint.jobstories,
-              ),
-            ],
+          body: const BottomBar(
+            child: TabBarView(
+              children: [
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.topstories,
+                ),
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.beststories,
+                ),
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.newstories,
+                ),
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.showstories,
+                ),
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.askstories,
+                ),
+                FeedViewSkeleton(
+                  storyListEndpoint: StoryListEndpoint.jobstories,
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+          title: Text('Stories',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold)),
+          toolbarHeight: 35),
     );
   }
 }

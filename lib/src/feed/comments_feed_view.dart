@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'top_stories_provider.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import '../widgets/scaffold.dart' show customScaffold;
 
 class CommentsFeedView extends ConsumerStatefulWidget {
   const CommentsFeedView({super.key, required this.story});
@@ -63,50 +64,8 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        leading: ModalRoute.of(context)?.canPop == true
-            ? IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  size: 15,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-              )
-            : null,
-        title: Text(
-          'Comments',
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  hiddenComments = {};
-                });
-
-                HapticFeedback.mediumImpact();
-                ref.invalidate(commentsProvider);
-                commentsNotifier.fetchStories();
-              },
-              icon: const Icon(Icons.refresh_rounded)),
-          IconButton(
-              onPressed: toggleHideReadComments,
-              icon: Icon(
-                hideReadComments
-                    ? Icons.comments_disabled_rounded
-                    : Icons.comments_disabled_rounded,
-                color: hideReadComments
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).disabledColor,
-              ))
-        ],
-      ),
+    return customScaffold(
+      context: context,
       body: EndlessScrollView(
         key: ValueKey(widget.story.id),
         cacheExtent: 6000,
@@ -165,6 +124,35 @@ class _CommentsFeedViewState extends ConsumerState<CommentsFeedView> {
           }
         },
       ),
+      title: Text(
+        'Comments',
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              setState(() {
+                hiddenComments = {};
+              });
+
+              HapticFeedback.mediumImpact();
+              ref.invalidate(commentsProvider);
+              commentsNotifier.fetchStories();
+            },
+            icon: const Icon(Icons.refresh_rounded)),
+        IconButton(
+            onPressed: toggleHideReadComments,
+            icon: Icon(
+              hideReadComments
+                  ? Icons.comments_disabled_rounded
+                  : Icons.comments_disabled_rounded,
+              color: hideReadComments
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).disabledColor,
+            ))
+      ],
     );
   }
 }
