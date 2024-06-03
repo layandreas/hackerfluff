@@ -43,7 +43,8 @@ class BottomBar extends ConsumerWidget {
               child: Row(children: [
                 Expanded(
                     child: IconButton(
-                  isSelected: routeIsSelected(context, FeedView.routeName)
+                  isSelected: (routeIsSelected(context, FeedView.routeName) ||
+                          routeIsSelected(context, '/'))
                       ? true
                       : false,
                   splashColor: Colors.transparent,
