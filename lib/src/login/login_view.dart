@@ -22,7 +22,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   Widget build(BuildContext context) {
     return customScaffold(
         context: context,
-        title: Text('Settings',
+        title: Text('Login',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold)),
