@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../feed/top_stories_provider.dart';
 import '../feed/bottom_bar.dart';
 import '../feed/feed_view.dart';
+import '../widgets/scaffold.dart' show customScaffold;
 
 class BookmarksView extends ConsumerWidget {
   const BookmarksView({super.key});
@@ -11,25 +12,8 @@ class BookmarksView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        leading: ModalRoute.of(context)?.canPop == true
-            ? IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  size: 15,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-              )
-            : null,
-        title: Text('Bookmarks',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold)),
-      ),
+    return customScaffold(
+      context: context,
       body: const BottomBar(
         child: FeedViewSkeleton(
           storyListEndpoint: StoryListEndpoint.bookmarks,
@@ -37,6 +21,10 @@ class BookmarksView extends ConsumerWidget {
           collapseOnBookmarkRemoval: true,
         ),
       ),
+      title: Text('Bookmarks',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold)),
     );
   }
 }

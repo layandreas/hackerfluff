@@ -6,6 +6,7 @@ import 'settings_model.dart';
 import '../feed/bottom_bar.dart';
 import '../feed/n_comments_seen_provider.dart';
 import 'dart:math';
+import '../widgets/scaffold.dart' show customScaffold;
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -43,25 +44,12 @@ class SettingsView extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: ModalRoute.of(context)?.canPop == true
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-                )
-              : null,
-          title: Text('Settings',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold)),
-        ),
+    return customScaffold(
+        context: context,
+        title: Text('Settings',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold)),
         body: BottomBar(
           child: SafeArea(
             child: SettingsList(
@@ -289,83 +277,70 @@ class ThemeSettingsView extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: ModalRoute.of(context)?.canPop == true
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-                )
-              : null,
-          title: Text('Theme',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold))),
-      body: SafeArea(
-          child: SettingsList(settingsCards: [
-        SettingsCard(
-            text: 'System Theme',
-            trailing: (selectedTheme == ThemeSetting.system)
+    return customScaffold(
+        context: context,
+        title: Text('Theme',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold)),
+        body: SafeArea(
+            child: SettingsList(settingsCards: [
+          SettingsCard(
+              text: 'System Theme',
+              trailing: (selectedTheme == ThemeSetting.system)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.system)),
+          SettingsCard(
+            text: 'Light',
+            trailing: (selectedTheme == ThemeSetting.light)
                 ? Icon(
                     Icons.check,
                     color: Theme.of(context).colorScheme.primary,
                   )
                 : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.system)),
-        SettingsCard(
-          text: 'Light',
-          trailing: (selectedTheme == ThemeSetting.light)
-              ? Icon(
-                  Icons.check,
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              : null,
-          onTap: () => onTapSetting(selectedTheme: ThemeSetting.light),
-        ),
-        SettingsCard(
-            text: 'Dark',
-            trailing: (selectedTheme == ThemeSetting.dark)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.dark)),
-        SettingsCard(
-            text: 'Darker',
-            trailing: (selectedTheme == ThemeSetting.darker)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.darker)),
-        SettingsCard(
-            text: 'OLED-Dark',
-            trailing: (selectedTheme == ThemeSetting.oledDark)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.oledDark)),
-        SettingsCard(
-            text: 'Blue',
-            trailing: (selectedTheme == ThemeSetting.blue)
-                ? Icon(
-                    Icons.check,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                : null,
-            onTap: () => onTapSetting(selectedTheme: ThemeSetting.blue)),
-      ])),
-    );
+            onTap: () => onTapSetting(selectedTheme: ThemeSetting.light),
+          ),
+          SettingsCard(
+              text: 'Dark',
+              trailing: (selectedTheme == ThemeSetting.dark)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.dark)),
+          SettingsCard(
+              text: 'Darker',
+              trailing: (selectedTheme == ThemeSetting.darker)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.darker)),
+          SettingsCard(
+              text: 'OLED-Dark',
+              trailing: (selectedTheme == ThemeSetting.oledDark)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.oledDark)),
+          SettingsCard(
+              text: 'Blue',
+              trailing: (selectedTheme == ThemeSetting.blue)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              onTap: () => onTapSetting(selectedTheme: ThemeSetting.blue)),
+        ])));
   }
 }
 
@@ -392,24 +367,12 @@ class DefaultLightThemeSettingsView extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: ModalRoute.of(context)?.canPop == true
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-                )
-              : null,
-          title: Text('Default Light Theme',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold))),
+    return customScaffold(
+      context: context,
+      title: Text('Default Light Theme',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold)),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
@@ -491,24 +454,12 @@ class DefaultDarkThemeSettingsView extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: ModalRoute.of(context)?.canPop == true
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-// used onPressed here
-                )
-              : null,
-          title: Text('Default Dark Theme',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold))),
+    return customScaffold(
+      context: context,
+      title: Text('Default Dark Theme',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold)),
       body: SafeArea(
           child: SettingsList(settingsCards: [
         SettingsCard(
