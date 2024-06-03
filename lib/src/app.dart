@@ -8,6 +8,7 @@ import 'settings/settings_provider.dart';
 import 'settings/settings_model.dart';
 import 'themes.dart';
 import 'bookmarks/bookmarks_view.dart';
+import 'login/login_view.dart' show LoginView;
 
 /// The Widget that configures your application.
 class HackernewsApp extends ConsumerWidget {
@@ -132,6 +133,8 @@ class HackernewsApp extends ConsumerWidget {
                   return const FeedView();
                 case BookmarksView.routeName:
                   return const BookmarksView();
+                case LoginView.routeName:
+                  return const LoginView();
                 default:
                   return const FeedView();
               }

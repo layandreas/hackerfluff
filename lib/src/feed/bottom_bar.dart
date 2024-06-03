@@ -5,6 +5,7 @@ import 'feed_view.dart';
 import '../bookmarks/bookmarks_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'top_stories_provider.dart';
+import '../login/login_view.dart' show LoginView;
 
 class BottomBar extends ConsumerWidget {
   final Widget child;
@@ -85,6 +86,26 @@ class BottomBar extends ConsumerWidget {
                     }
                   },
                   icon: const Icon(Icons.bookmark_outline_rounded, size: 30),
+                )),
+                Expanded(
+                    child: IconButton(
+                  isSelected: routeIsSelected(context, LoginView.routeName)
+                      ? true
+                      : false,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    if (!routeIsSelected(context, LoginView.routeName)) {
+                      // We need this to make sure the bookmarkspage is always
+                      // up-to-date as the page doesn't invalidate the bookmarks
+                      // provider
+                      ref.invalidate(
+                          topStoriesProvider(StoryListEndpoint.bookmarks));
+                      Navigator.pushReplacementNamed(
+                          context, LoginView.routeName);
+                    }
+                  },
+                  icon: const Icon(Icons.person_2_outlined, size: 30),
                 )),
                 Expanded(
                     child: IconButton(
