@@ -28,14 +28,14 @@ void login({required String user, required String password}) async {
 
   var response = await http.post(url, headers: headers, body: body);
 
-  if (response.statusCode == 200) {
-    print('Request successful');
-    print(response.body);
-  } else {
-    print('Request failed with status: ${response.statusCode}');
-    print(response.toString());
-    print(response.isRedirect);
-    print(response.reasonPhrase);
-    print(response.headers);
-  }
+  // if (response.statusCode == 200) {
+  //   print('Request successful');
+  //   print(response.body);
+  // } else {
+  //   print('Request failed with status: ${response.statusCode}');
+  //   print(response.toString());
+  //   print(response.isRedirect);
+  //   print(response.reasonPhrase);
+  //   print(response.headers);
+  // }
 }

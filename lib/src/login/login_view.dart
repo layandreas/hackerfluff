@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../widgets/scaffold.dart' show customScaffold;
 import '../feed/bottom_bar.dart' show BottomBar;
-import 'login.dart' show login;
+import 'login_provider.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -20,58 +20,84 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final loginState = ref.watch(loginProvider);
+    final loginProviderNotifier = ref.watch(loginProvider.notifier);
+
     return customScaffold(
         context: context,
         title: Text('Login',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold)),
-        body: BottomBar(
-            child: SafeArea(
-                child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: TextFormField(
-                onChanged: (text) {
-                  setState(() {
-                    user = text;
-                  });
-                },
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Username',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: TextFormField(
-                  onChanged: (text) {
-                    setState(() {
-                      password = text;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Password',
+        body: BottomBar(child: SafeArea(child: Builder(
+          builder: (context) {
+            if (loginState == null) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: TextFormField(
+                      onChanged: (text) {
+                        setState(() {
+                          user = text;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Username',
+                      ),
+                    ),
                   ),
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false),
-            ),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => {
-                          if (user != null && password != null)
-                            {login(user: user!, password: password!)}
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            password = text;
+                          });
                         },
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )))
-          ],
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Password',
+                        ),
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false),
+                  ),
+                  Center(
+                      child: ElevatedButton(
+                          onPressed: () => {
+                                if (user != null && password != null)
+                                  {
+                                    loginProviderNotifier.login(
+                                        user: user!, password: password!)
+                                  }
+                              },
+                          child: const Text(
+                            'Submit',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )))
+                ],
+              );
+            } else {
+              return Column(
+                children: [
+                  Text("Logged in as: ${loginState.user}"),
+                  Center(
+                      child: ElevatedButton(
+                          onPressed: () =>
+                              {ref.read(loginProvider.notifier).logout()},
+                          child: const Text(
+                            'Logout',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )))
+                ],
+              );
+            }
+          },
         ))));
   }
 }
