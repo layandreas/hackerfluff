@@ -20,8 +20,10 @@ LoginState _$LoginStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LoginState {
-  String get user => throw _privateConstructorUsedError;
-  String get authCookieRequestHeader => throw _privateConstructorUsedError;
+  String? get user => throw _privateConstructorUsedError;
+  String? get authCookieRequestHeader => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,11 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({String user, String authCookieRequestHeader});
+  $Res call(
+      {String? user,
+      String? authCookieRequestHeader,
+      bool isLoading,
+      bool error});
 }
 
 /// @nodoc
@@ -51,18 +57,28 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? authCookieRequestHeader = null,
+    Object? user = freezed,
+    Object? authCookieRequestHeader = freezed,
+    Object? isLoading = null,
+    Object? error = null,
   }) {
     return _then(_value.copyWith(
-      user: null == user
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as String,
-      authCookieRequestHeader: null == authCookieRequestHeader
+              as String?,
+      authCookieRequestHeader: freezed == authCookieRequestHeader
           ? _value.authCookieRequestHeader
           : authCookieRequestHeader // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -75,7 +91,11 @@ abstract class _$$LoginStateImplCopyWith<$Res>
       __$$LoginStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String user, String authCookieRequestHeader});
+  $Res call(
+      {String? user,
+      String? authCookieRequestHeader,
+      bool isLoading,
+      bool error});
 }
 
 /// @nodoc
@@ -89,18 +109,28 @@ class __$$LoginStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? authCookieRequestHeader = null,
+    Object? user = freezed,
+    Object? authCookieRequestHeader = freezed,
+    Object? isLoading = null,
+    Object? error = null,
   }) {
     return _then(_$LoginStateImpl(
-      user: null == user
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as String,
-      authCookieRequestHeader: null == authCookieRequestHeader
+              as String?,
+      authCookieRequestHeader: freezed == authCookieRequestHeader
           ? _value.authCookieRequestHeader
           : authCookieRequestHeader // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -109,19 +139,26 @@ class __$$LoginStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LoginStateImpl implements _LoginState {
   const _$LoginStateImpl(
-      {required this.user, required this.authCookieRequestHeader});
+      {required this.user,
+      required this.authCookieRequestHeader,
+      required this.isLoading,
+      required this.error});
 
   factory _$LoginStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginStateImplFromJson(json);
 
   @override
-  final String user;
+  final String? user;
   @override
-  final String authCookieRequestHeader;
+  final String? authCookieRequestHeader;
+  @override
+  final bool isLoading;
+  @override
+  final bool error;
 
   @override
   String toString() {
-    return 'LoginState(user: $user, authCookieRequestHeader: $authCookieRequestHeader)';
+    return 'LoginState(user: $user, authCookieRequestHeader: $authCookieRequestHeader, isLoading: $isLoading, error: $error)';
   }
 
   @override
@@ -132,12 +169,16 @@ class _$LoginStateImpl implements _LoginState {
             (identical(other.user, user) || other.user == user) &&
             (identical(
                     other.authCookieRequestHeader, authCookieRequestHeader) ||
-                other.authCookieRequestHeader == authCookieRequestHeader));
+                other.authCookieRequestHeader == authCookieRequestHeader) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, user, authCookieRequestHeader);
+  int get hashCode =>
+      Object.hash(runtimeType, user, authCookieRequestHeader, isLoading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -155,16 +196,22 @@ class _$LoginStateImpl implements _LoginState {
 
 abstract class _LoginState implements LoginState {
   const factory _LoginState(
-      {required final String user,
-      required final String authCookieRequestHeader}) = _$LoginStateImpl;
+      {required final String? user,
+      required final String? authCookieRequestHeader,
+      required final bool isLoading,
+      required final bool error}) = _$LoginStateImpl;
 
   factory _LoginState.fromJson(Map<String, dynamic> json) =
       _$LoginStateImpl.fromJson;
 
   @override
-  String get user;
+  String? get user;
   @override
-  String get authCookieRequestHeader;
+  String? get authCookieRequestHeader;
+  @override
+  bool get isLoading;
+  @override
+  bool get error;
   @override
   @JsonKey(ignore: true)
   _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>

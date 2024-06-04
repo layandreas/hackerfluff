@@ -31,7 +31,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 fontWeight: FontWeight.bold)),
         body: BottomBar(child: SafeArea(child: Builder(
           builder: (context) {
-            if (loginState == null) {
+            if (loginState.authCookieRequestHeader == null) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -93,7 +93,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.primary),
-                          )))
+                          ))),
+                  if (loginState.isLoading)
+                    const Center(child: CircularProgressIndicator()),
+                  if (loginState.error)
+                    const Center(child: Text("Login failed"))
                 ],
               );
             } else {
@@ -114,8 +118,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             ),
                             //side: BorderSide(width: 2, color: Colors.green),
                           ),
-                          onPressed: () =>
-                              {ref.read(loginProvider.notifier).logout()},
+                          onPressed: () {
+                            ref.read(loginProvider.notifier).logout();
+                          },
                           child: Text(
                             'Logout',
                             style: TextStyle(
