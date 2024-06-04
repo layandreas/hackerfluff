@@ -67,7 +67,7 @@ class Login extends _$Login {
       }
     } catch (e) {
       log("Error on login: $e");
-      state = state.copyWith(error: false);
+      state = state.copyWith(error: true);
     } finally {
       state = state.copyWith(isLoading: false);
     }
