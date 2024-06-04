@@ -68,7 +68,19 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         autocorrect: false),
                   ),
                   Center(
-                      child: ElevatedButton(
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 40),
+                            side: BorderSide(
+                                width: 2,
+                                color: Theme.of(context).colorScheme.primary),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            //side: BorderSide(width: 2, color: Colors.green),
+                          ),
                           onPressed: () => {
                                 if (user != null && password != null)
                                   {
@@ -76,9 +88,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                         user: user!, password: password!)
                                   }
                               },
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary),
                           )))
                 ],
               );
@@ -87,12 +101,26 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 children: [
                   Text("Logged in as: ${loginState.user}"),
                   Center(
-                      child: ElevatedButton(
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 40),
+                            side: BorderSide(
+                                width: 2,
+                                color: Theme.of(context).colorScheme.primary),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            //side: BorderSide(width: 2, color: Colors.green),
+                          ),
                           onPressed: () =>
                               {ref.read(loginProvider.notifier).logout()},
-                          child: const Text(
+                          child: Text(
                             'Logout',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary),
                           )))
                 ],
               );
