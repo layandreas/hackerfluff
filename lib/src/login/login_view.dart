@@ -15,8 +15,8 @@ class LoginView extends ConsumerStatefulWidget {
 }
 
 class _LoginViewState extends ConsumerState<LoginView> {
-  String? user;
-  String? password;
+  String user = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +81,43 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7.0),
                             ),
-                            //side: BorderSide(width: 2, color: Colors.green),
                           ),
-                          onPressed: () => {
-                                if (user != null && password != null)
-                                  {
-                                    loginProviderNotifier.login(
-                                        user: user!, password: password!)
-                                  }
-                              },
+                          onPressed: () {
+                            if (user != '' && password != '') {
+                              loginProviderNotifier.login(
+                                  user: user!, password: password!);
+                            } else if (user == '') {
+                              final snackBar = SnackBar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
+                                duration: const Duration(seconds: 1),
+                                content: const Center(
+                                    child: Text('Please enter a username',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ))),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (password == '') {
+                              final snackBar = SnackBar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
+                                duration: const Duration(seconds: 1),
+                                content: const Center(
+                                  child: Text('Please enter a password',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red)),
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
                           child: Text(
                             'Login',
                             style: TextStyle(
@@ -97,9 +125,22 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                 color: Theme.of(context).colorScheme.primary),
                           ))),
                   if (loginState.isLoading)
-                    const Center(child: CircularProgressIndicator()),
+                    const Center(
+                        child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CircularProgressIndicator(),
+                      ],
+                    )),
                   if (loginState.error)
-                    const Center(child: Text("Login failed"))
+                    const Center(
+                        child: Text(
+                      "Login failed",
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ))
                 ],
               );
             } else {
