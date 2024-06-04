@@ -39,6 +39,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     child: TextFormField(
+                      initialValue: user,
                       onChanged: (text) {
                         setState(() {
                           user = text;
@@ -54,6 +55,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     child: TextFormField(
+                        initialValue: password,
                         onChanged: (text) {
                           setState(() {
                             password = text;
