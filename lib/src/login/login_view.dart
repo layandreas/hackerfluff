@@ -36,117 +36,123 @@ class _LoginViewState extends ConsumerState<LoginView> {
           body: BottomBar(child: SafeArea(child: Builder(
             builder: (context) {
               if (loginState.authCookieRequestHeader == null) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
-                      child: TextFormField(
-                        initialValue: user,
-                        onChanged: (text) {
-                          setState(() {
-                            user = text;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Username',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
-                      child: TextFormField(
-                          initialValue: password,
+                return AutofillGroup(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 16),
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.username],
+                          initialValue: user,
                           onChanged: (text) {
                             setState(() {
-                              password = text;
+                              user = text;
                             });
                           },
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
-                            labelText: 'Password',
+                            labelText: 'Username',
                           ),
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false),
-                    ),
-                    Center(
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 40),
-                              side: BorderSide(
-                                  width: 2,
-                                  color: Theme.of(context).colorScheme.primary),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surface,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(7.0),
-                              ),
-                            ),
-                            onPressed: () {
-                              if (user != '' && password != '') {
-                                loginProviderNotifier.login(
-                                    user: user!, password: password!);
-                              } else if (user == '') {
-                                final snackBar = SnackBar(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  duration: const Duration(seconds: 1),
-                                  content: const Center(
-                                      child: Text('Please enter a username',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red,
-                                          ))),
-                                );
-
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              } else if (password == '') {
-                                final snackBar = SnackBar(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  duration: const Duration(seconds: 1),
-                                  content: const Center(
-                                    child: Text('Please enter a password',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red)),
-                                  ),
-                                );
-
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 16),
+                        child: TextFormField(
+                            autofillHints: const [AutofillHints.password],
+                            initialValue: password,
+                            onChanged: (text) {
+                              setState(() {
+                                password = text;
+                              });
                             },
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Password',
+                            ),
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false),
+                      ),
+                      Center(
+                          child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                minimumSize: const Size(double.infinity, 40),
+                                side: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                if (user != '' && password != '') {
+                                  loginProviderNotifier.login(
+                                      user: user!, password: password!);
+                                } else if (user == '') {
+                                  final snackBar = SnackBar(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    duration: const Duration(seconds: 1),
+                                    content: const Center(
+                                        child: Text('Please enter a username',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red,
+                                            ))),
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else if (password == '') {
+                                  final snackBar = SnackBar(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    duration: const Duration(seconds: 1),
+                                    content: const Center(
+                                      child: Text('Please enter a password',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red)),
+                                    ),
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                              ))),
+                      if (loginState.isLoading)
+                        const Center(
+                            child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            CircularProgressIndicator(),
+                          ],
+                        )),
+                      if (loginState.error)
+                        const Center(
                             child: Text(
-                              'Login',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary),
-                            ))),
-                    if (loginState.isLoading)
-                      const Center(
-                          child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          CircularProgressIndicator(),
-                        ],
-                      )),
-                    if (loginState.error)
-                      const Center(
-                          child: Text(
-                        "Login failed",
-                        style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.bold),
-                      )),
-                    Expanded(child: Text(''))
-                  ],
+                          "Login failed",
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        )),
+                      Expanded(child: Text(''))
+                    ],
+                  ),
                 );
               } else {
                 return Column(
