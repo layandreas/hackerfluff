@@ -3,6 +3,7 @@ import 'src/app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_widget/home_widget.dart'; // Add this import
 import 'dart:io' show Platform;
+import 'package:flutter/services.dart';
 
 const String appGroupId = 'group.com.layandreas.hackerfluff';
 const String iOSWidgetName = 'HackerfluffWidgets';
@@ -13,6 +14,9 @@ void main() async {
   if (Platform.isIOS) {
     HomeWidget.setAppGroupId(appGroupId);
   }
+
+  // Hide keyboard on hot reload if it was open at time of reload
+  SystemChannels.textInput.invokeMethod('TextInput.hide');
 
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the

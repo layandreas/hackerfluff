@@ -8,6 +8,7 @@ Widget customScaffold(
     List<Widget>? actions,
     double? toolbarHeight}) {
   return Scaffold(
+    resizeToAvoidBottomInset: false,
     appBar: AppBar(
       scrolledUnderElevation: 0,
       leading: ModalRoute.of(context)?.canPop == true
