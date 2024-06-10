@@ -29,6 +29,165 @@ class _LoginViewState extends ConsumerState<LoginView> {
       },
       child: customScaffold(
           context: context,
+          title: Text('Account',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold)),
+          body: BottomBar(
+            child: SafeArea(
+              child: AutofillGroup(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ListTile(
+                            dense: true,
+                            visualDensity: const VisualDensity(vertical: -4),
+                            leading: Text(
+                              'You are logged out',
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.fontSize,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.person_2_outlined),
+                            dense: true,
+                            visualDensity: const VisualDensity(vertical: -4),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    autofillHints: const [
+                                      AutofillHints.username
+                                    ],
+                                    initialValue: user,
+                                    onChanged: (text) {
+                                      setState(() {
+                                        user = text;
+                                      });
+                                    },
+                                    decoration: const InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      labelText: 'Username',
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.password_outlined),
+                            dense: true,
+                            visualDensity: const VisualDensity(vertical: -4),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                      autofillHints: const [
+                                        AutofillHints.password
+                                      ],
+                                      initialValue: password,
+                                      onChanged: (text) {
+                                        setState(() {
+                                          password = text;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Password',
+                                      ),
+                                      obscureText: true,
+                                      enableSuggestions: false,
+                                      autocorrect: false),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ListTile(
+                            leading: const Icon(
+                              Icons.login,
+                              color: Colors.green,
+                            ),
+                            dense: true,
+                            visualDensity: const VisualDensity(vertical: -4),
+                            onTap: () {
+                              if (user != '' && password != '') {
+                                loginProviderNotifier.login(
+                                    user: user!, password: password!);
+                              } else if (user == '') {
+                                final snackBar = SnackBar(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  duration: const Duration(seconds: 1),
+                                  content: const Center(
+                                      child: Text('Please enter a username',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ))),
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else if (password == '') {
+                                final snackBar = SnackBar(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  duration: const Duration(seconds: 1),
+                                  content: const Center(
+                                    child: Text('Please enter a password',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red)),
+                                  ),
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            },
+                            title: Text('Log in',
+                                style: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.fontSize,
+                                    color: Colors.green)),
+                          ),
+                          const ListTile(
+                            dense: true,
+                            visualDensity: VisualDensity(vertical: -4),
+                            title: Text(
+                              '',
+                            ),
+                          ),
+                          const ListTile(
+                            dense: true,
+                            visualDensity: VisualDensity(vertical: -4),
+                            title: Text(
+                              '',
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )),
+    );
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: customScaffold(
+          context: context,
           title: Text('Login',
               style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,

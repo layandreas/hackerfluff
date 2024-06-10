@@ -60,7 +60,7 @@ class Login extends _$Login {
             error: false);
         state = loginState;
       } else {
-        log("Not authCookie in response headers: $responseHeaders");
+        log("No authCookie in response headers: $responseHeaders");
         log("Response body was: ${response.body}");
 
         state = state.copyWith(error: true);
